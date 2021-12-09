@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
-import 'package:chuzzlez/models/user_provider.dart';
+import 'package:chuzzlez/providers/user_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Chuzzlez',
         home: Scaffold(
+          backgroundColor: const Color(0xFF3dc2bf),
           // appBar: AppBar(
           //   title: const Text('Chuzzlez'),
           // ),

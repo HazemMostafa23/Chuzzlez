@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:chuzzlez/models/user_provider.dart';
+import 'package:chuzzlez/providers/user_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
