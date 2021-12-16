@@ -6,13 +6,9 @@ import 'package:chuzzlez/providers/board_provider.dart';
 import 'screens/board_screen.dart';
 
 void main() {
-  runApp(MaterialApp(initialRoute: '/', routes: {
-    '/': (context) => HomeScreen(),
-    '/second': (context) => Board()
-  }));
+  runApp(MyApp());
 }
 
-// Color 0x003dc2bf
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
   @override
@@ -27,14 +23,13 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/': (context) => HomeScreen(),
+          '/second': (context) => Board()
+        },
         title: 'Chuzzlez',
-        home: Scaffold(
-          backgroundColor: const Color(0xFF3dc2bf),
-          // appBar: AppBar(
-          //   title: const Text('Chuzzlez'),
-          // ),
-          body: Board(),
-        ),
+        theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),
       ),
     );
   }
