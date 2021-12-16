@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:chuzzlez/providers/board_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
@@ -52,8 +53,9 @@ class HomeScreen extends StatelessWidget {
               children: [
                 OutlinedButton(
                   onPressed: () {
-                    Provider.of<UserProvider>(context, listen: false)
-                        .nextLevel();
+                    Navigator.pushNamed(context, '/second');
+                    Provider.of<BoardProvider>(context, listen: false)
+                        .loadPuzzle();
                   },
                   child: Column(children: [
                     Text('Play',

@@ -10,7 +10,6 @@ class Board extends StatefulWidget {
 
 class _BoardState extends State<Board> {
   ChessBoardController controller = ChessBoardController();
-
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
@@ -25,7 +24,9 @@ class _BoardState extends State<Board> {
         alignment: MainAxisAlignment.spaceBetween,
         children: [
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             child: const Text('Home',
                 style: TextStyle(
                   fontSize: 20,

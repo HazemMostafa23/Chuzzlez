@@ -3,10 +3,13 @@ import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:chuzzlez/providers/board_provider.dart';
-import 'screens/board.dart';
+import 'screens/board_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(initialRoute: '/', routes: {
+    '/': (context) => HomeScreen(),
+    '/second': (context) => Board()
+  }));
 }
 
 // Color 0x003dc2bf
