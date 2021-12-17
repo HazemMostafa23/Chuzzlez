@@ -14,43 +14,41 @@ class _BoardState extends State<Board> {
   ChessBoardController controller = ChessBoardController();
   var pgns = BoardProvider().pgns;
   var lvlCount = BoardProvider().levelCount;
-  var solution = BoardProvider().solutions[BoardProvider().levelCount];
   var moveCount = BoardProvider().moveCount;
-  // var pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
+  var solution;
+  var chessBoard;
+  bool won = false;
 
-  @override
-  void initState() {
-    super.initState();
-    controller.addListener(() {
-      print('test');
-      var sol = solution.split(',');
-      sol = sol[moveCount].split(' ');
-      var lastMove = controller.getSan().last;
-      var lastMoveSplit = lastMove!.split(' ');
-      if (lastMoveSplit.length == 2) {
-        moveCount++;
-        print(sol[1]);
-        print(lastMoveSplit[1]);
-        if (lastMoveSplit[1] == sol[1]) {
-          if (sol.length == 3) {
-            controller.makeMoveWithNormalNotation(sol[2]);
-          } else {
-            print('you won!');
-          }
+  // var pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
+  void checkMove(String solution, int lvlcount, int movecount) {
+    var solSplit = solution.split(',');
+    var solFinal = solSplit[movecount].split(' ');
+    var lastMove = controller.getSan().last!.split(' ')[1];
+
+    // checks if last move was made by player or system
+    if (controller.getSan().last!.split(' ').length == 2) {
+      // checks if last move is same as solution move
+      if (lastMove == solFinal[1]) {
+        // checks if system has a move after player
+        if (solFinal.length == 3) {
+          controller.makeMoveWithNormalNotation(solFinal[2]);
+          moveCount++;
         } else {
-          controller.undoMove();
+          print('you won');
+          setState(() {
+            this.won = true;
+          });
         }
+      } else {
+        controller.game.undo_move();
+        controller.notifyListeners();
       }
-      // if () {}
-    });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Chuzzlez'),
-      // ),
       body: ListView(children: [
         const Center(
             child: Text('Level 4',
@@ -64,8 +62,7 @@ class _BoardState extends State<Board> {
           children: [
             OutlinedButton(
               onPressed: () {
-                // Navigator.pop(context);
-                print(controller.getSan().last);
+                Navigator.pop(context);
               },
               child: const Text('Home',
                   style: TextStyle(
@@ -80,11 +77,40 @@ class _BoardState extends State<Board> {
             ),
             OutlinedButton(
               onPressed: () {
-                controller.loadPGN(pgns[lvlCount]);
-                lvlCount += 1;
-                // Provider.of<BoardProvider>(context, listen: false).loadPuzzle();
+                if (lvlCount != 0) {
+                  lvlCount -= 1;
+                  moveCount = 0;
+                  controller.loadPGN(pgns[lvlCount]);
+                  solution = BoardProvider().solutions[lvlCount];
+                  setState(() {
+                    won = false;
+                  });
+                }
               },
-              child: const Text('Next Puzzle',
+              child: const Text('Prev',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )),
+              style: OutlinedButton.styleFrom(
+                shape: StadiumBorder(),
+                side: BorderSide(color: Colors.black),
+              ),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                if (lvlCount != pgns.length - 1) {
+                  lvlCount += 1;
+                  moveCount = 0;
+                  controller.loadPGN(pgns[lvlCount]);
+                  solution = BoardProvider().solutions[lvlCount];
+                  setState(() {
+                    won = false;
+                  });
+                }
+              },
+              child: const Text('Next',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -97,10 +123,14 @@ class _BoardState extends State<Board> {
             )
           ],
         ),
-        ChessBoard(
+        chessBoard = ChessBoard(
           controller: controller,
           boardColor: BoardColor.green,
           boardOrientation: PlayerColor.white,
+          enableUserMoves: !won,
+          onMove: () {
+            checkMove(solution, lvlCount, moveCount);
+          },
         )
       ]),
     );
