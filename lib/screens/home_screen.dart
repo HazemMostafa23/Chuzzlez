@@ -94,7 +94,9 @@ class HomeScreen extends StatelessWidget {
                 alignment: MainAxisAlignment.spaceBetween,
                 children: [
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/third');
+                    },
                     child: Text('Puzzles List',
                         style: TextStyle(
                           fontSize: 20,
