@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 
@@ -43,22 +45,41 @@ class PuzzleScreen extends StatelessWidget {
 
       Flexible(
           child: GridView.count(
-        crossAxisCount: 3,
-        crossAxisSpacing: 25.0,
-        mainAxisSpacing: 20.0,
+        crossAxisCount: 4,
+        crossAxisSpacing: 5.0,
+        mainAxisSpacing: 5.0,
         children: [
           for (int i = 1; i <= number; i++)
             Card(
-                child: new InkWell(
+                clipBehavior: Clip.hardEdge,
+                color: Colors.cyanAccent,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(13)),
+                child: InkWell(
+                    splashColor: Colors.white,
                     onTap: () {},
-                    child: Container(
-                        color: Colors.cyanAccent,
-                        child: Column(children: [
-                          SizedBox(
-                            height: 40,
-                          ),
-                          new Text("Level" + "$i"),
-                        ])))),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                              child: FractionallySizedBox(
+                            heightFactor: 0.5,
+                          )),
+                          Text("Level " "$i"),
+                          Flexible(
+                              child: FractionallySizedBox(
+                                  // height: 35,
+                                  // width: 80,
+                                  widthFactor: 1,
+                                  heightFactor: 1,
+                                  child: Opacity(
+                                      opacity: 0.9,
+                                      child: DecoratedBox(
+                                        decoration:
+                                            BoxDecoration(color: Colors.red),
+                                      ))))
+                        ]))),
         ],
       ))
 
