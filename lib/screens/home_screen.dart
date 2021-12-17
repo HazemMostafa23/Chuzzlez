@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/board_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
+import 'package:flutter_chess_board/flutter_chess_board.dart';
+import '../models/board.dart';
 
 class HomeScreen extends StatelessWidget {
+  ChessBoardController controller = ChessBoardController();
+  var lvlCount = BoardProvider().levelCount;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
