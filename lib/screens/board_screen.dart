@@ -11,13 +11,21 @@ class Board extends StatefulWidget {
 }
 
 class _BoardState extends State<Board> {
-  ChessBoardController controller = ChessBoardController();
-  var pgns = BoardProvider().pgns;
-  var lvlCount = BoardProvider().levelCount;
-  var moveCount = BoardProvider().moveCount;
-  var solution;
-  var chessBoard;
+  late var pgns;
+  late var lvlCount;
+  late var moveCount;
+  late var solution;
+  late var controller;
   bool won = false;
+  @override
+  void initState() {
+    pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
+    lvlCount = Provider.of<BoardProvider>(context, listen: false).levelCount;
+    moveCount = Provider.of<BoardProvider>(context, listen: false).moveCount;
+    solution = Provider.of<BoardProvider>(context, listen: false).solutions;
+    controller = Provider.of<BoardProvider>(context, listen: false).controller;
+    super.initState();
+  }
 
   // var pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
   void checkMove(String solution, int lvlcount, int movecount) {
@@ -123,7 +131,7 @@ class _BoardState extends State<Board> {
             )
           ],
         ),
-        chessBoard = ChessBoard(
+        ChessBoard(
           controller: controller,
           boardColor: BoardColor.green,
           boardOrientation: PlayerColor.white,
