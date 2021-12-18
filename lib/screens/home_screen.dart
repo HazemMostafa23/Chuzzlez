@@ -1,18 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:chuzzlez/providers/board_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
-import '../models/board.dart';
 
 class HomeScreen extends StatelessWidget {
-  ChessBoardController controller = ChessBoardController();
-
   @override
   Widget build(BuildContext context) {
-    var lvlCount =
-        Provider.of<BoardProvider>(context, listen: false).getLevelCount();
     return Scaffold(
       // backgroundColor: const Color(0xFF3dc2bf),=
       // appBar: AppBar(
@@ -63,9 +57,9 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/second');
-                      Provider.of<BoardProvider>(context, listen: false)
-                          .loadPuzzle(lvlCount);
+                      Provider.of<UserProvider>(context, listen: false)
+                          .setOpened();
+                      Navigator.pushNamed(context, '/board');
                     },
                     child: Column(children: [
                       Text('Play',
@@ -76,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                           )),
                       Consumer<UserProvider>(
                           builder: (context, UserProvider user, child) {
-                        return Text('Level ${user.getUser.currentLevel}',
+                        return Text('Level ${user.getUser.currentLevel + 1}',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -96,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/third');
+                      Navigator.pushNamed(context, '/puzzlelist');
                     },
                     child: Text('Puzzles List',
                         style: TextStyle(

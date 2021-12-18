@@ -2,7 +2,6 @@ class Puzzles {
   int levelNumber;
   String pgn;
   String solution;
-  int moveCount = 0;
   Puzzles(
       {this.levelNumber = 1,
       this.pgn =
