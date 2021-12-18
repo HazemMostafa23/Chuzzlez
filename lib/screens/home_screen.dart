@@ -8,10 +8,11 @@ import '../models/board.dart';
 
 class HomeScreen extends StatelessWidget {
   ChessBoardController controller = ChessBoardController();
-  var lvlCount = BoardProvider().levelCount;
 
   @override
   Widget build(BuildContext context) {
+    var lvlCount =
+        Provider.of<BoardProvider>(context, listen: false).getLevelCount();
     return Scaffold(
       // backgroundColor: const Color(0xFF3dc2bf),=
       // appBar: AppBar(
@@ -64,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, '/second');
                       Provider.of<BoardProvider>(context, listen: false)
-                          .loadPuzzle();
+                          .loadPuzzle(lvlCount);
                     },
                     child: Column(children: [
                       Text('Play',
@@ -94,7 +95,9 @@ class HomeScreen extends StatelessWidget {
                 alignment: MainAxisAlignment.spaceBetween,
                 children: [
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/third');
+                    },
                     child: Text('Puzzles List',
                         style: TextStyle(
                           fontSize: 20,
