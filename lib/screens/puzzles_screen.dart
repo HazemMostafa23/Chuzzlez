@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
+import '../models/user.dart';
 
 class PuzzleScreen extends StatelessWidget {
   int number = PuzzlesProvider().puzzlesCount();
+  List<String> completedLevels = User().completedLevels;
+  bool check = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,12 +76,18 @@ class PuzzleScreen extends StatelessWidget {
                                   // width: 80,
                                   widthFactor: 1,
                                   heightFactor: 1,
-                                  child: Opacity(
-                                      opacity: 0.9,
-                                      child: DecoratedBox(
-                                        decoration:
-                                            BoxDecoration(color: Colors.red),
-                                      ))))
+                                  child: completedLevels.contains("$i")
+                                      ? Opacity(
+                                          opacity: 0.9,
+                                          child: DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.red)))
+                                      : Opacity(
+                                          opacity: 0.9,
+                                          child: DecoratedBox(
+                                            decoration: BoxDecoration(
+                                                color: Colors.green),
+                                          ))))
                         ]))),
         ],
       ))

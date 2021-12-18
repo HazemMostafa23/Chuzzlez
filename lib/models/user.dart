@@ -1,6 +1,6 @@
 class User {
   int currentLevel;
-  List<int> completedLevels;
+  List<String> completedLevels;
 
-  User({this.currentLevel = 1, this.completedLevels = const [2]});
+  User({this.currentLevel = 1, this.completedLevels = const ["1", "2"]});
 }
