@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/second');
+                      Navigator.pushNamed(context, '/board');
                       Provider.of<BoardProvider>(context, listen: false)
                           .loadPuzzle(lvlCount);
                     },
@@ -96,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/third');
+                      Navigator.pushNamed(context, '/puzzlelist');
                     },
                     child: Text('Puzzles List',
                         style: TextStyle(

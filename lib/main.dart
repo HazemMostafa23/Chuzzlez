@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         initialRoute: '/',
         routes: {
-          '/': (context) => HomeScreen(),
-          '/second': (context) => Board(),
-          '/third': (context) => PuzzleScreen()
+          '/home': (context) => HomeScreen(),
+          '/board': (context) => Board(),
+          '/puzzlelist': (context) => PuzzleScreen()
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),

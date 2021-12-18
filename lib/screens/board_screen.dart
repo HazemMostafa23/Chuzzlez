@@ -62,7 +62,7 @@ class _BoardState extends State<Board> {
           children: [
             OutlinedButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, '/home');
               },
               child: const Text('Home',
                   style: TextStyle(
