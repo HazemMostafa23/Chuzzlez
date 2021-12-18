@@ -1,15 +1,18 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 import '../models/user.dart';
+import 'package:provider/provider.dart';
 
 class PuzzleScreen extends StatelessWidget {
-  int number = PuzzlesProvider().puzzlesCount();
-  List<String> completedLevels = User().completedLevels;
-  bool check = false;
   @override
   Widget build(BuildContext context) {
+    int number =
+        Provider.of<PuzzlesProvider>(context, listen: false).puzzlesCount();
+    var user = Provider.of<UserProvider>(context, listen: false).getUser;
+    List<String> completedLevels = user.completedLevels;
     return Scaffold(
         body: Column(children: [
       SizedBox(

@@ -8,10 +8,11 @@ import '../models/board.dart';
 
 class HomeScreen extends StatelessWidget {
   ChessBoardController controller = ChessBoardController();
-  var lvlCount = BoardProvider().levelCount;
 
   @override
   Widget build(BuildContext context) {
+    var lvlCount =
+        Provider.of<BoardProvider>(context, listen: false).getLevelCount();
     return Scaffold(
       // backgroundColor: const Color(0xFF3dc2bf),=
       // appBar: AppBar(
