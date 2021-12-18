@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, '/second');
                       Provider.of<BoardProvider>(context, listen: false)
-                          .loadPuzzle();
+                          .loadPuzzle(lvlCount);
                     },
                     child: Column(children: [
                       Text('Play',
