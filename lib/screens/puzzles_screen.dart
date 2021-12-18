@@ -3,16 +3,21 @@
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
+import 'package:chuzzlez/providers/board_provider.dart';
 import '../models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_chess_board/flutter_chess_board.dart';
 
 class PuzzleScreen extends StatelessWidget {
+  ChessBoardController controller = ChessBoardController();
   @override
   Widget build(BuildContext context) {
     int number =
         Provider.of<PuzzlesProvider>(context, listen: false).puzzlesCount();
     var user = Provider.of<UserProvider>(context, listen: false).getUser;
     List<String> completedLevels = user.completedLevels;
+    var lvlCount =
+        Provider.of<BoardProvider>(context, listen: false).getLevelCount();
     return Scaffold(
         body: Column(children: [
       SizedBox(
@@ -55,7 +60,7 @@ class PuzzleScreen extends StatelessWidget {
         crossAxisSpacing: 5.0,
         mainAxisSpacing: 5.0,
         children: [
-          for (int i = 1; i <= number; i++)
+          for (int i = 0; i < number; i++)
             Card(
                 clipBehavior: Clip.hardEdge,
                 color: Colors.cyanAccent,
@@ -63,7 +68,11 @@ class PuzzleScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(13)),
                 child: InkWell(
                     splashColor: Colors.white,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, '/second');
+                      Provider.of<BoardProvider>(context, listen: false)
+                          .loadPuzzle(i);
+                    },
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,7 +81,7 @@ class PuzzleScreen extends StatelessWidget {
                               child: FractionallySizedBox(
                             heightFactor: 0.5,
                           )),
-                          Text("Level " "$i"),
+                          Text("Level " + (i + 1).toString()),
                           Flexible(
                               child: FractionallySizedBox(
                                   // height: 35,
