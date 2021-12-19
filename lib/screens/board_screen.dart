@@ -16,9 +16,9 @@ class BoardScreen extends StatefulWidget {
 class _BoardState extends State<BoardScreen> {
   ChessBoardController controller = ChessBoardController();
   late Puzzles puzzle;
-  var levelNumber;
-  late var moveCount;
-  late var solution;
+  late int levelNumber;
+  late int moveCount;
+  late String solution;
   bool won = false;
 
   void alertWin() {
@@ -58,6 +58,7 @@ class _BoardState extends State<BoardScreen> {
     puzzle = Provider.of<PuzzlesProvider>(context, listen: false)
         .getPuzzle(levelNumber);
     controller.loadPGN(puzzle.pgn);
+    // controller.clearBoard();
     moveCount = 0;
     solution = puzzle.solution;
   }
@@ -77,9 +78,9 @@ class _BoardState extends State<BoardScreen> {
   // var pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
   void checkMove(String solution, int movecount) {
     // print('function');
-    var solSplit = solution.split(',');
-    var solFinal = solSplit[movecount].split(' ');
-    var lastMove = controller.getSan().last!.split(' ')[1];
+    List<String> solSplit = solution.split(',');
+    List<String> solFinal = solSplit[movecount].split(' ');
+    String lastMove = controller.getSan().last!.split(' ')[1];
 
     // checks if last move was made by player or system
     if (controller.getSan().last!.split(' ').length == 2) {
@@ -87,15 +88,17 @@ class _BoardState extends State<BoardScreen> {
       // checks if last move is same as solution move
       if (lastMove == solFinal[1] || controller.isCheckMate()) {
         // print('if 2');
+        // print('solution ' + solFinal[1]);
+        // print('last move ' + lastMove);
+        // print('sol length ' + solFinal.length.toString());
         // checks if system has a move after player
         if (solFinal.length == 3) {
           // print('if 3');
-          // print('solution ' + solFinal[1]);
-          // print('last move ' + lastMove);
+          // print(solFinal[2]);
           controller.makeMoveWithNormalNotation(solFinal[2]);
           moveCount++;
         } else {
-          print('you won');
+          // print('you won');
           setState(() {
             this.won = true;
             alertWin();
@@ -106,7 +109,7 @@ class _BoardState extends State<BoardScreen> {
         controller.notifyListeners();
       }
     } else {
-      print('else');
+      // print('else');
     }
   }
 
