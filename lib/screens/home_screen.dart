@@ -115,6 +115,21 @@ class HomeScreen extends StatelessWidget {
                       shape: StadiumBorder(),
                       side: BorderSide(color: Colors.black),
                     ),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/overtheboard');
+                    },
+                    child: Text('Over The Board',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                    style: OutlinedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      side: BorderSide(color: Colors.black),
+                    ),
                   )
                 ],
               )
