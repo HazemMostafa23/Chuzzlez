@@ -8,7 +8,6 @@ import 'screens/board_screen.dart';
 import 'screens/puzzles_list_screen.dart';
 import 'screens/over_the_board_screen.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -30,8 +29,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/home',
         routes: {
           '/home': (context) => HomeScreen(),
-          '/board': (context) => Board(),
-          '/puzzlelist': (context) => PuzzleListScreen()
+          '/board': (context) => BoardScreen(),
+          '/puzzlelist': (context) => PuzzleListScreen(),
           '/overtheboard': (context) => OverTheBoard()
         },
         title: 'Chuzzlez',
