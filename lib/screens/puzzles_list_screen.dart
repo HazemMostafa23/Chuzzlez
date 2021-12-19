@@ -30,25 +30,43 @@ class PuzzleListScreen extends StatelessWidget {
               )),
         ],
       ),
-      Align(
-        alignment: Alignment.topLeft,
-        child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: OutlinedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
-              ),
-            )),
-      ),
-
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              child: OutlinedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(color: Colors.black),
+                ),
+              )),
+        ),
+        Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/puzzlecreator');
+                  },
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.black,
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    shape: StadiumBorder(),
+                    side: BorderSide(color: Colors.black),
+                  ),
+                )))
+      ]),
       Flexible(
           child: GridView.count(
         crossAxisCount: 4,
