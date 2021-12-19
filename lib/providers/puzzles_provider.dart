@@ -2,8 +2,8 @@ import 'package:chuzzlez/models/puzzles.dart';
 import 'package:flutter/cupertino.dart';
 
 class PuzzlesProvider with ChangeNotifier {
-  late var levelCount;
-  List<Puzzles> _puzzlesList = [
+  late int levelCount;
+  final List<Puzzles> _puzzlesList = [
     Puzzles(),
     Puzzles(
         levelNumber: 2,
@@ -56,7 +56,7 @@ class PuzzlesProvider with ChangeNotifier {
     levelCount = _puzzlesList.length;
   }
 
-  int puzzlesCount() {
+  int get getCount {
     return levelCount;
   }
 

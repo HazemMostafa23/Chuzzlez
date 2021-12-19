@@ -7,12 +7,10 @@ import '../models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 
-class PuzzleScreen extends StatelessWidget {
-  ChessBoardController controller = ChessBoardController();
+class PuzzleListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    int number =
-        Provider.of<PuzzlesProvider>(context, listen: false).puzzlesCount();
+    int number = Provider.of<PuzzlesProvider>(context, listen: false).getCount;
     var user = Provider.of<UserProvider>(context, listen: false).getUser;
     List<String> completedLevels = user.completedLevels;
     return Scaffold(

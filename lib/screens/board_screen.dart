@@ -5,14 +5,15 @@ import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 
-class Board extends StatefulWidget {
-  Board({Key? key}) : super(key: key);
+class BoardScreen extends StatefulWidget {
+  // var levelNumber;
+  BoardScreen({Key? key}) : super(key: key);
 
   @override
   _BoardState createState() => _BoardState();
 }
 
-class _BoardState extends State<Board> {
+class _BoardState extends State<BoardScreen> {
   ChessBoardController controller = ChessBoardController();
   late Puzzles puzzle;
   late int levelNumber;
@@ -75,7 +76,7 @@ class _BoardState extends State<Board> {
   }
 
   // var pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
-  void checkMove(String solution, int levelNumber, int movecount) {
+  void checkMove(String solution, int movecount) {
     // print('function');
     List<String> solSplit = solution.split(',');
     List<String> solFinal = solSplit[movecount].split(' ');
@@ -84,7 +85,6 @@ class _BoardState extends State<Board> {
     // checks if last move was made by player or system
     if (controller.getSan().last!.split(' ').length == 2) {
       // print('if 1');
-      // print(levelNumber);
       // checks if last move is same as solution move
       if (lastMove == solFinal[1] || controller.isCheckMate()) {
         // print('if 2');
@@ -176,7 +176,7 @@ class _BoardState extends State<Board> {
           boardOrientation: PlayerColor.white,
           enableUserMoves: !won,
           onMove: () {
-            checkMove(solution, levelNumber, moveCount);
+            checkMove(solution, moveCount);
           },
         )
       ]),
