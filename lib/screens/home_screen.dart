@@ -24,6 +24,16 @@ class HomeScreen extends StatelessWidget {
           ),
           ListView(
             children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/settings');
+                  },
+                  icon: Icon(Icons.settings),
+                  color: Colors.grey[800],
+                ),
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
