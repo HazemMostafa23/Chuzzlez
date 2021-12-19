@@ -16,9 +16,9 @@ class Board extends StatefulWidget {
 class _BoardState extends State<Board> {
   ChessBoardController controller = ChessBoardController();
   late Puzzles puzzle;
-  var levelNumber;
-  late var moveCount;
-  late var solution;
+  late int levelNumber;
+  late int moveCount;
+  late String solution;
   bool won = false;
 
   void alertWin() {
@@ -78,9 +78,9 @@ class _BoardState extends State<Board> {
   // var pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
   void checkMove(String solution, int levelNumber, int movecount) {
     // print('function');
-    var solSplit = solution.split(',');
-    var solFinal = solSplit[movecount].split(' ');
-    var lastMove = controller.getSan().last!.split(' ')[1];
+    List<String> solSplit = solution.split(',');
+    List<String> solFinal = solSplit[movecount].split(' ');
+    String lastMove = controller.getSan().last!.split(' ')[1];
 
     // checks if last move was made by player or system
     if (controller.getSan().last!.split(' ').length == 2) {
