@@ -103,19 +103,19 @@ class HomeScreen extends StatelessWidget {
                       side: BorderSide(color: Colors.black),
                     ),
                   ),
-                  OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Co-op Match',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        )),
-                    style: OutlinedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(color: Colors.black),
-                    ),
-                  ),
+                  // OutlinedButton(
+                  //   onPressed: () {},
+                  //   child: Text('Co-op Match',
+                  //       style: TextStyle(
+                  //         fontSize: 20,
+                  //         fontWeight: FontWeight.bold,
+                  //         color: Colors.black,
+                  //       )),
+                  //   style: OutlinedButton.styleFrom(
+                  //     shape: StadiumBorder(),
+                  //     side: BorderSide(color: Colors.black),
+                  //   ),
+                  // ),
                   OutlinedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/overtheboard');
