@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 
 class Board extends StatefulWidget {
-  // var levelNumber;
   Board({Key? key}) : super(key: key);
 
   @override
