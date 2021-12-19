@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
-import 'package:chuzzlez/providers/board_provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 import 'screens/board_screen.dart';
-import 'screens/puzzles_screen.dart';
+
+import 'screens/puzzles_list_screen.dart';
+import 'screens/over_the_board_screen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -21,18 +23,16 @@ class MyApp extends StatelessWidget {
           create: (context) => UserProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => BoardProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (context) => PuzzlesProvider(),
         )
       ],
       child: MaterialApp(
-        initialRoute: '/',
+        initialRoute: '/home',
         routes: {
-          '/': (context) => HomeScreen(),
-          '/second': (context) => Board(),
-          '/third': (context) => PuzzleScreen()
+          '/home': (context) => HomeScreen(),
+          '/board': (context) => Board(),
+          '/puzzlelist': (context) => PuzzleListScreen()
+          '/overtheboard': (context) => OverTheBoard()
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),

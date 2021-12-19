@@ -3,25 +3,20 @@
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
-import 'package:chuzzlez/providers/board_provider.dart';
 import '../models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 
-class PuzzleScreen extends StatelessWidget {
-  ChessBoardController controller = ChessBoardController();
+class PuzzleListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    int number =
-        Provider.of<PuzzlesProvider>(context, listen: false).puzzlesCount();
+    int number = Provider.of<PuzzlesProvider>(context, listen: false).getCount;
     var user = Provider.of<UserProvider>(context, listen: false).getUser;
     List<String> completedLevels = user.completedLevels;
-    var lvlCount =
-        Provider.of<BoardProvider>(context, listen: false).getLevelCount();
     return Scaffold(
         body: Column(children: [
       SizedBox(
-        height: 15,
+        height: 35,
       ),
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,23 +30,23 @@ class PuzzleScreen extends StatelessWidget {
               )),
         ],
       ),
-      OutlinedButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: const Text('Home',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+      Align(
+        alignment: Alignment.topLeft,
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: OutlinedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              style: OutlinedButton.styleFrom(
+                shape: StadiumBorder(),
+                side: BorderSide(color: Colors.black),
+              ),
             )),
-        style: OutlinedButton.styleFrom(
-          shape: StadiumBorder(),
-          side: BorderSide(color: Colors.black),
-        ),
-      ),
-      SizedBox(
-        height: 30,
       ),
 
       Flexible(
@@ -69,8 +64,8 @@ class PuzzleScreen extends StatelessWidget {
                 child: InkWell(
                     splashColor: Colors.white,
                     onTap: () {
-                      Navigator.pushNamed(context, '/second');
-                      Provider.of<BoardProvider>(context, listen: false)
+                      Navigator.pushNamed(context, '/board');
+                      Provider.of<UserProvider>(context, listen: false)
                           .loadPuzzle(i);
                     },
                     child: Column(
