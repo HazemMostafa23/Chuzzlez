@@ -119,7 +119,7 @@ class _BoardState extends State<BoardScreen> {
       body: ListView(children: [
         SizedBox(height: 7),
         Center(
-            child: Text('level ${levelNumber + 1}',
+            child: Text('Level ${levelNumber + 1}',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

@@ -24,6 +24,16 @@ class HomeScreen extends StatelessWidget {
           ),
           ListView(
             children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/settings');
+                  },
+                  icon: Icon(Icons.settings),
+                  color: Colors.black,
+                ),
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -104,23 +114,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Co-op Match',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        )),
-                    style: OutlinedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(color: Colors.black),
-                    ),
-                  ),
-                  OutlinedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/overtheboard');
                     },
-                    child: Text('Over The Board',
+                    child: Text('Co-op Match',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

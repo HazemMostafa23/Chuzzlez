@@ -64,7 +64,19 @@ flutter:
   assets:
     - images/home_background.jpg
     - images/board.png
-    - images/pieces/
+    - images/pieces/b.png
+    - images/pieces/bB.png
+    - images/pieces/bK.png
+    - images/pieces/bN.png
+    - images/pieces/bQ.png
+    - images/pieces/bR.png
+    - images/pieces/w.png
+    - images/pieces/wB.png
+    - images/pieces/wK.png
+    - images/pieces/wN.png
+    - images/pieces/wQ.png
+    - images/pieces/wR.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
