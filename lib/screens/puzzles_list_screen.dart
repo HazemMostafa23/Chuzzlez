@@ -106,12 +106,12 @@ class PuzzleListScreen extends StatelessWidget {
                                           opacity: 0.9,
                                           child: DecoratedBox(
                                               decoration: BoxDecoration(
-                                                  color: Colors.red)))
+                                                  color: Colors.green)))
                                       : Opacity(
                                           opacity: 0.9,
                                           child: DecoratedBox(
                                             decoration: BoxDecoration(
-                                                color: Colors.green),
+                                                color: Colors.transparent),
                                           ))))
                         ]))),
         ],
