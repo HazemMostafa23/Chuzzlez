@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                     Navigator.pushNamed(context, '/settings');
                   },
                   icon: Icon(Icons.settings),
-                  color: Colors.grey[800],
+                  color: Colors.black,
                 ),
               ),
               Row(

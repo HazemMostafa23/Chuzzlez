@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           '/board': (context) => BoardScreen(),
           '/puzzlelist': (context) => PuzzleListScreen(),
           '/overtheboard': (context) => OverTheBoard(),
-          '/puzzlecreator': (context) => PuzzleCreator()
+          '/puzzlecreator': (context) => PuzzleCreator(),
           '/settings': (context) => Settings()
         },
         title: 'Chuzzlez',
