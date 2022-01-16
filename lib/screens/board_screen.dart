@@ -63,6 +63,8 @@ class _BoardState extends State<BoardScreen> {
     solution = puzzle.solution;
   }
 
+  void loadOpening() {}
+
   @override
   void initState() {
     // pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
@@ -80,7 +82,7 @@ class _BoardState extends State<BoardScreen> {
     // print('function');
     List<String> solSplit = solution.split(',');
     List<String> solFinal = solSplit[movecount].split(' ');
-    String lastMove = controller.getSan().last!.split(' ')[1];
+    String lastMove = controller.getSan().last!.split(' ').last;
 
     // checks if last move was made by player or system
     if (controller.getSan().last!.split(' ').length == 2) {
