@@ -1,12 +1,10 @@
 import 'package:chuzzlez/providers/user_provider.dart';
+import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:chuzzlez/models/puzzles.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:provider/provider.dart';
-import 'package:chuzzlez/providers/puzzles_provider.dart';
 
 class BoardScreen extends StatefulWidget {
-  // var levelNumber;
   BoardScreen({Key? key}) : super(key: key);
 
   @override
@@ -15,115 +13,48 @@ class BoardScreen extends StatefulWidget {
 
 class _BoardState extends State<BoardScreen> {
   ChessBoardController controller = ChessBoardController();
-  late Puzzles puzzle;
-  late int levelNumber;
-  late int moveCount;
-  late String solution;
+  late Map query =
+      ModalRoute.of(context)?.settings.arguments as Map<String, String>;
+  late List<String> solution = [];
   bool won = false;
-
-  void alertWin() {
-    AlertDialog alert = AlertDialog(
-        content: Column(mainAxisSize: MainAxisSize.min, children: [
-          Text('You Won!',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ))
-        ]),
-        actions: [
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.teal[400]),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                'Close',
-                style: TextStyle(color: Colors.black),
-              ))
-        ]);
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  // show the dialog
-
-  void loadPuzzle() async {
-    // await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
-    levelNumber =
-        Provider.of<UserProvider>(context, listen: false).getUser.openedLevel;
-    puzzle = Provider.of<PuzzlesProvider>(context, listen: false)
-        .getPuzzle(levelNumber);
-    controller.loadPGN(puzzle.pgn);
-
-    // controller.clearBoard();
-    moveCount = 0;
-    solution = puzzle.solution;
-  }
-
-  void loadOpening() {}
-
-  @override
-  void initState() {
-    // pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
-    // levelNumber = Provider.of<BoardProvider>(context, listen: false).levelCount;
-    // moveCount = Provider.of<BoardProvider>(context, listen: false).moveCount;
-    // solution =
-    //     Provider.of<BoardProvider>(context, listen: false).solutions[levelNumber];
-    // controller = Provider.of<BoardProvider>(context, listen: false).controller;
-    loadPuzzle();
-    super.initState();
-  }
-
-  // var pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
-  void checkMove(String solution, int movecount) {
-    // print('function');
-    List<String> solSplit = solution.split(',');
-    List<String> solFinal = solSplit[movecount].split(' ');
-    String lastMove = controller.getSan().last!.split(' ').last;
-
-    // checks if last move was made by player or system
-    if (controller.getSan().last!.split(' ').length == 2) {
-      // print('if 1');
-      // checks if last move is same as solution move
-      if (lastMove == solFinal[1] || controller.isCheckMate()) {
-        // print('if 2');
-        // print('solution ' + solFinal[1]);
-        // print('last move ' + lastMove);
-        // print('sol length ' + solFinal.length.toString());
-        // checks if system has a move after player
-        if (solFinal.length == 3) {
-          // print('if 3');
-          // print(solFinal[2]);
-          controller.makeMoveWithNormalNotation(solFinal[2]);
-          moveCount++;
-        } else {
-          // print('you won');
-          setState(() {
-            this.won = true;
-            alertWin();
-          });
-        }
-      } else {
-        controller.game.undo_move();
-        controller.notifyListeners();
-      }
-    } else {
-      // print('else');
+  int moveCount = 0;
+  bool isSwitched = false;
+  bool undoneMove = false;
+  late String sol;
+  late PlayerColor color = PlayerColor.white;
+  
+  void undoMove() {
+    if (!controller.getSan().isEmpty) {
+      controller.game.undo_move();
+      controller.notifyListeners();
+      moveCount -= 2;
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
+  void getOpening(String name) {
+    solution =
+        Provider.of<OpeningProvider>(context, listen: false).getOpening(name);
+    print(solution);
+  }
+  }
+
+  void openingMove() {
+    if (moveCount != solution.length) {
+      controller.makeMove(
+          from: solution[moveCount], to: solution[moveCount + 1]);
+      moveCount += 2;
+    } else {
+      print("Done");
+    }
+  }
+
+  Widget overTheboard() {
     return Scaffold(
       body: ListView(children: [
         SizedBox(height: 7),
         Center(
-            child: Text('Level ${levelNumber + 1}',
+            child: Text('Chuzzlez',
+
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -134,8 +65,98 @@ class _BoardState extends State<BoardScreen> {
           children: [
             OutlinedButton(
               onPressed: () {
-                moveCount = 0;
                 Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              style: OutlinedButton.styleFrom(
+                shape: StadiumBorder(),
+                side: BorderSide(color: Colors.black),
+              ),
+            ),
+            Row(
+              children: [
+                Text(
+                  'Toggle AI',
+                ),
+                Switch(
+                  value: isSwitched,
+                  onChanged: (value) {
+                    setState(() {
+                      isSwitched = !isSwitched;
+                    });
+                  },
+                )
+              ],
+            ),
+          ],
+        ),
+        ChessBoard(
+          controller: controller,
+          boardColor: BoardColor.green,
+          boardOrientation: color,
+          enableUserMoves: !won,
+        ),
+        OutlinedButton(
+          onPressed: () {
+            undoMove();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          style: OutlinedButton.styleFrom(
+            shape: StadiumBorder(),
+            side: BorderSide(color: Colors.black),
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Widget openings() {
+    return Scaffold(
+      body: ListView(children: [
+        SizedBox(height: 7),
+        Center(
+            child: Text(query['name'],
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ))),
+        ButtonBar(
+          alignment: MainAxisAlignment.spaceBetween,
+          children: [
+            OutlinedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              style: OutlinedButton.styleFrom(
+                shape: StadiumBorder(),
+                side: BorderSide(color: Colors.black),
+              ),
+            ),
+          ],
+        ),
+        ChessBoard(
+          controller: controller,
+          boardColor: BoardColor.green,
+          boardOrientation: color,
+          // enableUserMoves: false,
+        ),
+        ButtonBar(
+          alignment: MainAxisAlignment.spaceBetween,
+          children: [
+            OutlinedButton(
+              onPressed: () {
+                undoMove();
               },
               child: Icon(
                 Icons.arrow_back,
@@ -148,42 +169,89 @@ class _BoardState extends State<BoardScreen> {
             ),
             OutlinedButton(
               onPressed: () {
-                var count = Provider.of<PuzzlesProvider>(context, listen: false)
-                    .getPuzzles
-                    .length;
-                Provider.of<UserProvider>(context, listen: false)
-                    .getUser
-                    .openedLevel += 1;
-                if (levelNumber != count - 1) {
-                  setState(() {
-                    won = false;
-                  });
-                  loadPuzzle();
-                }
+                openingMove();
+                print(moveCount);
               },
-              child: const Text('Next',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )),
+              child: Icon(
+                Icons.arrow_forward,
+                color: Colors.black,
+              ),
               style: OutlinedButton.styleFrom(
                 shape: StadiumBorder(),
                 side: BorderSide(color: Colors.black),
               ),
-            )
+            ),
           ],
         ),
-        ChessBoard(
-          controller: controller,
-          boardColor: BoardColor.green,
-          boardOrientation: PlayerColor.white,
-          enableUserMoves: !won,
-          onMove: () {
-            checkMove(solution, moveCount);
-          },
-        )
       ]),
     );
+  }
+
+  void chooseColor() {
+    AlertDialog alert = AlertDialog(
+        content: Column(mainAxisSize: MainAxisSize.min, children: [
+          Text('Choose your color',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ))
+        ]),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.teal[400]),
+              onPressed: () {
+                setState(() {
+                  color = PlayerColor.white;
+                });
+                Navigator.pop(context);
+              },
+              child: Text(
+                'White',
+                style: TextStyle(color: Colors.black),
+              )),
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.teal[400]),
+              onPressed: () {
+                setState(() {
+                  color = PlayerColor.black;
+                });
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Black',
+                style: TextStyle(color: Colors.black),
+              ))
+        ]);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // if (query[query] == 'overtheboard') {
+    //   WidgetsBinding.instance!.addPostFrameCallback((_) => chooseColor());
+    // }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Widget overTheBoard = overTheboard();
+
+    if (query['query'] == "overtheboard") {
+      // chooseColor();
+      // WidgetsBinding.instance!.addPostFrameCallback((_) => chooseColor());
+      return overTheBoard;
+    } else if (query['query'] == "opening") {
+      Widget opening = openings();
+      getOpening(query['name']);
+      return opening;
+    }
+    throw '';
   }
 }

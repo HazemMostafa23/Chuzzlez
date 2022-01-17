@@ -82,7 +82,7 @@ class PuzzleListScreen extends StatelessWidget {
                 child: InkWell(
                     splashColor: Colors.white,
                     onTap: () {
-                      Navigator.pushNamed(context, '/board');
+                      Navigator.pushNamed(context, '/puzzle');
                       Provider.of<UserProvider>(context, listen: false)
                           .loadPuzzle(i);
                     },

@@ -92,7 +92,7 @@ class _HomeState extends State<HomeScreen> {
                     onPressed: () {
                       Provider.of<UserProvider>(context, listen: false)
                           .setOpened();
-                      Navigator.pushNamed(context, '/board');
+                      Navigator.pushNamed(context, '/puzzle');
                     },
                     child: Column(children: [
                       Text('Play',
@@ -138,7 +138,8 @@ class _HomeState extends State<HomeScreen> {
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/overtheboard');
+                      Navigator.pushNamed(context, '/board',
+                          arguments: {'query': 'overtheboard'});
                     },
                     child: Text('Co-op Match',
                         style: TextStyle(
@@ -153,7 +154,6 @@ class _HomeState extends State<HomeScreen> {
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      String query = "concepts";
                       Navigator.pushNamed(context, '/learning',
                           arguments: {'query': 'concepts'});
                     },
