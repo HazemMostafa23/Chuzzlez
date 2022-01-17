@@ -1,6 +1,7 @@
 import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
+import 'package:chuzzlez/screens/register_screen.dart';
 import 'package:chuzzlez/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -67,6 +68,7 @@ class MyApp extends StatelessWidget {
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
