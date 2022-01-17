@@ -51,9 +51,9 @@ class _HomeState extends State<HomeScreen> {
                 alignment: Alignment.centerRight,
                 child: IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/settings');
+                    Navigator.pushNamed(context, '/profile');
                   },
-                  icon: Icon(Icons.settings),
+                  icon: Icon(Icons.person),
                   color: Colors.black,
                 ),
               ),
@@ -150,7 +150,24 @@ class _HomeState extends State<HomeScreen> {
                       shape: StadiumBorder(),
                       side: BorderSide(color: Colors.black),
                     ),
-                  )
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      String query = "concepts";
+                      Navigator.pushNamed(context, '/learning',
+                          arguments: {'query': 'concepts'});
+                    },
+                    child: Text('Learning',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                    style: OutlinedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      side: BorderSide(color: Colors.black),
+                    ),
+                  ),
                 ],
               )
             ],
