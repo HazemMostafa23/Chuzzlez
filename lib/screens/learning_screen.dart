@@ -63,7 +63,10 @@ class _LearningState extends State<LearningScreen> {
           alignment: MainAxisAlignment.spaceBetween,
           children: [
             OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/board',
+                    arguments: {'query': 'opening', 'name': 'Italian Game'});
+              },
               child: Text('Opening 1',
                   style: TextStyle(
                     fontSize: 20,
@@ -76,7 +79,10 @@ class _LearningState extends State<LearningScreen> {
               ),
             ),
             OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/board',
+                    arguments: {'query': 'opening', 'name': 'French Defense'});
+              },
               child: Text('Opening 2',
                   style: TextStyle(
                     fontSize: 20,
@@ -89,7 +95,12 @@ class _LearningState extends State<LearningScreen> {
               ),
             ),
             OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/board', arguments: {
+                  'query': 'opening',
+                  'name': 'Sicilian Defense'
+                });
+              },
               child: Text('Opening 3',
                   style: TextStyle(
                     fontSize: 20,
@@ -112,7 +123,7 @@ class _LearningState extends State<LearningScreen> {
       body: ListView(children: [
         SizedBox(height: 7),
         Center(
-            child: Text('widget 1',
+            child: Text('Learning',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

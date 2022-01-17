@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () {
                       Provider.of<UserProvider>(context, listen: false)
                           .setOpened();
-                      Navigator.pushNamed(context, '/board');
+                      Navigator.pushNamed(context, '/puzzle');
                     },
                     child: Column(children: [
                       Text('Play',
@@ -115,7 +115,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/overtheboard');
+                      Navigator.pushNamed(context, '/board',
+                          arguments: {'query': 'overtheboard'});
                     },
                     child: Text('Co-op Match',
                         style: TextStyle(
@@ -130,7 +131,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      String query = "concepts";
                       Navigator.pushNamed(context, '/learning',
                           arguments: {'query': 'concepts'});
                     },
