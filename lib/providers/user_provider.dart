@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import '../models/user.dart';
 
 class UserProvider with ChangeNotifier {
-  User _user = User();
+  Users _user = Users();
 
-  User get getUser {
+  Users get getUser {
     return _user;
   }
 
