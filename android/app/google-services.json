@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1093855012801",
+    "project_id": "chuzzlez-c0983",
+    "storage_bucket": "chuzzlez-c0983.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093855012801:android:29701f762f75ba9658b140",
+        "android_client_info": {
+          "package_name": "eg.edu.miuegypt.CSC422.chuzzlez"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093855012801-tm3a7t8q21n9ogormjtgp8587ll9vvk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTEAGpHqmuaG5I_a_xJdwLc1E0T_zKCME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093855012801-tm3a7t8q21n9ogormjtgp8587ll9vvk2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
