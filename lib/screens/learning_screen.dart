@@ -67,7 +67,7 @@ class _LearningState extends State<LearningScreen> {
                 Navigator.pushNamed(context, '/board',
                     arguments: {'query': 'opening', 'name': 'Italian Game'});
               },
-              child: Text('Opening 1',
+              child: Text('Italian Game',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class _LearningState extends State<LearningScreen> {
                 Navigator.pushNamed(context, '/board',
                     arguments: {'query': 'opening', 'name': 'French Defense'});
               },
-              child: Text('Opening 2',
+              child: Text('French Defense',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class _LearningState extends State<LearningScreen> {
                   'name': 'Sicilian Defense'
                 });
               },
-              child: Text('Opening 3',
+              child: Text('Sicilian Defense',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
