@@ -11,23 +11,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FireStoreServices {
-  CollectionReference _collectionRef =
+  CollectionReference levelsCollection =
       FirebaseFirestore.instance.collection('Levels');
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('User');
 
-  Future<Map> getData() async {
+  Future<List> getLevels() async {
     // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _collectionRef.get();
+    QuerySnapshot querySnapshot = await levelsCollection.get();
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-
-    var x = allData[0] as Map;
-    return x;
+    return allData;
   }
 
-  Future<List> getAll() async {
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _collectionRef.get();
+  Future<List> getUsers() async {
+    QuerySnapshot querySnapshot = await usersCollection.get();
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
