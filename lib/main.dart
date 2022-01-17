@@ -1,4 +1,5 @@
 import 'package:chuzzlez/screens/learning_screen.dart';
+import 'package:chuzzlez/screens/login_screen.dart';
 import 'package:chuzzlez/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-        initialRoute: '/home',
+        initialRoute: '/login',
         routes: {
           '/home': (context) => HomeScreen(),
           '/board': (context) => BoardScreen(),
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
           '/settings': (context) => SettingsScreen(),
           '/profile': (context) => Profile(),
           '/learning': (context) => LearningScreen(),
+          '/login': (context) => LoginScreen()
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),
