@@ -29,11 +29,13 @@ class _BoardState extends State<BoardScreen> {
       controller.notifyListeners();
       moveCount -= 2;
     }
+  }
 
   void getOpening(String name) {
     solution =
         Provider.of<OpeningProvider>(context, listen: false).getOpening(name);
     print(solution);
+  }
   }
 
   void openingMove() {
