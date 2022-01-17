@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import '../models/user.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
