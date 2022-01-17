@@ -1,3 +1,4 @@
+import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
 import 'package:chuzzlez/screens/settings_screen.dart';
@@ -6,12 +7,11 @@ import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
-import 'screens/board_screen.dart';
+import 'screens/puzzle_board_screen.dart';
 import 'screens/puzzle_creator_screen.dart';
 import 'screens/puzzles_list_screen.dart';
-import 'screens/over_the_board_screen.dart';
 import 'screens/sign_up_screen.dart';
-
+import 'screens/board_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,6 +39,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => PuzzlesProvider(),
         ),
+        ChangeNotifierProvider(create: (context) => OpeningProvider(),
+
         Provider<AuthenticationService>(
           create: (_) => AuthenticationService(FirebaseAuth.instance),
         ),
@@ -47,14 +49,15 @@ class MyApp extends StatelessWidget {
         //       context.read<AuthenticationService>().authStateChanges,
         //   initialData: null,
         // )
+
       ],
       child: MaterialApp(
-        initialRoute: '/login',
+        initialRoute: '/home',
         routes: {
           '/home': (context) => HomeScreen(),
-          '/board': (context) => BoardScreen(),
+          '/puzzle': (context) => PuzzleBoardScreen(),
           '/puzzlelist': (context) => PuzzleListScreen(),
-          '/overtheboard': (context) => OverTheBoard(),
+          '/board': (context) => BoardScreen(),
           '/puzzlecreator': (context) => PuzzleCreator(),
           '/settings': (context) => SettingsScreen(),
           '/profile': (context) => Profile(),
