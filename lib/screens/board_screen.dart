@@ -36,6 +36,7 @@ class _BoardState extends State<BoardScreen> {
         Provider.of<OpeningProvider>(context, listen: false).getOpening(name);
     print(solution);
   }
+  }
 
   void openingMove() {
     if (moveCount != solution.length) {
