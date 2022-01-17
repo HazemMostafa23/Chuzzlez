@@ -144,7 +144,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "0a4b3e881c1203148554bf1025fb67844cfdd03b"
+      resolved-ref: "72918a8707f04bf1ea1514ed12a0707e98c91b82"
       url: "https://github.com/memorykart/flutter_chess_board.git"
     source: git
     version: "1.0.1"
@@ -234,7 +234,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.1"
+    version: "6.0.2"
   quiver:
     dependency: transitive
     description:
