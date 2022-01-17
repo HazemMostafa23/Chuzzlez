@@ -43,8 +43,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => OpeningProvider()),
 
         Provider<AuthenticationService>(
-          create: (_) => AuthenticationService(FirebaseAuth.instance),
-        ),
+            create: (_) => AuthenticationService(FirebaseAuth.instance)),
+
         // StreamProvider(
         //   create: (context) =>
         //       context.read<AuthenticationService>().authStateChanges,
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         // )
       ],
       child: MaterialApp(
-        initialRoute: '/home',
+        initialRoute: '/login',
         routes: {
           '/home': (context) => HomeScreen(),
           '/puzzle': (context) => PuzzleBoardScreen(),

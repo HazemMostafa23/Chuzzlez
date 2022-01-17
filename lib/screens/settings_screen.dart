@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import '../models/user.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chuzzlez/providers/user_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _auth = FirebaseAuth.instance;
+
     return Scaffold(
         body: Column(children: [
       OutlinedButton(
@@ -117,7 +122,11 @@ class SettingsScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              _auth.signOut();
+              Provider.of<UserProvider>(context, listen: false).logOut();
+              Navigator.pushNamed(context, '/home');
+            },
             child: Text('Log Out',
                 style: TextStyle(
                   fontSize: 20,
