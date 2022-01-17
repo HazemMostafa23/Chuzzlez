@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:chuzzlez/models/puzzles.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:provider/provider.dart';
+import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 
 class LearningScreen extends StatefulWidget {
@@ -28,94 +29,89 @@ class _LearningState extends State<LearningScreen> {
   }
 
   Widget openings() {
+    int number = Provider.of<OpeningProvider>(context, listen: false).getCount;
+    var list = Provider.of<OpeningProvider>(context, listen: false).getOpenings;
     return Scaffold(
-      body: ListView(children: [
-        SizedBox(height: 7),
-        Center(
-            child: Text('Openings',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ))),
-        ButtonBar(
-          alignment: MainAxisAlignment.spaceBetween,
-          children: [
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
+        body: Column(children: [
+      SizedBox(
+        height: 35,
+      ),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Openings',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
                 color: Colors.black,
-              ),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
-              ),
-            ),
-          ],
+              )),
+        ],
+      ),
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              child: OutlinedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(color: Colors.black),
+                ),
+              )),
         ),
-        SizedBox(
-          height: 20,
-        ),
-        ButtonBar(
-          alignment: MainAxisAlignment.spaceBetween,
-          children: [
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/board',
-                    arguments: {'query': 'opening', 'name': 'Italian Game'});
-              },
-              child: Text('Italian Game',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
-              ),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/board',
-                    arguments: {'query': 'opening', 'name': 'French Defense'});
-              },
-              child: Text('French Defense',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
-              ),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/board', arguments: {
-                  'query': 'opening',
-                  'name': 'Sicilian Defense'
-                });
-              },
-              child: Text('Sicilian Defense',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
-              ),
-            ),
-          ],
-        )
       ]),
-    );
+      Flexible(
+          child: GridView.count(
+        crossAxisCount: 4,
+        crossAxisSpacing: 5.0,
+        mainAxisSpacing: 5.0,
+        children: [
+          for (int i = 0; i < number; i++)
+            Card(
+                clipBehavior: Clip.hardEdge,
+                color: Colors.cyanAccent,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(13)),
+                child: InkWell(
+                    splashColor: Colors.white,
+                    onTap: () {
+                      Navigator.pushNamed(context, '/board', arguments: {
+                        'query': 'opening',
+                        'name': list[i].openingName
+                      });
+                    },
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                              child: FractionallySizedBox(
+                            heightFactor: 0.5,
+                          )),
+                          Text(list[i].openingName),
+                          Flexible(
+                              child: FractionallySizedBox(
+                                  widthFactor: 1,
+                                  heightFactor: 1,
+                                  child: Opacity(
+                                      opacity: 0.9,
+                                      child: DecoratedBox(
+                                          decoration: BoxDecoration(
+                                              color: Colors.green)))))
+                        ]))),
+        ],
+      ))
+
+      // ignore: deprecated_member_use
+    ]));
   }
 
   Widget concepts() {

@@ -46,7 +46,7 @@ class OpeningProvider with ChangeNotifier {
     levelCount = _openingsList.length;
   }
 
-  OpeningsProvider() {
+  OpeningProvider() {
     levelCount = _openingsList.length;
   }
 
