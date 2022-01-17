@@ -6,7 +6,6 @@ import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 import 'screens/board_screen.dart';
 import 'screens/puzzle_creator_screen.dart';
-import 'package:chuzzlez/screens/settings_screen.dart';
 import 'screens/puzzles_list_screen.dart';
 import 'screens/over_the_board_screen.dart';
 

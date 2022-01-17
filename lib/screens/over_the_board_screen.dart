@@ -112,10 +112,11 @@ class _BoardState extends State<OverTheBoard> {
           ],
         ),
         ChessBoard(
-            controller: controller,
-            boardColor: BoardColor.green,
-            boardOrientation: color,
-            enableUserMoves: !won)
+          controller: controller,
+          boardColor: BoardColor.green,
+          boardOrientation: color,
+          enableUserMoves: !won,
+        )
       ]),
     );
   }
