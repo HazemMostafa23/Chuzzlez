@@ -52,12 +52,14 @@ class _BoardState extends State<BoardScreen> {
 
   // show the dialog
 
-  void loadPuzzle() {
+  void loadPuzzle() async {
+    await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
     levelNumber =
         Provider.of<UserProvider>(context, listen: false).getUser.openedLevel;
     puzzle = Provider.of<PuzzlesProvider>(context, listen: false)
         .getPuzzle(levelNumber);
     controller.loadPGN(puzzle.pgn);
+
     // controller.clearBoard();
     moveCount = 0;
     solution = puzzle.solution;
@@ -121,7 +123,7 @@ class _BoardState extends State<BoardScreen> {
       body: ListView(children: [
         SizedBox(height: 7),
         Center(
-            child: Text('Level ${levelNumber + 1}',
+            child: Text('Level ${1}',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

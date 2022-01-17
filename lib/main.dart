@@ -9,10 +9,18 @@ import 'screens/board_screen.dart';
 import 'screens/puzzle_creator_screen.dart';
 import 'screens/puzzles_list_screen.dart';
 import 'screens/over_the_board_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:chuzzlez/screens/profile_screen.dart';
-
-void main() {
+void main() async {
+  
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
+
+  // CollectionReference _collectionRef =
+  //     FirebaseFirestore.instance.collection('Levels');
 }
 
 class MyApp extends StatelessWidget {
