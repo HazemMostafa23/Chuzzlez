@@ -22,7 +22,7 @@ class _BoardState extends State<BoardScreen> {
   bool undoneMove = false;
   late String sol;
   late PlayerColor color = PlayerColor.white;
-  
+
   void undoMove() {
     if (!controller.getSan().isEmpty) {
       controller.game.undo_move();
@@ -35,7 +35,6 @@ class _BoardState extends State<BoardScreen> {
     solution =
         Provider.of<OpeningProvider>(context, listen: false).getOpening(name);
     print(solution);
-  }
   }
 
   void openingMove() {
@@ -54,7 +53,6 @@ class _BoardState extends State<BoardScreen> {
         SizedBox(height: 7),
         Center(
             child: Text('Chuzzlez',
-
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
