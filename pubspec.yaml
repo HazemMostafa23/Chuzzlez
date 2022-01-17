@@ -36,8 +36,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.1
   flutter_chess_board:
-    path: 'D:\VSCode Projects\flutter_chess_board'
-    # git: "https://github.com/memorykart/flutter_chess_board.git"
+    git: "https://github.com/memorykart/flutter_chess_board.git"
+  firebase_core: ^1.11.0
+  firebase_auth: ^3.3.5
+  cloud_firestore: ^3.1.6
+  
+
+
 
 
 dev_dependencies:

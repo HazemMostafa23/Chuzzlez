@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
+import 'package:chuzzlez/providers/puzzles_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -28,9 +29,9 @@ class HomeScreen extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/settings');
+                    Navigator.pushNamed(context, '/profile');
                   },
-                  icon: Icon(Icons.settings),
+                  icon: Icon(Icons.person),
                   color: Colors.black,
                 ),
               ),
@@ -127,7 +128,24 @@ class HomeScreen extends StatelessWidget {
                       shape: StadiumBorder(),
                       side: BorderSide(color: Colors.black),
                     ),
-                  )
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      String query = "concepts";
+                      Navigator.pushNamed(context, '/learning',
+                          arguments: {'query': 'concepts'});
+                    },
+                    child: Text('Learning',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                    style: OutlinedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      side: BorderSide(color: Colors.black),
+                    ),
+                  ),
                 ],
               )
             ],

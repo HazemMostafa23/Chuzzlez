@@ -14,7 +14,15 @@ class _BoardState extends State<OverTheBoard> {
   ChessBoardController controller = ChessBoardController();
   bool won = false;
   bool isSwitched = false;
+  bool undoneMove = false;
   late PlayerColor color = PlayerColor.white;
+
+  void undoMove() {
+    if (!controller.getSan().isEmpty) {
+      controller.game.undo_move();
+      controller.notifyListeners();
+    }
+  }
 
   void chooseColor() {
     AlertDialog alert = AlertDialog(
@@ -116,7 +124,20 @@ class _BoardState extends State<OverTheBoard> {
           boardColor: BoardColor.green,
           boardOrientation: color,
           enableUserMoves: !won,
-        )
+        ),
+        OutlinedButton(
+          onPressed: () {
+            undoMove();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          style: OutlinedButton.styleFrom(
+            shape: StadiumBorder(),
+            side: BorderSide(color: Colors.black),
+          ),
+        ),
       ]),
     );
   }
