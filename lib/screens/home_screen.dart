@@ -28,9 +28,9 @@ class HomeScreen extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/settings');
+                    Navigator.pushNamed(context, '/profile');
                   },
-                  icon: Icon(Icons.settings),
+                  icon: Icon(Icons.person),
                   color: Colors.black,
                 ),
               ),

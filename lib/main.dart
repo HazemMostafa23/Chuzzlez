@@ -9,6 +9,7 @@ import 'screens/board_screen.dart';
 import 'screens/puzzle_creator_screen.dart';
 import 'screens/puzzles_list_screen.dart';
 import 'screens/over_the_board_screen.dart';
+import 'package:chuzzlez/screens/profile_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           '/overtheboard': (context) => OverTheBoard(),
           '/puzzlecreator': (context) => PuzzleCreator(),
           '/settings': (context) => Settings(),
+          '/profile': (context) => Profile()
           '/learning': (context) => LearningScreen(),
         },
         title: 'Chuzzlez',
