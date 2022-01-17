@@ -9,7 +9,7 @@ class PuzzlesProvider with ChangeNotifier {
   final List<Puzzles> _puzzlesList = [];
 
   readMap() async {
-    var puzzlesMaps = await instance.getAll();
+    var puzzlesMaps = await instance.getLevels();
     length = puzzlesMaps.length;
     for (var i = 0; i < length; i++) {
       var puzzlesMap = puzzlesMaps[i];

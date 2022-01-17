@@ -5,7 +5,29 @@ import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<HomeScreen> {
+  loadData() async {
+    await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
+  }
+
+  void initState() {
+    // pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
+    // levelNumber = Provider.of<BoardProvider>(context, listen: false).levelCount;
+    // moveCount = Provider.of<BoardProvider>(context, listen: false).moveCount;
+    // solution =
+    //     Provider.of<BoardProvider>(context, listen: false).solutions[levelNumber];
+    // controller = Provider.of<BoardProvider>(context, listen: false).controller;
+    loadData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () {
                       Provider.of<UserProvider>(context, listen: false)
                           .setOpened();
-                      Navigator.pushNamed(context, '/board');
+                      Navigator.pushNamed(context, '/puzzle');
                     },
                     child: Column(children: [
                       Text('Play',
@@ -116,7 +138,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/overtheboard');
+                      Navigator.pushNamed(context, '/board',
+                          arguments: {'query': 'overtheboard'});
                     },
                     child: Text('Co-op Match',
                         style: TextStyle(
@@ -131,7 +154,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      String query = "concepts";
                       Navigator.pushNamed(context, '/learning',
                           arguments: {'query': 'concepts'});
                     },
