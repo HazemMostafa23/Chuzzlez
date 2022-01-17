@@ -14,8 +14,11 @@ class FireStoreServices {
   CollectionReference levelsCollection =
       FirebaseFirestore.instance.collection('Levels');
   CollectionReference usersCollection =
-      FirebaseFirestore.instance.collection('User');
+      FirebaseFirestore.instance.collection('users');
+  CollectionReference openingsCollection =
+      FirebaseFirestore.instance.collection('openings');
 
+  String uid = FirebaseAuth.instance.currentUser!.uid;
   Future<List> getLevels() async {
     // Get docs from collection reference
     QuerySnapshot querySnapshot = await levelsCollection.get();
@@ -31,5 +34,10 @@ class FireStoreServices {
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     return allData;
+  }
+
+  Future<DocumentSnapshot> readUser() async {
+    DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
+    return documentSnapshot;
   }
 }

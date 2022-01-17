@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import '../models/user.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var _user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Scaffold(
       body: Column(
         children: [
@@ -32,7 +34,7 @@ class Profile extends StatelessWidget {
                         height: 10.0,
                       ),
                       Text(
-                        "User Name",
+                        _user.firstName,
                         style: TextStyle(
                           fontSize: 22.0,
                           color: Colors.white,
@@ -67,7 +69,7 @@ class Profile extends StatelessWidget {
                                       height: 5.0,
                                     ),
                                     Text(
-                                      "2",
+                                      _user.currentLevel.toString(),
                                       style: TextStyle(
                                         fontSize: 20.0,
                                         color: Colors.teal.shade400,

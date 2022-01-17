@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -13,17 +14,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeState extends State<HomeScreen> {
+  var currentLevel = 0;
+
   loadData() async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      await Provider.of<UserProvider>(context, listen: false).readUser();
+      setState(() {
+        currentLevel = Provider.of<UserProvider>(context, listen: false)
+            .getUser
+            .currentLevel;
+      });
+    } catch (e) {
+      currentLevel = Provider.of<UserProvider>(context, listen: false)
+          .getUser
+          .currentLevel;
+
+      print(e);
+    }
+
     await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
   }
 
   void initState() {
-    // pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
-    // levelNumber = Provider.of<BoardProvider>(context, listen: false).levelCount;
-    // moveCount = Provider.of<BoardProvider>(context, listen: false).moveCount;
-    // solution =
-    //     Provider.of<BoardProvider>(context, listen: false).solutions[levelNumber];
-    // controller = Provider.of<BoardProvider>(context, listen: false).controller;
     loadData();
     super.initState();
   }
@@ -31,10 +44,6 @@ class _HomeState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xFF3dc2bf),=
-      // appBar: AppBar(
-      //   title: const Text('Chuzzlez'),
-      // ),
       body: Stack(
         children: [
           Container(
@@ -101,15 +110,12 @@ class _HomeState extends State<HomeScreen> {
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           )),
-                      Consumer<UserProvider>(
-                          builder: (context, UserProvider user, child) {
-                        return Text('Level ${user.getUser.currentLevel + 1}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ));
-                      })
+                      Text('Level ${currentLevel + 1}',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ))
                     ]),
                     style: OutlinedButton.styleFrom(
                       shape: StadiumBorder(),

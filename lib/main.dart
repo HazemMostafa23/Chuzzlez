@@ -40,20 +40,19 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => PuzzlesProvider(),
         ),
-        ChangeNotifierProvider(create: (context) => OpeningProvider(),
+        ChangeNotifierProvider(create: (context) => OpeningProvider()),
 
         Provider<AuthenticationService>(
-          create: (_) => AuthenticationService(FirebaseAuth.instance),
-        ),
+            create: (_) => AuthenticationService(FirebaseAuth.instance)),
+
         // StreamProvider(
         //   create: (context) =>
         //       context.read<AuthenticationService>().authStateChanges,
         //   initialData: null,
         // )
-
       ],
       child: MaterialApp(
-        initialRoute: '/home',
+        initialRoute: '/login',
         routes: {
           '/home': (context) => HomeScreen(),
           '/puzzle': (context) => PuzzleBoardScreen(),
