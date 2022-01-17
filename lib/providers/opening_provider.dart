@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 class OpeningProvider with ChangeNotifier {
   final List<Openings> _OpeningsList = [
     Openings(
-        openingName: 'Sicilean Defense', solution: ['e2', 'e4', 'c7', 'c5']),
+        openingName: 'Sicilian Defense', solution: ['e2', 'e4', 'c7', 'c5']),
     Openings(openingName: 'French Defense', solution: ['e2', 'e4', 'e7', 'e6']),
     Openings(
         openingName: 'Spanish Game',

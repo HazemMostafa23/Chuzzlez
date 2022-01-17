@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => OpeningProvider())
       ],
       child: MaterialApp(
-        initialRoute: '/login',
+        initialRoute: '/home',
         routes: {
           '/home': (context) => HomeScreen(),
           '/puzzle': (context) => PuzzleBoardScreen(),
