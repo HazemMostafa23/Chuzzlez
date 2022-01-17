@@ -9,6 +9,19 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(children: [
+      OutlinedButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(
+          Icons.arrow_back,
+          color: Colors.black,
+        ),
+        style: OutlinedButton.styleFrom(
+          shape: StadiumBorder(),
+          side: BorderSide(color: Colors.black),
+        ),
+      ),
       SizedBox(
         height: 24,
       ),
