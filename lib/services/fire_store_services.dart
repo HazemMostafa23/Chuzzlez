@@ -18,7 +18,7 @@ class FireStoreServices {
   CollectionReference openingsCollection =
       FirebaseFirestore.instance.collection('openings');
 
-  String uid = FirebaseAuth.instance.currentUser!.uid;
+  // String? uid = FirebaseAuth.instance.currentUser?.uid;
   Future<List> getLevels() async {
     // Get docs from collection reference
     QuerySnapshot querySnapshot = await levelsCollection.get();
@@ -36,25 +36,29 @@ class FireStoreServices {
     return allData;
   }
 
-
   Future<DocumentSnapshot> readUser() async {
-    DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
+    DocumentSnapshot documentSnapshot =
+        await usersCollection.doc(FirebaseAuth.instance.currentUser?.uid).get();
     return documentSnapshot;
-}
+  }
+
   Future<List> getOpenings() async {
     QuerySnapshot querySnapshot = await openingsCollection.get();
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     return allData;
-
   }
 
   updateClevel(int level) {
-    usersCollection.doc(uid).update({'currentLevel': level});
+    usersCollection
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({'currentLevel': level});
   }
 
   updateCompletedLevels(List levels) {
-    usersCollection.doc(uid).update({'completedLevels': levels});
+    usersCollection
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({'completedLevels': levels});
   }
 }

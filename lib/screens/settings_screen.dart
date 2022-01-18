@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import '../models/user.dart';
@@ -10,15 +12,19 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _auth = FirebaseAuth.instance;
+    // final _auth = FirebaseAuth.instance;
     var outputButton;
-    try {
-      String? uid = FirebaseAuth.instance.currentUser!.uid;
+    if (FirebaseAuth.instance.currentUser != null) {
       outputButton = OutlinedButton(
         onPressed: () {
-          _auth.signOut();
-          Provider.of<UserProvider>(context, listen: false).logOut();
-          Navigator.pushNamed(context, '/home');
+          FirebaseAuth.instance.signOut().then((value) {
+            print("Signed out");
+            Provider.of<UserProvider>(context, listen: false).logOut();
+            Navigator.pushNamed(context, '/home', arguments: "logout");
+            print(FirebaseAuth.instance.currentUser.toString());
+          }, onError: (e) {
+            print("signed out error" + e);
+          });
         },
         child: Text('Log Out',
             style: TextStyle(
@@ -31,7 +37,7 @@ class SettingsScreen extends StatelessWidget {
           side: BorderSide(color: Colors.black),
         ),
       );
-    } catch (e) {
+    } else {
       outputButton = OutlinedButton(
         onPressed: () {
           Navigator.pushNamed(context, '/login');

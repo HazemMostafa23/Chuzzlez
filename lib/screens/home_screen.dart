@@ -20,8 +20,14 @@ class _HomeState extends State<HomeScreen> {
 
   loadData() async {
     try {
+      print(
+          Provider.of<UserProvider>(context, listen: false).getUser.toString());
+      print("AUTH" + FirebaseAuth.instance.currentUser.toString());
       String? uid = FirebaseAuth.instance.currentUser!.uid;
       await Provider.of<UserProvider>(context, listen: false).readUser();
+      print(
+          Provider.of<UserProvider>(context, listen: false).getUser.toString());
+      print("AUTH1" + FirebaseAuth.instance.currentUser.toString());
     } catch (e) {
       setState(() {
         currentLevel = Provider.of<UserProvider>(context, listen: false)
@@ -34,9 +40,9 @@ class _HomeState extends State<HomeScreen> {
             .getUser
             .currentLevel;
       });
-    }
-    if (Provider.of<PuzzlesProvider>(context, listen: false).read == false) {
-      await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
+      if (Provider.of<PuzzlesProvider>(context, listen: false).read == false) {
+        await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
+      }
     }
   }
 
