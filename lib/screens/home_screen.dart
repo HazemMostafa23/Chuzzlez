@@ -182,6 +182,31 @@ class _HomeState extends State<HomeScreen> {
                     )
                   ],
                 ),
+              if (_selectedIndex == 2)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/learning',
+                            arguments: {'query': 'openings'});
+                      },
+                      child: Column(children: [
+                        Text('Openings',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            )),
+                      ]),
+                      style: OutlinedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        side: BorderSide(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
             ],
           )
         ],
@@ -195,12 +220,12 @@ class _HomeState extends State<HomeScreen> {
         selectedItemColor: Colors.amberAccent,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.gamepad),
-            label: 'Play',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.leaderboard),
             label: 'Puzzles',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.gamepad),
+            label: 'Play',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book_sharp),
@@ -214,10 +239,10 @@ class _HomeState extends State<HomeScreen> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if (_selectedIndex == 2) {
-        Navigator.pushNamed(context, '/learning',
-            arguments: {'query': 'concepts'});
-      }
+      // if (_selectedIndex == 2) {
+      //   Navigator.pushNamed(context, '/learning',
+      //       arguments: {'query': 'concepts'});
+      // }
     });
   }
 }
