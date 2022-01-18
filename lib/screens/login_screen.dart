@@ -74,7 +74,7 @@ class _LoginState extends State<LoginScreen> {
     final loginButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: Colors.teal.shade700,
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
@@ -85,16 +85,16 @@ class _LoginState extends State<LoginScreen> {
           "Login",
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
     );
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.teal.shade400,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: Colors.white,
+            color: Colors.teal.shade400,
             child: Padding(
               padding: const EdgeInsets.all(36.0),
               child: Form(
@@ -119,9 +119,9 @@ class _LoginState extends State<LoginScreen> {
                               Navigator.pushNamed(context, '/register');
                             },
                             child: Text(
-                              "signup",
+                              "Sign up",
                               style: TextStyle(
-                                  color: Colors.redAccent,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 15),
                             ))

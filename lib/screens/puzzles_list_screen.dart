@@ -12,7 +12,9 @@ class PuzzleListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     int number = Provider.of<PuzzlesProvider>(context, listen: false).getCount;
     var user = Provider.of<UserProvider>(context, listen: false).getUser;
-    List<String> completedLevels = user.completedLevels;
+    List<dynamic> completedLevels2 = user.completedLevels;
+    List<int> completedLevels = completedLevels2.cast<int>();
+    print(completedLevels);
     return Scaffold(
         body: Column(children: [
       SizedBox(
@@ -101,7 +103,7 @@ class PuzzleListScreen extends StatelessWidget {
                                   // width: 80,
                                   widthFactor: 1,
                                   heightFactor: 1,
-                                  child: completedLevels.contains("$i")
+                                  child: completedLevels.contains(i + 1)
                                       ? Opacity(
                                           opacity: 0.9,
                                           child: DecoratedBox(

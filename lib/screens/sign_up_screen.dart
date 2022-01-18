@@ -38,7 +38,7 @@ class _RegisterationState extends State<RegisterScreen> {
           return ("Enter your first name");
         } else {
           if (!regExp.hasMatch(value)) {
-            return ("Enter valide name min 3 characters ");
+            return ("Enter valid name min 3 characters ");
           }
           return null;
         }
@@ -65,7 +65,7 @@ class _RegisterationState extends State<RegisterScreen> {
           return ("Enter your first name");
         } else {
           if (!regExp.hasMatch(value)) {
-            return ("Enter valide name min 3 characters ");
+            return ("Enter valid name min 3 characters ");
           }
           return null;
         }
@@ -116,7 +116,7 @@ class _RegisterationState extends State<RegisterScreen> {
           return ("Enter your password");
         } else {
           if (!regExp.hasMatch(value)) {
-            return ("Enter valide password min 6 characters ");
+            return ("Enter valid password min 6 characters ");
           }
         }
       },
@@ -156,7 +156,7 @@ class _RegisterationState extends State<RegisterScreen> {
     final signupButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: Colors.teal.shade700,
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
@@ -176,39 +176,54 @@ class _RegisterationState extends State<RegisterScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.red),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.teal.shade400,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: Colors.white,
+            color: Colors.teal.shade400,
             child: Padding(
-              padding: const EdgeInsets.all(36.0),
+              padding: const EdgeInsets.all(35.0),
               child: Form(
                 key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: 100),
+                    Text(
+                      "Sign up",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "Create an account to start playing! ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Icon(Icons.games_sharp),
+                    SizedBox(height: 30),
                     firstNameField,
-                    SizedBox(height: 25),
+                    SizedBox(height: 24),
                     SecondNameField,
-                    SizedBox(height: 25),
+                    SizedBox(height: 24),
                     emailField,
-                    SizedBox(height: 25),
+                    SizedBox(height: 24),
                     passwordField,
-                    SizedBox(height: 25),
+                    SizedBox(height: 24),
                     confirmPasswordField,
-                    SizedBox(height: 25),
+                    SizedBox(height: 24),
                     signupButton,
                     SizedBox(
-                      height: 25,
+                      height: 24,
                     )
                   ],
                 ),
