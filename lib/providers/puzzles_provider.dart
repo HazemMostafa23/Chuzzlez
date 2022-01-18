@@ -7,20 +7,24 @@ class PuzzlesProvider with ChangeNotifier {
   late int length;
   late FireStoreServices instance = FireStoreServices();
   final List<Puzzles> _puzzlesList = [];
+  bool read = false;
 
   readMap() async {
     var puzzlesMaps = await instance.getLevels();
     length = puzzlesMaps.length;
     for (var i = 0; i < length; i++) {
       var puzzlesMap = puzzlesMaps[i];
-      if (_puzzlesList.length < length) {
-        _puzzlesList.add(Puzzles(
-            levelNumber: puzzlesMap['levelNumber'],
-            pgn: puzzlesMap['pgn'],
-            solution: puzzlesMap['solution']));
-      }
+      // if (_puzzlesList.length < length) {
+      _puzzlesList.add(Puzzles(
+          levelNumber: puzzlesMap['levelNumber'],
+          pgn: puzzlesMap['pgn'],
+          solution: puzzlesMap['solution']));
+      // }
     }
+
     levelCount = _puzzlesList.length;
+    read = true;
+
     // print(_puzzlesList);
     // print(length);
   }

@@ -1,7 +1,6 @@
 class Users {
-  int currentLevel;
-  List<dynamic> completedLevels;
-  late int openedLevel;
+  List<dynamic> completedLevels = [];
+  late int currentLevel;
   late String? email;
   late String uid;
   late String firstName;
@@ -9,7 +8,6 @@ class Users {
 
   Users(
       {this.currentLevel = 0,
-      this.completedLevels = const ["0"],
       this.firstName = "guest",
       this.lastName = "guest"});
   Map<String, dynamic> toMap(Users user) {

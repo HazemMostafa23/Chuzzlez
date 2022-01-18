@@ -11,15 +11,16 @@ class UserProvider with ChangeNotifier {
 
   void nextLevel() {
     _user.currentLevel += 1;
+
     notifyListeners();
   }
 
   void loadPuzzle(int index) {
-    _user.openedLevel = index;
+    _user.currentLevel = index;
   }
 
   void setOpened() {
-    _user.openedLevel = _user.currentLevel;
+    _user.currentLevel = _user.currentLevel;
   }
 
   void logOut() {
