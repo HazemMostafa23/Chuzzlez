@@ -49,4 +49,12 @@ class FireStoreServices {
     return allData;
 
   }
+
+  updateClevel(int level) {
+    usersCollection.doc(uid).update({'currentLevel': level});
+  }
+
+  updateCompletedLevels(List levels) {
+    usersCollection.doc(uid).update({'completedLevels': levels});
+  }
 }
