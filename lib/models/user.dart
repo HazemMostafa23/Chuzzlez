@@ -1,7 +1,6 @@
 class Users {
-  int currentLevel;
   List<dynamic> completedLevels;
-  late int openedLevel;
+  late int currentLevel;
   late String? email;
   late String uid;
   late String firstName;

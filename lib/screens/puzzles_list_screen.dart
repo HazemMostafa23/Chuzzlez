@@ -7,7 +7,14 @@ import '../models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 
-class PuzzleListScreen extends StatelessWidget {
+class PuzzleListScreen extends StatefulWidget {
+  PuzzleListScreen({Key? key}) : super(key: key);
+
+  @override
+  _PuzzleState createState() => _PuzzleState();
+}
+
+class _PuzzleState extends State<PuzzleListScreen> {
   @override
   Widget build(BuildContext context) {
     int number = Provider.of<PuzzlesProvider>(context, listen: false).getCount;
@@ -84,7 +91,9 @@ class PuzzleListScreen extends StatelessWidget {
                 child: InkWell(
                     splashColor: Colors.white,
                     onTap: () {
-                      Navigator.pushNamed(context, '/puzzle');
+                      Navigator.pushNamed(context, '/puzzle').then((value) {
+                        setState(() {});
+                      });
                       Provider.of<UserProvider>(context, listen: false)
                           .loadPuzzle(i);
                     },

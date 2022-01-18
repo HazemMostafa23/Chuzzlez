@@ -40,4 +40,12 @@ class FireStoreServices {
     DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
     return documentSnapshot;
   }
+
+  updateClevel(int level) {
+    usersCollection.doc(uid).update({'currentLevel': level});
+  }
+
+  updateCompletedLevels(List levels) {
+    usersCollection.doc(uid).update({'completedLevels': levels});
+  }
 }
