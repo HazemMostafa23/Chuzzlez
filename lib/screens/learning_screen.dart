@@ -20,11 +20,6 @@ class _LearningState extends State<LearningScreen> {
 
   @override
   void initState() {
-    // if (query == "concepts") {
-    //   return concepts();
-    // } else if (query == "openings") {
-    //   return openings();
-    // }
     super.initState();
   }
 
@@ -70,43 +65,29 @@ class _LearningState extends State<LearningScreen> {
       ]),
       Flexible(
           child: GridView.count(
-        crossAxisCount: 4,
-        crossAxisSpacing: 5.0,
-        mainAxisSpacing: 5.0,
+        crossAxisCount: 2,
+        childAspectRatio: 10 / 4,
+        crossAxisSpacing: 0,
+        mainAxisSpacing: 1.0,
         children: [
           for (int i = 0; i < number; i++)
-            Card(
-                clipBehavior: Clip.hardEdge,
-                color: Colors.cyanAccent,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(13)),
-                child: InkWell(
-                    splashColor: Colors.white,
-                    onTap: () {
-                      Navigator.pushNamed(context, '/board', arguments: {
+            ListView(
+              children: <Widget>[
+                Container(
+                    child: ListTile(
+                  title: Text(list[i].openingName),
+                  dense: true,
+                  leading:
+                      Image(image: AssetImage('images/chess_piece_pawn.png')),
+                  tileColor: Colors.blueGrey,
+                  onTap: () => Navigator.pushNamed(context, '/board',
+                      arguments: {
                         'query': 'opening',
                         'name': list[i].openingName
-                      });
-                    },
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                              child: FractionallySizedBox(
-                            heightFactor: 0.5,
-                          )),
-                          Text(list[i].openingName),
-                          Flexible(
-                              child: FractionallySizedBox(
-                                  widthFactor: 1,
-                                  heightFactor: 1,
-                                  child: Opacity(
-                                      opacity: 0.9,
-                                      child: DecoratedBox(
-                                          decoration: BoxDecoration(
-                                              color: Colors.green)))))
-                        ]))),
+                      }),
+                )),
+              ],
+            )
         ],
       ))
 
