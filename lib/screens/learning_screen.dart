@@ -90,8 +90,6 @@ class _LearningState extends State<LearningScreen> {
             )
         ],
       ))
-
-      // ignore: deprecated_member_use
     ]));
   }
 

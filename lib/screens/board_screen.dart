@@ -20,6 +20,7 @@ class _BoardState extends State<BoardScreen> {
   bool isSwitched = false;
   bool undoneMove = false;
   late String sol;
+  bool chosenColor = false;
   late PlayerColor color = PlayerColor.white;
 
   void undoMove() {
@@ -39,8 +40,6 @@ class _BoardState extends State<BoardScreen> {
   void openingMove() {
     List<String> solSplit = solution.split(',');
     if (moveCount < solSplit.length) {
-      print(solSplit[moveCount]);
-      print(solSplit[moveCount + 1]);
       controller.makeMove(
           from: solSplit[moveCount], to: solSplit[moveCount + 1]);
       moveCount += 2;
@@ -242,15 +241,18 @@ class _BoardState extends State<BoardScreen> {
   @override
   Widget build(BuildContext context) {
     Widget overTheBoard = overTheboard();
-    if (query['query'] == "overtheboard") {
-      // chooseColor();
-      // WidgetsBinding.instance!.addPostFrameCallback((_) => chooseColor());
+    if (query['query'] == "overtheboard" && !chosenColor) {
+      Future.delayed(Duration.zero, () {
+        WidgetsBinding.instance!.addPostFrameCallback((_) => chooseColor());
+      });
+      chosenColor = true;
       return overTheBoard;
     } else if (query['query'] == "opening") {
       Widget opening = openings();
       getOpening(query['name']);
       return opening;
+    } else {
+      return overTheBoard;
     }
-    throw '';
   }
 }
