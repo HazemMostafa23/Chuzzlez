@@ -17,15 +17,18 @@ class UserProvider with ChangeNotifier {
 
   void loadPuzzle(int index) {
     _user.currentLevel = index;
+    notifyListeners();
   }
 
   void setOpened() {
     _user.currentLevel = _user.currentLevel;
+    notifyListeners();
   }
 
   void logOut() {
     _user = Users();
     print(_user.firstName);
+    notifyListeners();
   }
 
   readUser() async {
@@ -34,6 +37,7 @@ class UserProvider with ChangeNotifier {
     _user.lastName = z['lastName'];
     _user.currentLevel = z['currentLevel'];
     _user.completedLevels = z['completedLevels'];
+    notifyListeners();
 
     // _user.firstName = z['firstname'];
     // _user.lastName = z['lastName'];

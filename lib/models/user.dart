@@ -10,6 +10,7 @@ class Users {
       {this.currentLevel = 0,
       this.firstName = "guest",
       this.lastName = "guest"});
+
   Map<String, dynamic> toMap(Users user) {
     var data = Map<String, dynamic>();
 
@@ -20,5 +21,11 @@ class Users {
     data['currentLevel'] = 0;
     data['completedLevels'] = [];
     return data;
+  }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "Current Level: $currentLevel, firstName: $firstName, lastName: $lastName, ";
   }
 }
