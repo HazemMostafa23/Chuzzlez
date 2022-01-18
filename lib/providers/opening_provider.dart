@@ -22,10 +22,6 @@ class OpeningProvider with ChangeNotifier {
     levelCount = _openingsList.length;
   }
 
-  OpeningProvider() {
-    levelCount = _openingsList.length;
-  }
-
   int get getCount {
     return levelCount;
   }
