@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         // )
       ],
       child: MaterialApp(
-        initialRoute: '/home',
+        initialRoute: '/login',
         routes: {
           '/home': (context) => HomeScreen(),
           '/puzzle': (context) => PuzzleBoardScreen(),
