@@ -84,6 +84,7 @@ flutter:
     - images/pieces/wN.png
     - images/pieces/wQ.png
     - images/pieces/wR.png
+    - images/chess_piece_pawn.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
