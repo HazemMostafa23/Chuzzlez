@@ -39,6 +39,8 @@ class _BoardState extends State<BoardScreen> {
   void openingMove() {
     List<String> solSplit = solution.split(',');
     if (moveCount < solSplit.length) {
+      print(solSplit[moveCount]);
+      print(solSplit[moveCount + 1]);
       controller.makeMove(
           from: solSplit[moveCount], to: solSplit[moveCount + 1]);
       moveCount += 2;
