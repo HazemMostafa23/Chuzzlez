@@ -1,4 +1,3 @@
-import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
@@ -15,7 +14,7 @@ class _BoardState extends State<BoardScreen> {
   ChessBoardController controller = ChessBoardController();
   late Map query =
       ModalRoute.of(context)?.settings.arguments as Map<String, String>;
-  late List<String> solution = [];
+  late String solution;
   bool won = false;
   int moveCount = 0;
   bool isSwitched = false;
@@ -38,9 +37,12 @@ class _BoardState extends State<BoardScreen> {
   }
 
   void openingMove() {
-    if (moveCount != solution.length) {
+    List<String> solSplit = solution.split(',');
+    if (moveCount < solSplit.length) {
+      print(solSplit[moveCount]);
+      print(solSplit[moveCount + 1]);
       controller.makeMove(
-          from: solution[moveCount], to: solution[moveCount + 1]);
+          from: solSplit[moveCount], to: solSplit[moveCount + 1]);
       moveCount += 2;
     } else {
       print("Done");
@@ -147,7 +149,7 @@ class _BoardState extends State<BoardScreen> {
           controller: controller,
           boardColor: BoardColor.green,
           boardOrientation: color,
-          // enableUserMoves: false,
+          enableUserMoves: false,
         ),
         ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
@@ -240,7 +242,6 @@ class _BoardState extends State<BoardScreen> {
   @override
   Widget build(BuildContext context) {
     Widget overTheBoard = overTheboard();
-
     if (query['query'] == "overtheboard") {
       // chooseColor();
       // WidgetsBinding.instance!.addPostFrameCallback((_) => chooseColor());

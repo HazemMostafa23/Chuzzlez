@@ -36,9 +36,18 @@ class FireStoreServices {
     return allData;
   }
 
+
   Future<DocumentSnapshot> readUser() async {
     DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
     return documentSnapshot;
+}
+  Future<List> getOpenings() async {
+    QuerySnapshot querySnapshot = await openingsCollection.get();
+
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    return allData;
+
   }
 
   updateClevel(int level) {

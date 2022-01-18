@@ -118,10 +118,14 @@ class _BoardState extends State<PuzzleBoardScreen> {
                 .getUser
                 .completedLevels
                 .add(levelNumber + 1);
-            instance.updateCompletedLevels(
-                Provider.of<UserProvider>(context, listen: false)
-                    .getUser
-                    .completedLevels);
+            try {
+              instance.updateCompletedLevels(
+                  Provider.of<UserProvider>(context, listen: false)
+                      .getUser
+                      .completedLevels);
+            } catch (e) {
+              print(e);
+            }
           });
         }
       } else {

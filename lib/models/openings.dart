@@ -1,6 +1,6 @@
 class Openings {
   String openingName;
-  List<String> solution;
+  String solution;
 
   Openings({required this.openingName, required this.solution});
 }

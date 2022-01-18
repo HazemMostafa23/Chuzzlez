@@ -82,7 +82,7 @@ class Profile extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Text(
-                                      "Games ",
+                                      "Won",
                                       style: TextStyle(
                                         color: Colors.teal.shade400,
                                         fontSize: 22.0,
@@ -93,7 +93,7 @@ class Profile extends StatelessWidget {
                                       height: 5.0,
                                     ),
                                     Text(
-                                      "20",
+                                      "${_user.completedLevels.length}",
                                       style: TextStyle(
                                         fontSize: 20.0,
                                         color: Colors.teal.shade400,
@@ -106,7 +106,7 @@ class Profile extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Text(
-                                      "Wins",
+                                      "Games",
                                       style: TextStyle(
                                         color: Colors.teal.shade400,
                                         fontSize: 22.0,
@@ -117,7 +117,7 @@ class Profile extends StatelessWidget {
                                       height: 5.0,
                                     ),
                                     Text(
-                                      "15",
+                                      "NA",
                                       style: TextStyle(
                                         fontSize: 20.0,
                                         color: Colors.teal.shade400,
@@ -140,33 +140,33 @@ class Profile extends StatelessWidget {
           Container(
             width: 300.00,
             // ignore: deprecated_member_use
-            child: RaisedButton(
-                onPressed: () {},
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
-                elevation: 0.0,
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft,
-                        colors: [Colors.teal.shade400, Colors.teal.shade600]),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Container(
-                    constraints:
-                        BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Edit profile",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ),
-                )),
+            // child: RaisedButton(
+            //     onPressed: () {},
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(80.0)),
+            //     elevation: 0.0,
+            //     padding: EdgeInsets.all(0.0),
+            //     child: Ink(
+            //       decoration: BoxDecoration(
+            //         gradient: LinearGradient(
+            //             begin: Alignment.centerRight,
+            //             end: Alignment.centerLeft,
+            //             colors: [Colors.teal.shade400, Colors.teal.shade600]),
+            //         borderRadius: BorderRadius.circular(30.0),
+            //       ),
+            //       child: Container(
+            //         constraints:
+            //             BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
+            //         alignment: Alignment.center,
+            //         child: Text(
+            //           "Edit profile",
+            //           style: TextStyle(
+            //               color: Colors.white,
+            //               fontSize: 26.0,
+            //               fontWeight: FontWeight.w300),
+            //         ),
+            //       ),
+            //     )),
           ),
           SizedBox(
             height: 20.0,
