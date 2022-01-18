@@ -43,8 +43,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => OpeningProvider()),
 
         Provider<AuthenticationService>(
-          create: (_) => AuthenticationService(FirebaseAuth.instance),
-        ),
+            create: (_) => AuthenticationService(FirebaseAuth.instance)),
+
         // StreamProvider(
         //   create: (context) =>
         //       context.read<AuthenticationService>().authStateChanges,

@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:chuzzlez/providers/user_provider.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;

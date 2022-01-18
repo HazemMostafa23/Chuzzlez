@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
+import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -13,17 +15,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+  var currentLevel = 0;
+
   loadData() async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      await Provider.of<UserProvider>(context, listen: false).readUser();
+      setState(() {
+        currentLevel = Provider.of<UserProvider>(context, listen: false)
+            .getUser
+            .currentLevel;
+      });
+    } catch (e) {
+      currentLevel = Provider.of<UserProvider>(context, listen: false)
+          .getUser
+          .currentLevel;
+
+      print(e);
+    }
+
     await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
+    await Provider.of<OpeningProvider>(context, listen: false).readMap();
   }
 
   void initState() {
-    // pgns = Provider.of<BoardProvider>(context, listen: false).pgns;
-    // levelNumber = Provider.of<BoardProvider>(context, listen: false).levelCount;
-    // moveCount = Provider.of<BoardProvider>(context, listen: false).moveCount;
-    // solution =
-    //     Provider.of<BoardProvider>(context, listen: false).solutions[levelNumber];
-    // controller = Provider.of<BoardProvider>(context, listen: false).controller;
     loadData();
     super.initState();
   }
@@ -31,10 +47,6 @@ class _HomeState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xFF3dc2bf),=
-      // appBar: AppBar(
-      //   title: const Text('Chuzzlez'),
-      // ),
       body: Stack(
         children: [
           Container(
@@ -88,92 +100,107 @@ class _HomeState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  OutlinedButton(
-                    onPressed: () {
-                      Provider.of<UserProvider>(context, listen: false)
-                          .setOpened();
-                      Navigator.pushNamed(context, '/puzzle');
-                    },
-                    child: Column(children: [
-                      Text('Play',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          )),
-                      Consumer<UserProvider>(
-                          builder: (context, UserProvider user, child) {
-                        return Text('Level ${user.getUser.currentLevel + 1}',
+                  if (_selectedIndex == 0)
+                    OutlinedButton(
+                      onPressed: () {
+                        Provider.of<UserProvider>(context, listen: false)
+                            .setOpened();
+                        Navigator.pushNamed(context, '/puzzle');
+                      },
+                      child: Column(children: [
+                        Text('Play',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            )),
+                        Text('Level ${currentLevel + 1}',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
-                            ));
-                      })
-                    ]),
-                    style: OutlinedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(color: Colors.black),
-                    ),
-                  )
+                            ))
+                      ]),
+                      style: OutlinedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        side: BorderSide(color: Colors.black),
+                      ),
+                    )
                 ],
               ),
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/puzzlelist');
-                    },
-                    child: Text('Puzzles List',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        )),
-                    style: OutlinedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(color: Colors.black),
+              if (_selectedIndex == 1)
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/puzzlelist');
+                      },
+                      child: Text('Puzzles List',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          )),
+                      style: OutlinedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        side: BorderSide(color: Colors.black),
+                      ),
                     ),
-                  ),
-                  OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/board',
-                          arguments: {'query': 'overtheboard'});
-                    },
-                    child: Text('Co-op Match',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        )),
-                    style: OutlinedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(color: Colors.black),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/board',
+                            arguments: {'query': 'overtheboard'});
+                      },
+                      child: Text('Co-op Match',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          )),
+                      style: OutlinedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        side: BorderSide(color: Colors.black),
+                      ),
                     ),
-                  ),
-                  OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/learning',
-                          arguments: {'query': 'concepts'});
-                    },
-                    child: Text('Learning',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        )),
-                    style: OutlinedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(color: Colors.black),
-                    ),
-                  ),
-                ],
-              )
+                  ],
+                ),
             ],
           )
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        backgroundColor: Colors.teal,
+        iconSize: 40,
+        selectedIconTheme: IconThemeData(color: Colors.white, size: 40),
+        selectedItemColor: Colors.amberAccent,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.gamepad),
+            label: 'Play',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.leaderboard),
+            label: 'Puzzles',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book_sharp),
+            label: 'Learning',
+          ),
+        ],
+      ),
     );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (_selectedIndex == 2) {
+        Navigator.pushNamed(context, '/learning',
+            arguments: {'query': 'concepts'});
+      }
+    });
   }
 }
