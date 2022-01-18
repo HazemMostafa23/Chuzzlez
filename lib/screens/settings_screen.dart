@@ -11,7 +11,43 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _auth = FirebaseAuth.instance;
-
+    var outputButton;
+    try {
+      String? uid = FirebaseAuth.instance.currentUser!.uid;
+      outputButton = OutlinedButton(
+        onPressed: () {
+          _auth.signOut();
+          Provider.of<UserProvider>(context, listen: false).logOut();
+          Navigator.pushNamed(context, '/home');
+        },
+        child: Text('Log Out',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            )),
+        style: OutlinedButton.styleFrom(
+          shape: StadiumBorder(),
+          side: BorderSide(color: Colors.black),
+        ),
+      );
+    } catch (e) {
+      outputButton = OutlinedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/login');
+        },
+        child: Text('Log In',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            )),
+        style: OutlinedButton.styleFrom(
+          shape: StadiumBorder(),
+          side: BorderSide(color: Colors.black),
+        ),
+      );
+    }
     return Scaffold(
         body: Column(children: [
       OutlinedButton(
@@ -120,25 +156,7 @@ class SettingsScreen extends StatelessWidget {
       SizedBox(height: 50),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          OutlinedButton(
-            onPressed: () {
-              _auth.signOut();
-              Provider.of<UserProvider>(context, listen: false).logOut();
-              Navigator.pushNamed(context, '/home');
-            },
-            child: Text('Log Out',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                )),
-            style: OutlinedButton.styleFrom(
-              shape: StadiumBorder(),
-              side: BorderSide(color: Colors.black),
-            ),
-          ),
-        ],
+        children: [outputButton],
       )
     ]));
   }

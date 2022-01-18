@@ -4,6 +4,8 @@ import 'package:chuzzlez/models/puzzles.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chuzzlez/services/fire_store_services.dart';
 
 class PuzzleBoardScreen extends StatefulWidget {
   PuzzleBoardScreen({Key? key}) : super(key: key);
@@ -19,7 +21,7 @@ class _BoardState extends State<PuzzleBoardScreen> {
   late int moveCount;
   late String solution;
   bool won = false;
-
+  late FireStoreServices instance = FireStoreServices();
   void alertWin() {
     AlertDialog alert = AlertDialog(
         content: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -51,13 +53,24 @@ class _BoardState extends State<PuzzleBoardScreen> {
 
   void loadPuzzle() {
     levelNumber =
-        Provider.of<UserProvider>(context, listen: false).getUser.openedLevel;
+        Provider.of<UserProvider>(context, listen: false).getUser.currentLevel;
     puzzle = Provider.of<PuzzlesProvider>(context, listen: false)
         .getPuzzle(levelNumber);
     controller.loadPGN(puzzle.pgn);
     // controller.clearBoard();
     moveCount = 0;
     solution = puzzle.solution;
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      instance.updateClevel(levelNumber);
+      Provider.of<UserProvider>(context, listen: false).getUser.currentLevel =
+          levelNumber;
+      print(Provider.of<UserProvider>(context, listen: false)
+          .getUser
+          .currentLevel);
+    } catch (e) {
+      print(e);
+    }
   }
 
   void loadOpening() {}
@@ -101,6 +114,18 @@ class _BoardState extends State<PuzzleBoardScreen> {
           setState(() {
             this.won = true;
             alertWin();
+            Provider.of<UserProvider>(context, listen: false)
+                .getUser
+                .completedLevels
+                .add(levelNumber + 1);
+            try {
+              instance.updateCompletedLevels(
+                  Provider.of<UserProvider>(context, listen: false)
+                      .getUser
+                      .completedLevels);
+            } catch (e) {
+              print(e);
+            }
           });
         }
       } else {
@@ -146,10 +171,11 @@ class _BoardState extends State<PuzzleBoardScreen> {
                 var count = Provider.of<PuzzlesProvider>(context, listen: false)
                     .getPuzzles
                     .length;
-                Provider.of<UserProvider>(context, listen: false)
-                    .getUser
-                    .openedLevel += 1;
+
                 if (levelNumber != count - 1) {
+                  Provider.of<UserProvider>(context, listen: false)
+                      .getUser
+                      .currentLevel += 1;
                   setState(() {
                     won = false;
                   });

@@ -20,23 +20,24 @@ class _HomeState extends State<HomeScreen> {
 
   loadData() async {
     try {
-      String uid = FirebaseAuth.instance.currentUser!.uid;
+      String? uid = FirebaseAuth.instance.currentUser!.uid;
       await Provider.of<UserProvider>(context, listen: false).readUser();
+    } catch (e) {
       setState(() {
         currentLevel = Provider.of<UserProvider>(context, listen: false)
             .getUser
             .currentLevel;
       });
-    } catch (e) {
-      currentLevel = Provider.of<UserProvider>(context, listen: false)
-          .getUser
-          .currentLevel;
-
-      print(e);
+    } finally {
+      setState(() {
+        currentLevel = Provider.of<UserProvider>(context, listen: false)
+            .getUser
+            .currentLevel;
+      });
     }
-
-    await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
-    await Provider.of<OpeningProvider>(context, listen: false).readMap();
+    if (Provider.of<PuzzlesProvider>(context, listen: false).read == false) {
+      await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
+    }
   }
 
   void initState() {
@@ -105,7 +106,14 @@ class _HomeState extends State<HomeScreen> {
                       onPressed: () {
                         Provider.of<UserProvider>(context, listen: false)
                             .setOpened();
-                        Navigator.pushNamed(context, '/puzzle');
+                        Navigator.pushNamed(context, '/puzzle').then((value) {
+                          setState(() {
+                            currentLevel = Provider.of<UserProvider>(context,
+                                    listen: false)
+                                .getUser
+                                .currentLevel;
+                          });
+                        });
                       },
                       child: Column(children: [
                         Text('Play',
@@ -128,7 +136,15 @@ class _HomeState extends State<HomeScreen> {
                     ),
                     OutlinedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/puzzlelist');
+                        Navigator.pushNamed(context, '/puzzlelist')
+                            .then((value) {
+                          setState(() {
+                            currentLevel = Provider.of<UserProvider>(context,
+                                    listen: false)
+                                .getUser
+                                .currentLevel;
+                          });
+                        });
                       },
                       child: Text('Puzzles List',
                           style: TextStyle(
