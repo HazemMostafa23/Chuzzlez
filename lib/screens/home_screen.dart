@@ -43,6 +43,9 @@ class _HomeState extends State<HomeScreen> {
       if (Provider.of<PuzzlesProvider>(context, listen: false).read == false) {
         await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
       }
+      if (Provider.of<OpeningProvider>(context, listen: false).read == false) {
+        await Provider.of<OpeningProvider>(context, listen: false).readMap();
+      }
     }
   }
 
@@ -261,10 +264,6 @@ class _HomeState extends State<HomeScreen> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      // if (_selectedIndex == 2) {
-      //   Navigator.pushNamed(context, '/learning',
-      //       arguments: {'query': 'concepts'});
-      // }
     });
   }
 }
