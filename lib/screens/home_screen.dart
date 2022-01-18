@@ -96,11 +96,11 @@ class _HomeState extends State<HomeScreen> {
                   )
                 ],
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (_selectedIndex == 0)
+              if (_selectedIndex == 0)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     OutlinedButton(
                       onPressed: () {
                         Provider.of<UserProvider>(context, listen: false)
@@ -125,13 +125,7 @@ class _HomeState extends State<HomeScreen> {
                         shape: StadiumBorder(),
                         side: BorderSide(color: Colors.black),
                       ),
-                    )
-                ],
-              ),
-              if (_selectedIndex == 1)
-                ButtonBar(
-                  alignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                    ),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/puzzlelist');
@@ -147,6 +141,29 @@ class _HomeState extends State<HomeScreen> {
                         side: BorderSide(color: Colors.black),
                       ),
                     ),
+                  ],
+                ),
+              if (_selectedIndex == 1)
+                ButtonBar(
+                  alignment: MainAxisAlignment.center,
+                  // alignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // OutlinedButton(
+                    //   onPressed: () {
+                    //     Navigator.pushNamed(context, '/board',
+                    //         arguments: {'query': 'overtheboard'});
+                    //   },
+                    //   child: Text('Online Match',
+                    //       style: TextStyle(
+                    //         fontSize: 20,
+                    //         fontWeight: FontWeight.bold,
+                    //         color: Colors.black,
+                    //       )),
+                    //   style: OutlinedButton.styleFrom(
+                    //     shape: StadiumBorder(),
+                    //     side: BorderSide(color: Colors.black),
+                    //   ),
+                    // ),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/board',
@@ -162,7 +179,7 @@ class _HomeState extends State<HomeScreen> {
                         shape: StadiumBorder(),
                         side: BorderSide(color: Colors.black),
                       ),
-                    ),
+                    )
                   ],
                 ),
             ],
