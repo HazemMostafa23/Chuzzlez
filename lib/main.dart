@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
+import 'package:chuzzlez/providers/leaderboard_provider.dart';
 import 'screens/puzzle_board_screen.dart';
 import 'screens/puzzle_creator_screen.dart';
 import 'screens/puzzles_list_screen.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
           create: (context) => PuzzlesProvider(),
         ),
         ChangeNotifierProvider(create: (context) => OpeningProvider()),
-
+        ChangeNotifierProvider(create: (context) => LeaderboardProvider()),
         Provider<AuthenticationService>(
             create: (_) => AuthenticationService(FirebaseAuth.instance)),
 
