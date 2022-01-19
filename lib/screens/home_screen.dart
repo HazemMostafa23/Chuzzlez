@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+import 'package:chuzzlez/providers/leaderboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
@@ -46,6 +47,7 @@ class _HomeState extends State<HomeScreen> {
       if (Provider.of<OpeningProvider>(context, listen: false).read == false) {
         await Provider.of<OpeningProvider>(context, listen: false).readMap();
       }
+      Provider.of<LeaderboardProvider>(context, listen: false).readScoreBoard();
     }
   }
 
