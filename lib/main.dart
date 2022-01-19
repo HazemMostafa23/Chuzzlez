@@ -1,4 +1,5 @@
 import 'package:chuzzlez/providers/opening_provider.dart';
+import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
 import 'package:chuzzlez/screens/register_screen.dart';
@@ -17,6 +18,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:chuzzlez/screens/profile_screen.dart';
+import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'services/authentication_services.dart';
 
 void main() async {
@@ -64,6 +66,7 @@ class MyApp extends StatelessWidget {
           '/learning': (context) => LearningScreen(),
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
+          '/leaderboard': (context) => LeaderboardScreen(),
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),
