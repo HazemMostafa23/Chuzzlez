@@ -7,6 +7,7 @@ class OpeningProvider with ChangeNotifier {
   late FireStoreServices instance = FireStoreServices();
   late int levelCount;
   late int length;
+  bool read = false;
 
   readMap() async {
     var openingsMaps = await instance.getOpenings();
@@ -20,6 +21,7 @@ class OpeningProvider with ChangeNotifier {
       }
     }
     levelCount = _openingsList.length;
+    read = true;
   }
 
   OpeningProvider() {
