@@ -1,4 +1,5 @@
 import 'package:chuzzlez/providers/opening_provider.dart';
+import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
 import 'package:chuzzlez/screens/register_screen.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
+import 'package:chuzzlez/providers/leaderboard_provider.dart';
 import 'screens/puzzle_board_screen.dart';
 import 'screens/puzzle_creator_screen.dart';
 import 'screens/puzzles_list_screen.dart';
@@ -17,6 +19,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:chuzzlez/screens/profile_screen.dart';
+import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'services/authentication_services.dart';
 
 void main() async {
@@ -41,7 +44,7 @@ class MyApp extends StatelessWidget {
           create: (context) => PuzzlesProvider(),
         ),
         ChangeNotifierProvider(create: (context) => OpeningProvider()),
-
+        ChangeNotifierProvider(create: (context) => LeaderboardProvider()),
         Provider<AuthenticationService>(
             create: (_) => AuthenticationService(FirebaseAuth.instance)),
 
@@ -64,6 +67,7 @@ class MyApp extends StatelessWidget {
           '/learning': (context) => LearningScreen(),
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
+          '/leaderboard': (context) => LeaderboardScreen(),
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),

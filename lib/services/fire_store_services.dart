@@ -17,6 +17,9 @@ class FireStoreServices {
       FirebaseFirestore.instance.collection('users');
   CollectionReference openingsCollection =
       FirebaseFirestore.instance.collection('openings');
+  Query scoreReference = FirebaseFirestore.instance
+      .collection("users")
+      .orderBy('total_score', descending: true);
 
   // String? uid = FirebaseAuth.instance.currentUser?.uid;
   Future<List> getLevels() async {
@@ -56,9 +59,21 @@ class FireStoreServices {
         .update({'currentLevel': level});
   }
 
+  updateuScore(double score) {
+    usersCollection
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({'total_score': score});
+  }
+
   updateCompletedLevels(List levels) {
     usersCollection
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .update({'completedLevels': levels});
+  }
+
+  getScores() async {
+    QuerySnapshot querySnapshot = await scoreReference.get();
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    return allData;
   }
 }

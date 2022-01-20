@@ -22,6 +22,9 @@ class _BoardState extends State<PuzzleBoardScreen> {
   late String solution;
   bool won = false;
   late FireStoreServices instance = FireStoreServices();
+  late double score = 0;
+  late double factor = 1;
+  late double total_score = 0;
   void alertWin() {
     AlertDialog alert = AlertDialog(
         content: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -30,7 +33,7 @@ class _BoardState extends State<PuzzleBoardScreen> {
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
-              ))
+              )),
         ]),
         actions: [
           ElevatedButton(
@@ -49,6 +52,9 @@ class _BoardState extends State<PuzzleBoardScreen> {
         return alert;
       },
     );
+    setState(() {
+      score = score;
+    });
   }
 
   void loadPuzzle() {
@@ -109,28 +115,48 @@ class _BoardState extends State<PuzzleBoardScreen> {
           // print(solFinal[2]);
           controller.makeMoveWithNormalNotation(solFinal[2]);
           moveCount++;
+          score = score + 200;
+          score = score / factor;
+          setState(() {
+            score = score;
+          });
         } else {
           // print('you won');
           setState(() {
             this.won = true;
+            score = score + 200;
             alertWin();
-            Provider.of<UserProvider>(context, listen: false)
+            if (!Provider.of<UserProvider>(context, listen: false)
                 .getUser
                 .completedLevels
-                .add(levelNumber + 1);
-            try {
-              instance.updateCompletedLevels(
-                  Provider.of<UserProvider>(context, listen: false)
+                .contains(levelNumber + 1)) {
+              Provider.of<UserProvider>(context, listen: false)
+                  .getUser
+                  .completedLevels
+                  .add(levelNumber + 1);
+              total_score = Provider.of<UserProvider>(context, listen: false)
                       .getUser
-                      .completedLevels);
-            } catch (e) {
-              print(e);
+                      .total_score +
+                  score.ceil();
+              print(total_score);
+
+              try {
+                instance.updateCompletedLevels(
+                    Provider.of<UserProvider>(context, listen: false)
+                        .getUser
+                        .completedLevels);
+                instance.updateuScore(total_score);
+              } catch (e) {
+                print(e);
+              }
             }
           });
         }
       } else {
         controller.game.undo_move();
         controller.notifyListeners();
+        factor += 0.1;
+        print(factor);
       }
     } else {
       // print('else');
@@ -143,7 +169,14 @@ class _BoardState extends State<PuzzleBoardScreen> {
       body: ListView(children: [
         SizedBox(height: 7),
         Center(
-            child: Text('Level ${levelNumber + 1}',
+            child: Text(' Level ${levelNumber + 1}',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ))),
+        Center(
+            child: Text('Score',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -166,6 +199,12 @@ class _BoardState extends State<PuzzleBoardScreen> {
                 side: BorderSide(color: Colors.black),
               ),
             ),
+            Text("   " + score.ceil().toString(),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                )),
             OutlinedButton(
               onPressed: () {
                 var count = Provider.of<PuzzlesProvider>(context, listen: false)
