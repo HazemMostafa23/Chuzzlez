@@ -21,14 +21,14 @@ class _HomeState extends State<HomeScreen> {
 
   loadData() async {
     try {
-      print(
-          Provider.of<UserProvider>(context, listen: false).getUser.toString());
-      print("AUTH" + FirebaseAuth.instance.currentUser.toString());
+      // print(
+      //     Provider.of<UserProvider>(context, listen: false).getUser.toString());
+      // print("AUTH" + FirebaseAuth.instance.currentUser.toString());
       String? uid = FirebaseAuth.instance.currentUser!.uid;
       await Provider.of<UserProvider>(context, listen: false).readUser();
-      print(
-          Provider.of<UserProvider>(context, listen: false).getUser.toString());
-      print("AUTH1" + FirebaseAuth.instance.currentUser.toString());
+      // print(
+      //     Provider.of<UserProvider>(context, listen: false).getUser.toString());
+      // print("AUTH1" + FirebaseAuth.instance.currentUser.toString());
     } catch (e) {
       setState(() {
         currentLevel = Provider.of<UserProvider>(context, listen: false)
@@ -183,6 +183,24 @@ class _HomeState extends State<HomeScreen> {
                       child: Text('Co-op Match',
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width / 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          )),
+                      style: OutlinedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        side: BorderSide(color: Colors.black),
+                      ),
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/leaderboard',
+                        );
+                      },
+                      child: Text('Leaderboard',
+                          style: TextStyle(
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           )),
