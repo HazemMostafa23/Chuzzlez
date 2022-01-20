@@ -51,11 +51,11 @@ class _BoardState extends State<BoardScreen> {
   Widget overTheboard() {
     return Scaffold(
       body: ListView(children: [
-        SizedBox(height: 7),
+        SizedBox(height: MediaQuery.of(context).size.height / 22),
         Center(
             child: Text('Chuzzlez',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: MediaQuery.of(context).size.width / 15,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ))),
@@ -118,11 +118,11 @@ class _BoardState extends State<BoardScreen> {
   Widget openings() {
     return Scaffold(
       body: ListView(children: [
-        SizedBox(height: 7),
+        SizedBox(height: MediaQuery.of(context).size.height / 22),
         Center(
             child: Text(query['name'],
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: MediaQuery.of(context).size.width / 10,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ))),
@@ -191,7 +191,7 @@ class _BoardState extends State<BoardScreen> {
         content: Column(mainAxisSize: MainAxisSize.min, children: [
           Text('Choose your color',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: MediaQuery.of(context).size.width / 12,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ))
@@ -207,7 +207,10 @@ class _BoardState extends State<BoardScreen> {
               },
               child: Text(
                 'White',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: MediaQuery.of(context).size.width / 15,
+                ),
               )),
           ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Colors.teal[400]),
@@ -219,7 +222,10 @@ class _BoardState extends State<BoardScreen> {
               },
               child: Text(
                 'Black',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: MediaQuery.of(context).size.width / 15,
+                ),
               ))
         ]);
     showDialog(
