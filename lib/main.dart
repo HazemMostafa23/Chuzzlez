@@ -2,6 +2,7 @@ import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
+import 'package:chuzzlez/screens/friends_screen.dart';
 import 'package:chuzzlez/screens/register_screen.dart';
 import 'package:chuzzlez/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
         // )
       ],
       child: MaterialApp(
-        initialRoute: '/home',
+        initialRoute: '/login',
         routes: {
           '/home': (context) => HomeScreen(),
           '/puzzle': (context) => PuzzleBoardScreen(),
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
           '/leaderboard': (context) => LeaderboardScreen(),
+          '/friends': (context) => FriendsScreen(),
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),
