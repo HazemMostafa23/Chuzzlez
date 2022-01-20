@@ -76,4 +76,27 @@ class FireStoreServices {
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     return allData;
   }
+
+  Future getPosts() async {
+    var collection = FirebaseFirestore.instance.collection('users');
+    var querySnapshots = await collection.get();
+    return querySnapshots.docs.toList();
+  }
+
+  deleteUser(docID) {
+    FirebaseFirestore.instance.collection('users').doc(docID).delete();
+  }
+
+  deletePuzzle(puzzleID) {
+    FirebaseFirestore.instance.collection('Levels').doc(puzzleID).delete();
+  }
+
+  addPuzzle(int levelNumber, String pgn, String solution) async {
+    var map = {'levelNumber': levelNumber, 'pgn': pgn, 'solution': solution};
+
+    await FirebaseFirestore.instance
+        .collection("Levels")
+        .doc(levelNumber.toString())
+        .set(map);
+  }
 }

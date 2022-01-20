@@ -24,9 +24,15 @@ class _RegisterationState extends State<RegisterScreen> {
   final TextEditingController confirmPasswordEditingController =
       TextEditingController();
   final _auth = FirebaseAuth.instance;
+  late var role;
   late String errorMessage;
   @override
   Widget build(BuildContext context) {
+    ModalRoute.of(context)?.settings.arguments;
+    Map<String, Object> args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
+    role = args['role'];
+
     final firstNameField = TextFormField(
       autofocus: false,
       controller: firstNameEditingController,
@@ -288,7 +294,7 @@ class _RegisterationState extends State<RegisterScreen> {
     userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;
     userModel.lastName = secondNameEditingController.text;
-
+    userModel.isAdmin = role;
     await firebaseFirestore
         .collection("users")
         .doc(user.uid)

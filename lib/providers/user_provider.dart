@@ -27,12 +27,14 @@ class UserProvider with ChangeNotifier {
 
   void logOut() {
     _user = Users();
-    print(_user.firstName);
+    // print(_user.firstName);
     notifyListeners();
   }
 
   readUser() async {
     var z = await instance.readUser();
+
+    // print(z['isAdmin']);
     _user.firstName = z['firstname'];
     _user.lastName = z['lastName'];
     _user.currentLevel = z['currentLevel'];

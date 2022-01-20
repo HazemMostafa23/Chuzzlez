@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors, unused_field, unused_local_variable, unnecessary_new, avoid_print, use_key_in_widget_constructors
 
+import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:chuzzlez/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -116,7 +118,8 @@ class _LoginState extends State<LoginScreen> {
                         Text("Don't have an account?"),
                         GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, '/register');
+                              Navigator.pushNamed(context, '/register',
+                                  arguments: {'role': true});
                             },
                             child: Text(
                               "Sign up",
@@ -147,6 +150,7 @@ class _LoginState extends State<LoginScreen> {
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => HomeScreen())),
                 });
+        await Provider.of<UserProvider>(context, listen: false).readUser();
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":

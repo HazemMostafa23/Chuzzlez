@@ -25,7 +25,7 @@ class Users {
     data['currentLevel'] = 0;
     data['completedLevels'] = [];
     data['total_score'] = 0;
-    data['isAdmin'] = 0;
+    data['isAdmin'] = user.isAdmin;
     return data;
   }
 
