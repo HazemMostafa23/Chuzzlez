@@ -25,7 +25,7 @@ class _PuzzleState extends State<PuzzleListScreen> {
     return Scaffold(
         body: Column(children: [
       SizedBox(
-        height: 35,
+        height: MediaQuery.of(context).size.height / 15,
       ),
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +33,7 @@ class _PuzzleState extends State<PuzzleListScreen> {
         children: [
           Text('Puzzles List',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: MediaQuery.of(context).size.height / 15,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               )),
@@ -43,7 +43,8 @@ class _PuzzleState extends State<PuzzleListScreen> {
         Align(
           alignment: Alignment.topLeft,
           child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 100),
               child: OutlinedButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -61,7 +62,8 @@ class _PuzzleState extends State<PuzzleListScreen> {
         Align(
             alignment: Alignment.topRight,
             child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 100),
                 child: OutlinedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/puzzlecreator');
@@ -79,8 +81,8 @@ class _PuzzleState extends State<PuzzleListScreen> {
       Flexible(
           child: GridView.count(
         crossAxisCount: 4,
-        crossAxisSpacing: 5.0,
-        mainAxisSpacing: 5.0,
+        crossAxisSpacing: MediaQuery.of(context).size.height / 80,
+        mainAxisSpacing: MediaQuery.of(context).size.width / 80,
         children: [
           for (int i = 0; i < number; i++)
             Card(
@@ -108,8 +110,6 @@ class _PuzzleState extends State<PuzzleListScreen> {
                           Text("Level " + (i + 1).toString()),
                           Flexible(
                               child: FractionallySizedBox(
-                                  // height: 35,
-                                  // width: 80,
                                   widthFactor: 1,
                                   heightFactor: 1,
                                   child: completedLevels.contains(i + 1)
