@@ -217,6 +217,8 @@ class _BoardState extends State<PuzzleBoardScreen> {
                       .currentLevel += 1;
                   setState(() {
                     won = false;
+                    score = 0;
+                    total_score = 0;
                   });
                   loadPuzzle();
                 }
