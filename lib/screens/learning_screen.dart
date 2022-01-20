@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:chuzzlez/models/puzzles.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:provider/provider.dart';
+import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 
 class LearningScreen extends StatefulWidget {
@@ -19,92 +20,77 @@ class _LearningState extends State<LearningScreen> {
 
   @override
   void initState() {
-    // if (query == "concepts") {
-    //   return concepts();
-    // } else if (query == "openings") {
-    //   return openings();
-    // }
     super.initState();
   }
 
   Widget openings() {
+    int number = Provider.of<OpeningProvider>(context, listen: false).getCount;
+    var list = Provider.of<OpeningProvider>(context, listen: false).getOpenings;
     return Scaffold(
-      body: ListView(children: [
-        SizedBox(height: 7),
-        Center(
-            child: Text('Openings',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ))),
-        ButtonBar(
-          alignment: MainAxisAlignment.spaceBetween,
-          children: [
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
+        body: Column(children: [
+      SizedBox(
+        height: 35,
+      ),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Openings',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
                 color: Colors.black,
-              ),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
-              ),
-            ),
-          ],
+              )),
+        ],
+      ),
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              child: OutlinedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(color: Colors.black),
+                ),
+              )),
         ),
-        SizedBox(
-          height: 20,
-        ),
-        ButtonBar(
-          alignment: MainAxisAlignment.spaceBetween,
-          children: [
-            OutlinedButton(
-              onPressed: () {},
-              child: Text('Opening 1',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
-              ),
-            ),
-            OutlinedButton(
-              onPressed: () {},
-              child: Text('Opening 2',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
-              ),
-            ),
-            OutlinedButton(
-              onPressed: () {},
-              child: Text('Opening 3',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
-              ),
-            ),
-          ],
-        )
       ]),
-    );
+      Flexible(
+          child: GridView.count(
+        crossAxisCount: 2,
+        childAspectRatio: 10 / 4,
+        crossAxisSpacing: 0,
+        mainAxisSpacing: 1.0,
+        children: [
+          for (int i = 0; i < number; i++)
+            ListView(
+              children: <Widget>[
+                Container(
+                    child: ListTile(
+                  title: Text(list[i].openingName),
+                  dense: true,
+                  leading:
+                      Image(image: AssetImage('images/chess_piece_pawn.png')),
+                  tileColor: Colors.blueGrey,
+                  onTap: () => Navigator.pushNamed(context, '/board',
+                      arguments: {
+                        'query': 'opening',
+                        'name': list[i].openingName
+                      }),
+                )),
+              ],
+            )
+        ],
+      ))
+    ]));
   }
 
   Widget concepts() {
@@ -112,7 +98,7 @@ class _LearningState extends State<LearningScreen> {
       body: ListView(children: [
         SizedBox(height: 7),
         Center(
-            child: Text('widget 1',
+            child: Text('Learning',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

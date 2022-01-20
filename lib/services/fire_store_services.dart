@@ -11,25 +11,68 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FireStoreServices {
-  CollectionReference _collectionRef =
+  CollectionReference levelsCollection =
       FirebaseFirestore.instance.collection('Levels');
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+  CollectionReference openingsCollection =
+      FirebaseFirestore.instance.collection('openings');
+  Query scoreReference = FirebaseFirestore.instance
+      .collection("users")
+      .orderBy('total_score', descending: true);
 
-  Future<Map> getData() async {
+  // String? uid = FirebaseAuth.instance.currentUser?.uid;
+  Future<List> getLevels() async {
     // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _collectionRef.get();
+    QuerySnapshot querySnapshot = await levelsCollection.get();
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-
-    var x = allData[0] as Map;
-    return x;
+    return allData;
   }
 
-  Future<List> getAll() async {
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _collectionRef.get();
+  Future<List> getUsers() async {
+    QuerySnapshot querySnapshot = await usersCollection.get();
 
     // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    return allData;
+  }
+
+  Future<DocumentSnapshot> readUser() async {
+    DocumentSnapshot documentSnapshot =
+        await usersCollection.doc(FirebaseAuth.instance.currentUser?.uid).get();
+    return documentSnapshot;
+  }
+
+  Future<List> getOpenings() async {
+    QuerySnapshot querySnapshot = await openingsCollection.get();
+
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    return allData;
+  }
+
+  updateClevel(int level) {
+    usersCollection
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({'currentLevel': level});
+  }
+
+  updateuScore(double score) {
+    usersCollection
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({'total_score': score});
+  }
+
+  updateCompletedLevels(List levels) {
+    usersCollection
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({'completedLevels': levels});
+  }
+
+  getScores() async {
+    QuerySnapshot querySnapshot = await scoreReference.get();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     return allData;
   }

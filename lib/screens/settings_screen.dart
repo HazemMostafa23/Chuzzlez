@@ -1,12 +1,59 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import '../models/user.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chuzzlez/providers/user_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // final _auth = FirebaseAuth.instance;
+    var outputButton;
+    if (FirebaseAuth.instance.currentUser != null) {
+      outputButton = OutlinedButton(
+        onPressed: () {
+          FirebaseAuth.instance.signOut().then((value) {
+            print("Signed out");
+            Provider.of<UserProvider>(context, listen: false).logOut();
+            Navigator.pushNamed(context, '/home', arguments: "logout");
+            print(FirebaseAuth.instance.currentUser.toString());
+          }, onError: (e) {
+            print("signed out error" + e);
+          });
+        },
+        child: Text('Log Out',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            )),
+        style: OutlinedButton.styleFrom(
+          shape: StadiumBorder(),
+          side: BorderSide(color: Colors.black),
+        ),
+      );
+    } else {
+      outputButton = OutlinedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/login');
+        },
+        child: Text('Log In',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            )),
+        style: OutlinedButton.styleFrom(
+          shape: StadiumBorder(),
+          side: BorderSide(color: Colors.black),
+        ),
+      );
+    }
     return Scaffold(
         body: Column(children: [
       OutlinedButton(
@@ -115,21 +162,7 @@ class SettingsScreen extends StatelessWidget {
       SizedBox(height: 50),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          OutlinedButton(
-            onPressed: () {},
-            child: Text('Log Out',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                )),
-            style: OutlinedButton.styleFrom(
-              shape: StadiumBorder(),
-              side: BorderSide(color: Colors.black),
-            ),
-          ),
-        ],
+        children: [outputButton],
       )
     ]));
   }

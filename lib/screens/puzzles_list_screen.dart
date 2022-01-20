@@ -7,12 +7,21 @@ import '../models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 
-class PuzzleListScreen extends StatelessWidget {
+class PuzzleListScreen extends StatefulWidget {
+  PuzzleListScreen({Key? key}) : super(key: key);
+
+  @override
+  _PuzzleState createState() => _PuzzleState();
+}
+
+class _PuzzleState extends State<PuzzleListScreen> {
   @override
   Widget build(BuildContext context) {
     int number = Provider.of<PuzzlesProvider>(context, listen: false).getCount;
     var user = Provider.of<UserProvider>(context, listen: false).getUser;
-    List<String> completedLevels = user.completedLevels;
+    List<dynamic> completedLevels2 = user.completedLevels;
+    List<int> completedLevels = completedLevels2.cast<int>();
+    print(completedLevels);
     return Scaffold(
         body: Column(children: [
       SizedBox(
@@ -82,7 +91,9 @@ class PuzzleListScreen extends StatelessWidget {
                 child: InkWell(
                     splashColor: Colors.white,
                     onTap: () {
-                      Navigator.pushNamed(context, '/board');
+                      Navigator.pushNamed(context, '/puzzle').then((value) {
+                        setState(() {});
+                      });
                       Provider.of<UserProvider>(context, listen: false)
                           .loadPuzzle(i);
                     },
@@ -101,7 +112,7 @@ class PuzzleListScreen extends StatelessWidget {
                                   // width: 80,
                                   widthFactor: 1,
                                   heightFactor: 1,
-                                  child: completedLevels.contains("$i")
+                                  child: completedLevels.contains(i + 1)
                                       ? Opacity(
                                           opacity: 0.9,
                                           child: DecoratedBox(

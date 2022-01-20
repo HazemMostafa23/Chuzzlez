@@ -4,23 +4,25 @@ import 'package:flutter/cupertino.dart';
 
 class PuzzlesProvider with ChangeNotifier {
   late int levelCount;
-  late int length;
+  bool read = false;
   late FireStoreServices instance = FireStoreServices();
-  final List<Puzzles> _puzzlesList = [];
-
+  Puzzles _puzzles = Puzzles();
   readMap() async {
-    var puzzlesMaps = await instance.getAll();
-    length = puzzlesMaps.length;
-    for (var i = 0; i < length; i++) {
+    var puzzlesMaps = await instance.getLevels();
+    _puzzles.length = puzzlesMaps.length;
+    for (var i = 0; i < _puzzles.length; i++) {
       var puzzlesMap = puzzlesMaps[i];
-      if (_puzzlesList.length < length) {
-        _puzzlesList.add(Puzzles(
-            levelNumber: puzzlesMap['levelNumber'],
-            pgn: puzzlesMap['pgn'],
-            solution: puzzlesMap['solution']));
-      }
+      // if (_puzzlesList.length < length) {
+      _puzzles.puzzlesList.add(Puzzles(
+          levelNumber: puzzlesMap['levelNumber'],
+          pgn: puzzlesMap['pgn'],
+          solution: puzzlesMap['solution']));
+      // }
     }
-    levelCount = _puzzlesList.length;
+
+    levelCount = _puzzles.puzzlesList.length;
+    read = true;
+
     // print(_puzzlesList);
     // print(length);
   }
@@ -30,10 +32,10 @@ class PuzzlesProvider with ChangeNotifier {
   }
 
   Puzzles getPuzzle(int index) {
-    return _puzzlesList[index];
+    return _puzzles.puzzlesList[index];
   }
 
   List<Puzzles> get getPuzzles {
-    return _puzzlesList;
+    return _puzzles.puzzlesList;
   }
 }
