@@ -175,22 +175,6 @@ class _HomeState extends State<HomeScreen> {
                   alignment: MainAxisAlignment.center,
                   // alignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // OutlinedButton(
-                    //   onPressed: () {
-                    //     Navigator.pushNamed(context, '/board',
-                    //         arguments: {'query': 'overtheboard'});
-                    //   },
-                    //   child: Text('Online Match',
-                    //       style: TextStyle(
-                    //         fontSize: 20,
-                    //         fontWeight: FontWeight.bold,
-                    //         color: Colors.black,
-                    //       )),
-                    //   style: OutlinedButton.styleFrom(
-                    //     shape: StadiumBorder(),
-                    //     side: BorderSide(color: Colors.black),
-                    //   ),
-                    // ),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/board',
@@ -258,6 +242,10 @@ class _HomeState extends State<HomeScreen> {
             icon: Icon(Icons.book_sharp),
             label: 'Learning',
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.people),
+          //   label: 'Friends',
+          // ),
         ],
       ),
     );

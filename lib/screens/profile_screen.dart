@@ -10,6 +10,29 @@ class Profile extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          SizedBox(
+            height: 30,
+          ),
+          Row(children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      side: BorderSide(color: Colors.black),
+                    ),
+                  )),
+            )
+          ]),
           Container(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -170,6 +193,24 @@ class Profile extends StatelessWidget {
           ),
           SizedBox(
             height: 20.0,
+          ),
+          OutlinedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/friends',
+                  arguments: {'friends': _user.friends});
+            },
+            child: Column(children: [
+              Text('My Friends',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )),
+            ]),
+            style: OutlinedButton.styleFrom(
+              shape: StadiumBorder(),
+              side: BorderSide(color: Colors.black),
+            ),
           ),
           RaisedButton(
               onPressed: () {
