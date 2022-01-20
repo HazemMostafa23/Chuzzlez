@@ -10,15 +10,18 @@ class Profile extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 25,
+          ),
           Container(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
-                      begin: Alignment.topCenter,
+                      begin: Alignment.center,
                       end: Alignment.bottomCenter,
                       colors: [Colors.teal.shade400, Colors.teal.shade600])),
               child: Container(
-                width: double.infinity,
-                height: 350.0,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2,
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,30 +31,34 @@ class Profile extends StatelessWidget {
                         backgroundImage: NetworkImage(
                           "https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg",
                         ),
-                        radius: 50.0,
+                        radius: MediaQuery.of(context).size.height / 10,
                       ),
                       SizedBox(
-                        height: 10.0,
+                        height: MediaQuery.of(context).size.height / 50,
                       ),
                       Text(
                         _user.firstName,
                         style: TextStyle(
-                          fontSize: 22.0,
+                          fontSize: MediaQuery.of(context).size.width / 13,
                           color: Colors.white,
                         ),
                       ),
                       SizedBox(
-                        height: 10.0,
+                        height: MediaQuery.of(context).size.height / 40,
                       ),
                       Card(
                         margin: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 5.0),
+                          horizontal: MediaQuery.of(context).size.width / 30,
+                          vertical: MediaQuery.of(context).size.height / 70,
+                        ),
                         clipBehavior: Clip.antiAlias,
                         color: Colors.teal.shade200,
-                        elevation: 5.0,
+                        elevation: MediaQuery.of(context).size.height / 50,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 22.0),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width / 10,
+                            vertical: MediaQuery.of(context).size.height / 30,
+                          ),
                           child: Row(
                             children: [
                               Expanded(
@@ -61,17 +68,23 @@ class Profile extends StatelessWidget {
                                       "Level",
                                       style: TextStyle(
                                         color: Colors.teal.shade400,
-                                        fontSize: 22.0,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height /
+                                                25,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 5.0,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              100,
                                     ),
                                     Text(
                                       _user.currentLevel.toString(),
                                       style: TextStyle(
-                                        fontSize: 20.0,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height /
+                                                25,
                                         color: Colors.teal.shade400,
                                       ),
                                     ),
@@ -85,17 +98,23 @@ class Profile extends StatelessWidget {
                                       "Won",
                                       style: TextStyle(
                                         color: Colors.teal.shade400,
-                                        fontSize: 22.0,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height /
+                                                25,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 5.0,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              100,
                                     ),
                                     Text(
                                       "${_user.completedLevels.length}",
                                       style: TextStyle(
-                                        fontSize: 20.0,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height /
+                                                25,
                                         color: Colors.teal.shade400,
                                       ),
                                     )
@@ -109,17 +128,23 @@ class Profile extends StatelessWidget {
                                       "Games",
                                       style: TextStyle(
                                         color: Colors.teal.shade400,
-                                        fontSize: 22.0,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height /
+                                                25,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 5.0,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              100,
                                     ),
                                     Text(
                                       "NA",
                                       style: TextStyle(
-                                        fontSize: 20.0,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height /
+                                                25,
                                         color: Colors.teal.shade400,
                                       ),
                                     )
@@ -134,43 +159,14 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               )),
-          SizedBox(
-            height: 20.0,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 30),
           Container(
-            width: 300.00,
-            // ignore: deprecated_member_use
-            // child: RaisedButton(
-            //     onPressed: () {},
-            //     shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(80.0)),
-            //     elevation: 0.0,
-            //     padding: EdgeInsets.all(0.0),
-            //     child: Ink(
-            //       decoration: BoxDecoration(
-            //         gradient: LinearGradient(
-            //             begin: Alignment.centerRight,
-            //             end: Alignment.centerLeft,
-            //             colors: [Colors.teal.shade400, Colors.teal.shade600]),
-            //         borderRadius: BorderRadius.circular(30.0),
-            //       ),
-            //       child: Container(
-            //         constraints:
-            //             BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
-            //         alignment: Alignment.center,
-            //         child: Text(
-            //           "Edit profile",
-            //           style: TextStyle(
-            //               color: Colors.white,
-            //               fontSize: 26.0,
-            //               fontWeight: FontWeight.w300),
-            //         ),
-            //       ),
-            //     )),
+            width: MediaQuery.of(context).size.width,
           ),
           SizedBox(
             height: 20.0,
           ),
+          // ignore: deprecated_member_use
           RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/settings');
@@ -188,13 +184,15 @@ class Profile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: Container(
-                  constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
+                  constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width,
+                      minHeight: MediaQuery.of(context).size.height / 10),
                   alignment: Alignment.center,
                   child: Text(
                     "Settings",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 26.0,
+                        fontSize: MediaQuery.of(context).size.height / 20,
                         fontWeight: FontWeight.w300),
                   ),
                 ),
