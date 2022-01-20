@@ -157,11 +157,6 @@ class _LearningState extends State<LearningScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // if (query == "concepts") {
-    //   return concepts();
-    // } else if (query == "openings") {
-    //   return openings();
-    // }
     Widget concept = concepts();
     Widget opening = openings();
     if (query['query'] == "concepts") {
