@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var _user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Scaffold(
       body: Column(
         children: [
@@ -21,6 +20,8 @@ class Profile extends StatelessWidget {
                   child: OutlinedButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      // Navigator.pushNamed(context, '/friends',
+                      //     arguments: {'choice': 'viewFriends'});
                     },
                     child: Icon(
                       Icons.arrow_back,
@@ -60,7 +61,9 @@ class Profile extends StatelessWidget {
                         height: MediaQuery.of(context).size.height / 50,
                       ),
                       Text(
-                        _user.firstName,
+                        Provider.of<UserProvider>(context, listen: false)
+                            .getUser
+                            .firstName,
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width / 13,
                           color: Colors.white,
@@ -103,7 +106,11 @@ class Profile extends StatelessWidget {
                                               100,
                                     ),
                                     Text(
-                                      _user.currentLevel.toString(),
+                                      Provider.of<UserProvider>(context,
+                                              listen: false)
+                                          .getUser
+                                          .currentLevel
+                                          .toString(),
                                       style: TextStyle(
                                         fontSize:
                                             MediaQuery.of(context).size.height /
@@ -133,7 +140,7 @@ class Profile extends StatelessWidget {
                                               100,
                                     ),
                                     Text(
-                                      "${_user.completedLevels.length}",
+                                      "${Provider.of<UserProvider>(context, listen: false).getUser.completedLevels.length}",
                                       style: TextStyle(
                                         fontSize:
                                             MediaQuery.of(context).size.height /
@@ -189,7 +196,30 @@ class Profile extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-          // ignore: deprecated_member_use
+
+          OutlinedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/friends', arguments: {
+                'friends': Provider.of<UserProvider>(context, listen: false)
+                    .getUser
+                    .friends,
+                'choice': 'viewFriends'
+              });
+            },
+            child: Column(children: [
+              Text('My Friends',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )),
+            ]),
+            style: OutlinedButton.styleFrom(
+              shape: StadiumBorder(),
+              side: BorderSide(color: Colors.black),
+            ),
+          ),
+
           RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/settings');
