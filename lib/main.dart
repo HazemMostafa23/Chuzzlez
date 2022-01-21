@@ -2,6 +2,7 @@ import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
+import 'package:chuzzlez/screens/openings_form.dart';
 import 'package:chuzzlez/screens/register_screen.dart';
 import 'package:chuzzlez/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:chuzzlez/screens/profile_screen.dart';
 import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'services/authentication_services.dart';
+import 'screens/openings_form.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,6 +70,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
           '/leaderboard': (context) => LeaderboardScreen(),
+          '/openingsform': (context) => OpeningsForm()
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),

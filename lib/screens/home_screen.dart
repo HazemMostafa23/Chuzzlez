@@ -232,6 +232,24 @@ class _HomeState extends State<HomeScreen> {
                         side: BorderSide(color: Colors.black),
                       ),
                     ),
+                    /*  OutlinedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/learning',
+                            arguments: {'query': 'openingsform'});
+                      },
+                      child: Column(children: [
+                        Text('Add Openings',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            )),
+                      ]),
+                      style: OutlinedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        side: BorderSide(color: Colors.black),
+                      ),
+                    )*/
                   ],
                 ),
             ],
