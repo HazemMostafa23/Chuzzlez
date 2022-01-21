@@ -49,10 +49,18 @@ class _PManageState extends State<PuzzleManagementScreen> {
               return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Column(
+                  return Row(
                     children: [
-                      ListTile(
-                        title: Text("Level " + (index + 1).toString()),
+                      GestureDetector(
+                        child: Column(children: [
+                          SizedBox(height: 50),
+                          Text(
+                            "Level " + (index + 1).toString(),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 50),
+                        ]),
                         // onLongPress: () {
                         //   // _deleteUser(index);
 
@@ -69,9 +77,10 @@ class _PManageState extends State<PuzzleManagementScreen> {
                               .loadPuzzle(index);
                         },
                       ),
+                      SizedBox(width: 220),
                       IconButton(
                         icon: Icon(Icons.delete),
-                        iconSize: 24.0,
+                        iconSize: 30.0,
                         color: Colors.red,
                         onPressed: () {
                           setState(() {
