@@ -163,11 +163,14 @@ class _FriendState extends State<FriendsScreen> {
   Future<void> deleteFriend(String email) async {
     var _user = Provider.of<UserProvider>(context, listen: false).getUser;
     Map<String, dynamic> map = new Map<String, dynamic>();
-    map['email'] = email;
+    map['friends'] = "";
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-    // await firebaseFirestore.collection("users").doc(_user.uid).delete(map['email']);
+    await firebaseFirestore
+        .collection("users")
+        .doc(_user.uid)
+        .update({'friends.$email': FieldValue.delete()});
   }
 
   Future<void> addFriend(String email) async {
