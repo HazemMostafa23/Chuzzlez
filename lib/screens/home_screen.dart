@@ -18,28 +18,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeState extends State<HomeScreen> {
   int _selectedIndex = 0;
   var currentLevel = 0;
-
+  var role = false;
   loadData() async {
     try {
-      // print(
-      //     Provider.of<UserProvider>(context, listen: false).getUser.toString());
-      // print("AUTH" + FirebaseAuth.instance.currentUser.toString());
       String? uid = FirebaseAuth.instance.currentUser!.uid;
       await Provider.of<UserProvider>(context, listen: false).readUser();
-      // print(
-      //     Provider.of<UserProvider>(context, listen: false).getUser.toString());
-      // print("AUTH1" + FirebaseAuth.instance.currentUser.toString());
     } catch (e) {
-      setState(() {
-        currentLevel = Provider.of<UserProvider>(context, listen: false)
-            .getUser
-            .currentLevel;
-      });
+      print(e);
     } finally {
       setState(() {
         currentLevel = Provider.of<UserProvider>(context, listen: false)
             .getUser
             .currentLevel;
+        role =
+            Provider.of<UserProvider>(context, listen: false).getUser.isAdmin;
       });
       if (Provider.of<PuzzlesProvider>(context, listen: false).read == false) {
         await Provider.of<PuzzlesProvider>(context, listen: false).readMap();
@@ -58,9 +50,133 @@ class _HomeState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(Provider.of<UserProvider>(context, listen: false).getUser.isAdmin);
+
+    // if (Provider.of<UserProvider>(context, listen: false).getUser.isAdmin ==
+    //     false) {
+    //   print("lol");
+    // } else {
+    //   print("not lol");
+    // }
     return Scaffold(
-      body: Stack(
-        children: [
+      body: Stack(children: [
+        if (Provider.of<UserProvider>(context, listen: false).getUser.isAdmin ==
+            true) ...[
+          ListView(children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile');
+                },
+                icon: Icon(Icons.person),
+                color: Colors.black,
+              ),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Chuzzlez',
+                    style: TextStyle(
+                      fontSize: 56,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    )),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('The Chess Puzzlez Game',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    )),
+                SizedBox(
+                  height: 42,
+                )
+              ],
+            ),
+          ]),
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    Provider.of<UserProvider>(context, listen: false)
+                        .setOpened();
+                    Navigator.pushNamed(context, '/register',
+                        arguments: {'role': true});
+                  },
+                  child: Column(children: [
+                    Text('Add admin',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                  ]),
+                  style: OutlinedButton.styleFrom(
+                    shape: StadiumBorder(),
+                    side: BorderSide(color: Colors.black),
+                  ),
+                ),
+                // OutlinedButton(
+                //   onPressed: () {
+                //     Provider.of<UserProvider>(context, listen: false)
+                //         .setOpened();
+                //     Navigator.pushNamed(
+                //       context,
+                //       '/delete',
+                //     );
+                //   },
+                //   child: Column(children: [
+                //     Text('Delete Users',
+                //         style: TextStyle(
+                //           fontSize: 30,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.black,
+                //         )),
+                //   ]),
+                //   style: OutlinedButton.styleFrom(
+                //     shape: StadiumBorder(),
+                //     side: BorderSide(color: Colors.black),
+                //   ),
+                // ),
+                OutlinedButton(
+                  onPressed: () {
+                    Provider.of<UserProvider>(context, listen: false)
+                        .setOpened();
+                    Navigator.pushNamed(
+                      context,
+                      '/manage',
+                    );
+                  },
+                  child: Column(children: [
+                    Text('Manage Puzzles',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                  ]),
+                  style: OutlinedButton.styleFrom(
+                    shape: StadiumBorder(),
+                    side: BorderSide(color: Colors.black),
+                  ),
+                ),
+              ])
+        ] else ...[
+          Text('Chuzzlez',
+              style: TextStyle(
+                fontSize: 56,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              )),
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -239,7 +355,7 @@ class _HomeState extends State<HomeScreen> {
             ],
           )
         ],
-      ),
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

@@ -27,7 +27,7 @@ class Users {
     data['completedLevels'] = [];
 
     data['total_score'] = 0;
-    data['isAdmin'] = 0;
+    data['isAdmin'] = user.isAdmin;
 
     data['friends'] = [];
 
