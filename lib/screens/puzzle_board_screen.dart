@@ -30,7 +30,7 @@ class _BoardState extends State<PuzzleBoardScreen> {
         content: Column(mainAxisSize: MainAxisSize.min, children: [
           Text('You Won!',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: MediaQuery.of(context).size.height / 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               )),
@@ -167,18 +167,18 @@ class _BoardState extends State<PuzzleBoardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(children: [
-        SizedBox(height: 7),
+        SizedBox(height: MediaQuery.of(context).size.height / 40),
         Center(
             child: Text(' Level ${levelNumber + 1}',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: MediaQuery.of(context).size.height / 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ))),
         Center(
             child: Text('Score',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: MediaQuery.of(context).size.height / 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ))),
@@ -201,7 +201,7 @@ class _BoardState extends State<PuzzleBoardScreen> {
             ),
             Text("   " + score.ceil().toString(),
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: MediaQuery.of(context).size.height / 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 )),
@@ -221,9 +221,9 @@ class _BoardState extends State<PuzzleBoardScreen> {
                   loadPuzzle();
                 }
               },
-              child: const Text('Next',
+              child: Text('Next',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: MediaQuery.of(context).size.height / 30,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   )),

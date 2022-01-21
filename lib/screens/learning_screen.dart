@@ -29,7 +29,7 @@ class _LearningState extends State<LearningScreen> {
     return Scaffold(
         body: Column(children: [
       SizedBox(
-        height: 35,
+        height: MediaQuery.of(context).size.height / 14,
       ),
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +37,7 @@ class _LearningState extends State<LearningScreen> {
         children: [
           Text('Openings',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: MediaQuery.of(context).size.width / 12,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               )),
@@ -47,7 +47,9 @@ class _LearningState extends State<LearningScreen> {
         Align(
           alignment: Alignment.topLeft,
           child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 40,
+              ),
               child: OutlinedButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -77,8 +79,11 @@ class _LearningState extends State<LearningScreen> {
                     child: ListTile(
                   title: Text(list[i].openingName),
                   dense: true,
-                  leading:
-                      Image(image: AssetImage('images/chess_piece_pawn.png')),
+                  leading: Image(
+                    image: AssetImage('images/chess_piece_pawn.png'),
+                    width: MediaQuery.of(context).size.width / 5,
+                    height: MediaQuery.of(context).size.height / 5,
+                  ),
                   tileColor: Colors.blueGrey,
                   onTap: () => Navigator.pushNamed(context, '/board',
                       arguments: {
