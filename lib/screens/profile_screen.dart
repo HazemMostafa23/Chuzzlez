@@ -196,6 +196,7 @@ class Profile extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
+
           OutlinedButton(
             onPressed: () {
               Navigator.pushNamed(context, '/friends', arguments: {
@@ -218,6 +219,7 @@ class Profile extends StatelessWidget {
               side: BorderSide(color: Colors.black),
             ),
           ),
+
           RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/settings');

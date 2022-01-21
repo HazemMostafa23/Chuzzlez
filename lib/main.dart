@@ -1,10 +1,12 @@
 import 'package:chuzzlez/providers/opening_provider.dart';
+import 'package:chuzzlez/screens/delete_screen.dart';
 import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
 import 'package:chuzzlez/screens/friends_screen.dart';
 import 'package:chuzzlez/screens/register_screen.dart';
 import 'package:chuzzlez/screens/settings_screen.dart';
+import 'package:chuzzlez/screens/puzzles_management.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
@@ -69,6 +71,8 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
           '/leaderboard': (context) => LeaderboardScreen(),
+          '/delete': (context) => DeleteScreen(),
+          '/manage': (context) => PuzzleManagementScreen(),
           '/friends': (context) => FriendsScreen(),
         },
         title: 'Chuzzlez',
