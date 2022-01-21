@@ -1,12 +1,43 @@
+import 'dart:io';
+
+import 'package:chuzzlez/services/storage_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
+import 'package:image_picker/image_picker.dart';
 import '../models/user.dart';
 import 'package:provider/provider.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  File? imageFile;
+  Future pickImage() async {
+    final picker = ImagePicker();
+    // ignore: deprecated_member_use
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      try {
+        imageFile = File(pickedFile!.path);
+        print("Image uploaded");
+      } catch (e) {
+        print(e);
+      }
+    });
+  }
+
+  getUrl() async {
+    String file = await StorageRepo().getUserProfileImage(
+        Provider.of<UserProvider>(context, listen: false).getUser.uid);
+    return file;
+  }
+
   @override
   Widget build(BuildContext context) {
-    var _user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Scaffold(
       body: Column(
         children: [
@@ -21,6 +52,8 @@ class Profile extends StatelessWidget {
                   child: OutlinedButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      // Navigator.pushNamed(context, '/friends',
+                      //     arguments: {'choice': 'viewFriends'});
                     },
                     child: Icon(
                       Icons.arrow_back,
@@ -50,17 +83,31 @@ class Profile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          "https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg",
+                      GestureDetector(
+                        onTap: () async {
+                          try {
+                            await pickImage();
+                            await StorageRepo().uploadFile(imageFile!);
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            Provider.of<UserProvider>(context, listen: false)
+                                .getUser
+                                .avatarUrl,
+                          ),
+                          radius: MediaQuery.of(context).size.height / 10,
                         ),
-                        radius: MediaQuery.of(context).size.height / 10,
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 50,
                       ),
                       Text(
-                        _user.firstName,
+                        Provider.of<UserProvider>(context, listen: false)
+                            .getUser
+                            .firstName,
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width / 13,
                           color: Colors.white,
@@ -103,7 +150,11 @@ class Profile extends StatelessWidget {
                                               100,
                                     ),
                                     Text(
-                                      _user.currentLevel.toString(),
+                                      Provider.of<UserProvider>(context,
+                                              listen: false)
+                                          .getUser
+                                          .currentLevel
+                                          .toString(),
                                       style: TextStyle(
                                         fontSize:
                                             MediaQuery.of(context).size.height /
@@ -133,7 +184,7 @@ class Profile extends StatelessWidget {
                                               100,
                                     ),
                                     Text(
-                                      "${_user.completedLevels.length}",
+                                      "${Provider.of<UserProvider>(context, listen: false).getUser.completedLevels.length}",
                                       style: TextStyle(
                                         fontSize:
                                             MediaQuery.of(context).size.height /
@@ -189,7 +240,28 @@ class Profile extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-          // ignore: deprecated_member_use
+          OutlinedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/friends', arguments: {
+                'friends': Provider.of<UserProvider>(context, listen: false)
+                    .getUser
+                    .friends,
+                'choice': 'viewFriends'
+              });
+            },
+            child: Column(children: [
+              Text('My Friends',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )),
+            ]),
+            style: OutlinedButton.styleFrom(
+              shape: StadiumBorder(),
+              side: BorderSide(color: Colors.black),
+            ),
+          ),
           RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/settings');

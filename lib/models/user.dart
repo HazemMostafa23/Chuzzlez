@@ -9,13 +9,15 @@ class Users {
   late String lastName;
   int total_score = 0;
   late bool isAdmin;
-
-  Users(
-      {this.currentLevel = 0,
-      this.firstName = "guest",
-      this.lastName = "guest",
-      this.total_score = 0,
-      this.isAdmin = false});
+  late String avatarUrl = "";
+  Users({
+    this.currentLevel = 0,
+    this.firstName = "guest",
+    this.lastName = "guest",
+    this.total_score = 0,
+    this.isAdmin = false,
+    this.uid = "",
+  });
 
   Map<String, dynamic> toMap(Users user) {
     var data = Map<String, dynamic>();
