@@ -71,12 +71,9 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
           '/leaderboard': (context) => LeaderboardScreen(),
-<<<<<<< HEAD
           '/delete': (context) => DeleteScreen(),
           '/manage': (context) => PuzzleManagementScreen(),
-=======
           '/friends': (context) => FriendsScreen(),
->>>>>>> ff55cae03f207ee8847814626ed2cd4e7434f011
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),
