@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chuzzlez/services/storage_services.dart';
+import 'package:chuzzlez/services/fire_store_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
@@ -14,6 +15,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileState extends State<ProfileScreen> {
+  late FireStoreServices instance = FireStoreServices();
   File? imageFile;
   Future pickImage() async {
     final picker = ImagePicker();
@@ -40,6 +42,7 @@ class _ProfileState extends State<ProfileScreen> {
       ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>;
 
   Widget otherProfile() {
+    var _user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Scaffold(
       body: Column(
         children: [
@@ -231,59 +234,36 @@ class _ProfileState extends State<ProfileScreen> {
           SizedBox(
             height: 20.0,
           ),
-          OutlinedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/friends', arguments: {
-                'friends': Provider.of<UserProvider>(context, listen: false)
-                    .getUser
-                    .friends,
-                'choice': 'add',
-                'email': query['map']['email']
-              });
-            },
-            child: Column(children: [
-              Text('Add Friend',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )),
-            ]),
-            style: OutlinedButton.styleFrom(
-              shape: StadiumBorder(),
-              side: BorderSide(color: Colors.black),
-            ),
-          ),
-          RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/settings');
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0)),
-              elevation: 0.0,
-              padding: EdgeInsets.all(0.0),
-              child: Ink(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.centerRight,
-                      end: Alignment.centerLeft,
-                      colors: [Colors.teal.shade400, Colors.teal.shade600]),
-                  borderRadius: BorderRadius.circular(30.0),
+          if (query['choice'] == "other")
+            if (!_user.friends.contains(query['map']['email'])) ...[
+              OutlinedButton(
+                onPressed: () {
+                  // Navigator.pushNamed(context, '/friends', arguments: {
+                  //   'friends': Provider.of<UserProvider>(context, listen: false)
+                  //       .getUser
+                  //       .friends,
+                  //   'choice': 'add',
+                  //   'email': query['map']['email']
+                  // });
+                  print(_user.friends);
+                  print(_user.friends.contains(query['map']['email']));
+                  print('hahaha');
+                  print(query['map']['email']);
+                },
+                child: Column(children: [
+                  Text('Add Friend',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      )),
+                ]),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(color: Colors.black),
                 ),
-                child: Container(
-                  constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width,
-                      minHeight: MediaQuery.of(context).size.height / 10),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Invite to game",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: MediaQuery.of(context).size.height / 20,
-                        fontWeight: FontWeight.w300),
-                  ),
-                ),
-              ))
+              )
+            ],
         ],
       ),
     );

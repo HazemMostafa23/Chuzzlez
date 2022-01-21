@@ -27,6 +27,12 @@ class _FriendState extends State<FriendsScreen> {
     super.initState();
   }
 
+  returnUsers() async {
+    var map = await instance.getPosts();
+    List<dynamic> map2 = map;
+    return map;
+  }
+
   Widget viewFriends() {
     var _user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Scaffold(
@@ -104,6 +110,20 @@ class _FriendState extends State<FriendsScreen> {
                         icon: Icon(Icons.more_vert),
                         itemBuilder: (context) => [
                               PopupMenuItem(
+                                onTap: () => goToProfile(query['friends'][i]),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.person,
+                                    ),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    Text("View Profile")
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem(
                                 onTap: () => setState(() {
                                   deleteFriend(query['friends'][i]);
                                 }),
@@ -119,7 +139,7 @@ class _FriendState extends State<FriendsScreen> {
                                     Text("Delete")
                                   ],
                                 ),
-                              )
+                              ),
                             ]),
                     tileColor: Colors.blueGrey,
                     onTap: () => print(query['friends'][0]),
@@ -229,6 +249,21 @@ class _FriendState extends State<FriendsScreen> {
       'friends': FieldValue.arrayUnion([email])
     });
     print(_user.uid);
+  }
+
+  Future<void> goToProfile(String email) async {
+    print(email);
+    bool found = false;
+    var map = await instance.getUsers();
+    for (int i = 0; i < map.length; i++) {
+      print(map[i]['email']);
+      if (email == map[i]['email']) {
+        // print(map[i]);
+        Navigator.pushNamed(context, '/profile',
+            arguments: {'choice': 'other', 'email': email, 'map': map[i]});
+        found = true;
+      }
+    }
   }
 
   @override

@@ -174,13 +174,6 @@ class _BoardState extends State<PuzzleBoardScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ))),
-        Center(
-            child: Text('Score',
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.height / 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ))),
         ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -198,7 +191,7 @@ class _BoardState extends State<PuzzleBoardScreen> {
                 side: BorderSide(color: Colors.black),
               ),
             ),
-            Text("   " + score.ceil().toString(),
+            Text("Score :  " + score.ceil().toString(),
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.height / 30,
                   fontWeight: FontWeight.bold,
