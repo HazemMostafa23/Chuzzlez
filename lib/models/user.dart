@@ -3,6 +3,7 @@ class Users {
   late int currentLevel;
   late String? email;
   late String uid;
+  List<dynamic> friends = [];
   late String firstName;
   late String lastName;
   double total_score = 0;
@@ -24,8 +25,12 @@ class Users {
     data["email"] = user.email;
     data['currentLevel'] = 0;
     data['completedLevels'] = [];
+
     data['total_score'] = 0;
     data['isAdmin'] = user.isAdmin;
+
+    data['friends'] = [];
+
     return data;
   }
 

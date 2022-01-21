@@ -203,7 +203,7 @@ class _HomeState extends State<HomeScreen> {
                 children: [
                   Text('Chuzzlez',
                       style: TextStyle(
-                        fontSize: 56,
+                        fontSize: MediaQuery.of(context).size.width / 6,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       )),
@@ -215,12 +215,12 @@ class _HomeState extends State<HomeScreen> {
                 children: [
                   Text('The Chess Puzzlez Game',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: MediaQuery.of(context).size.width / 15,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       )),
                   SizedBox(
-                    height: 42,
+                    height: MediaQuery.of(context).size.height / 12,
                   )
                 ],
               ),
@@ -245,13 +245,13 @@ class _HomeState extends State<HomeScreen> {
                       child: Column(children: [
                         Text('Play',
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: MediaQuery.of(context).size.width / 11,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             )),
                         Text('Level ${currentLevel + 1}',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: MediaQuery.of(context).size.width / 13,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ))
@@ -275,7 +275,7 @@ class _HomeState extends State<HomeScreen> {
                       },
                       child: Text('Puzzles List',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: MediaQuery.of(context).size.width / 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           )),
@@ -291,22 +291,6 @@ class _HomeState extends State<HomeScreen> {
                   alignment: MainAxisAlignment.center,
                   // alignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // OutlinedButton(
-                    //   onPressed: () {
-                    //     Navigator.pushNamed(context, '/board',
-                    //         arguments: {'query': 'overtheboard'});
-                    //   },
-                    //   child: Text('Online Match',
-                    //       style: TextStyle(
-                    //         fontSize: 20,
-                    //         fontWeight: FontWeight.bold,
-                    //         color: Colors.black,
-                    //       )),
-                    //   style: OutlinedButton.styleFrom(
-                    //     shape: StadiumBorder(),
-                    //     side: BorderSide(color: Colors.black),
-                    //   ),
-                    // ),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/board',
@@ -314,7 +298,7 @@ class _HomeState extends State<HomeScreen> {
                       },
                       child: Text('Co-op Match',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: MediaQuery.of(context).size.width / 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           )),
@@ -356,7 +340,7 @@ class _HomeState extends State<HomeScreen> {
                       child: Column(children: [
                         Text('Openings',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: MediaQuery.of(context).size.width / 15,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             )),
@@ -376,8 +360,9 @@ class _HomeState extends State<HomeScreen> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         backgroundColor: Colors.teal,
-        iconSize: 40,
-        selectedIconTheme: IconThemeData(color: Colors.white, size: 40),
+        iconSize: MediaQuery.of(context).size.width / 8,
+        selectedIconTheme: IconThemeData(
+            color: Colors.white, size: MediaQuery.of(context).size.width / 8),
         selectedItemColor: Colors.amberAccent,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -392,6 +377,10 @@ class _HomeState extends State<HomeScreen> {
             icon: Icon(Icons.book_sharp),
             label: 'Learning',
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.people),
+          //   label: 'Friends',
+          // ),
         ],
       ),
     );

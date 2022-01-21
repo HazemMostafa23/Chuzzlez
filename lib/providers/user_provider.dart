@@ -40,7 +40,11 @@ class UserProvider with ChangeNotifier {
     _user.currentLevel = z['currentLevel'];
     _user.completedLevels = z['completedLevels'];
     _user.total_score = z['total_score'];
+
     _user.isAdmin = z['isAdmin'];
+
+
+    _user.friends = z['friends'];
 
     notifyListeners();
 
