@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:chuzzlez/providers/leaderboard_provider.dart';
+import 'package:chuzzlez/services/storage_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
@@ -19,10 +20,16 @@ class _HomeState extends State<HomeScreen> {
   int _selectedIndex = 0;
   var currentLevel = 0;
   var role = false;
+  late var url;
   loadData() async {
     try {
       String? uid = FirebaseAuth.instance.currentUser!.uid;
+
       await Provider.of<UserProvider>(context, listen: false).readUser();
+
+      Provider.of<UserProvider>(context, listen: false).getUser.avatarUrl =
+          await StorageRepo().getUserProfileImage(
+              Provider.of<UserProvider>(context, listen: false).getUser.uid);
     } catch (e) {
       print(e);
     } finally {
@@ -275,6 +282,29 @@ class _HomeState extends State<HomeScreen> {
                         });
                       },
                       child: Text('Puzzles List',
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width / 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          )),
+                      style: OutlinedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        side: BorderSide(color: Colors.black),
+                      ),
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/favourite')
+                            .then((value) {
+                          setState(() {
+                            currentLevel = Provider.of<UserProvider>(context,
+                                    listen: false)
+                                .getUser
+                                .currentLevel;
+                          });
+                        });
+                      },
+                      child: Text('Favourite Puzzles',
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width / 15,
                             fontWeight: FontWeight.bold,

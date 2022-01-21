@@ -22,6 +22,7 @@ class _BoardState extends State<BoardScreen> {
   late String sol;
   bool chosenColor = false;
   late PlayerColor color = PlayerColor.white;
+  bool next = false;
 
   void undoMove() {
     if (!controller.getSan().isEmpty) {
