@@ -9,6 +9,8 @@ import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../my_flutter_app_icons.dart';
+
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -67,6 +69,14 @@ class _HomeState extends State<HomeScreen> {
     // }
     return Scaffold(
       body: Stack(children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/home_background.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
         if (Provider.of<UserProvider>(context, listen: false).getUser.isAdmin ==
             true) ...[
           ListView(children: [
@@ -108,90 +118,82 @@ class _HomeState extends State<HomeScreen> {
               ],
             ),
           ]),
-          Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                OutlinedButton(
-                  onPressed: () {
-                    Provider.of<UserProvider>(context, listen: false)
-                        .setOpened();
-                    Navigator.pushNamed(context, '/register',
-                        arguments: {'role': true});
-                  },
-                  child: Column(children: [
-                    Text('Add admin',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        )),
-                  ]),
-                  style: OutlinedButton.styleFrom(
+          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            if (_selectedIndex == 0) ...[
+              SizedBox(width: MediaQuery.of(context).size.width / 1),
+              OutlinedButton(
+                onPressed: () {
+                  Provider.of<UserProvider>(context, listen: false).setOpened();
+                  Navigator.pushNamed(context, '/register',
+                      arguments: {'role': true});
+                },
+                child: Column(children: [
+                  Text('Add admin',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      )),
+                ]),
+                style: OutlinedButton.styleFrom(
                     shape: StadiumBorder(),
                     side: BorderSide(color: Colors.black),
-                  ),
+                    backgroundColor: Colors.teal.shade600),
+              )
+            ],
+            // OutlinedButton(
+            //   onPressed: () {
+            //     Provider.of<UserProvider>(context, listen: false)
+            //         .setOpened();
+            //     Navigator.pushNamed(
+            //       context,
+            //       '/delete',
+            //     );
+            //   },
+            //   child: Column(children: [
+            //     Text('Delete Users',
+            //         style: TextStyle(
+            //           fontSize: 30,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.black,
+            //         )),
+            //   ]),
+            //   style: OutlinedButton.styleFrom(
+            //     shape: StadiumBorder(),
+            //     side: BorderSide(color: Colors.black),
+            //   ),
+            // ),
+            SizedBox(height: MediaQuery.of(context).size.height / 10),
+            if (_selectedIndex == 1) ...[
+              SizedBox(width: MediaQuery.of(context).size.width / 1),
+              OutlinedButton(
+                onPressed: () {
+                  Provider.of<UserProvider>(context, listen: false).setOpened();
+                  Navigator.pushNamed(
+                    context,
+                    '/manage',
+                  );
+                },
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Manage Puzzles',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
+                    ]),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(color: Colors.black),
+                  backgroundColor: Colors.teal.shade600,
                 ),
-                // OutlinedButton(
-                //   onPressed: () {
-                //     Provider.of<UserProvider>(context, listen: false)
-                //         .setOpened();
-                //     Navigator.pushNamed(
-                //       context,
-                //       '/delete',
-                //     );
-                //   },
-                //   child: Column(children: [
-                //     Text('Delete Users',
-                //         style: TextStyle(
-                //           fontSize: 30,
-                //           fontWeight: FontWeight.bold,
-                //           color: Colors.black,
-                //         )),
-                //   ]),
-                //   style: OutlinedButton.styleFrom(
-                //     shape: StadiumBorder(),
-                //     side: BorderSide(color: Colors.black),
-                //   ),
-                // ),
-                OutlinedButton(
-                  onPressed: () {
-                    Provider.of<UserProvider>(context, listen: false)
-                        .setOpened();
-                    Navigator.pushNamed(
-                      context,
-                      '/manage',
-                    );
-                  },
-                  child: Column(children: [
-                    Text('Manage Puzzles',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        )),
-                  ]),
-                  style: OutlinedButton.styleFrom(
-                    shape: StadiumBorder(),
-                    side: BorderSide(color: Colors.black),
-                  ),
-                ),
-              ])
+              )
+            ],
+          ])
         ] else ...[
-          Text('Chuzzlez',
-              style: TextStyle(
-                fontSize: 56,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              )),
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("images/home_background.jpg"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
           ListView(
             children: [
               Align(
@@ -254,18 +256,19 @@ class _HomeState extends State<HomeScreen> {
                             style: TextStyle(
                               fontSize: MediaQuery.of(context).size.width / 11,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Colors.white,
                             )),
                         Text('Level ${currentLevel + 1}',
                             style: TextStyle(
                               fontSize: MediaQuery.of(context).size.width / 13,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Colors.white,
                             ))
                       ]),
                       style: OutlinedButton.styleFrom(
                         shape: StadiumBorder(),
                         side: BorderSide(color: Colors.black),
+                        backgroundColor: Colors.teal.shade600,
                       ),
                     ),
                     OutlinedButton(
@@ -284,11 +287,12 @@ class _HomeState extends State<HomeScreen> {
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width / 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Colors.white,
                           )),
                       style: OutlinedButton.styleFrom(
                         shape: StadiumBorder(),
                         side: BorderSide(color: Colors.black),
+                        backgroundColor: Colors.teal.shade600,
                       ),
                     ),
                     OutlinedButton(
@@ -307,11 +311,12 @@ class _HomeState extends State<HomeScreen> {
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width / 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Colors.white,
                           )),
                       style: OutlinedButton.styleFrom(
                         shape: StadiumBorder(),
                         side: BorderSide(color: Colors.black),
+                        backgroundColor: Colors.teal.shade600,
                       ),
                     ),
                   ],
@@ -330,11 +335,12 @@ class _HomeState extends State<HomeScreen> {
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width / 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Colors.white,
                           )),
                       style: OutlinedButton.styleFrom(
                         shape: StadiumBorder(),
                         side: BorderSide(color: Colors.black),
+                        backgroundColor: Colors.teal.shade600,
                       ),
                     ),
                     OutlinedButton(
@@ -346,13 +352,14 @@ class _HomeState extends State<HomeScreen> {
                       },
                       child: Text('Leaderboard',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: MediaQuery.of(context).size.width / 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Colors.white,
                           )),
                       style: OutlinedButton.styleFrom(
                         shape: StadiumBorder(),
                         side: BorderSide(color: Colors.black),
+                        backgroundColor: Colors.teal.shade600,
                       ),
                     )
                   ],
@@ -372,12 +379,13 @@ class _HomeState extends State<HomeScreen> {
                             style: TextStyle(
                               fontSize: MediaQuery.of(context).size.width / 15,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Colors.white,
                             )),
                       ]),
                       style: OutlinedButton.styleFrom(
                         shape: StadiumBorder(),
                         side: BorderSide(color: Colors.black),
+                        backgroundColor: Colors.teal.shade600,
                       ),
                     ),
                   ],
@@ -395,18 +403,32 @@ class _HomeState extends State<HomeScreen> {
             color: Colors.white, size: MediaQuery.of(context).size.width / 8),
         selectedItemColor: Colors.amberAccent,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.leaderboard),
-            label: 'Puzzles',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.gamepad),
-            label: 'Play',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book_sharp),
-            label: 'Learning',
-          ),
+          if (Provider.of<UserProvider>(context, listen: false)
+                  .getUser
+                  .isAdmin ==
+              true) ...[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_add),
+              label: 'Add admin',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(MyFlutterApp.puzzle),
+              label: 'Manage puzzles',
+            ),
+          ] else ...[
+            BottomNavigationBarItem(
+              icon: Icon(MyFlutterApp.puzzle),
+              label: 'Puzzles',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.gamepad),
+              label: 'Play',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book_sharp),
+              label: 'Learning',
+            )
+          ]
           // BottomNavigationBarItem(
           //   icon: Icon(Icons.people),
           //   label: 'Friends',
@@ -419,6 +441,7 @@ class _HomeState extends State<HomeScreen> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      print(_selectedIndex);
     });
   }
 }
