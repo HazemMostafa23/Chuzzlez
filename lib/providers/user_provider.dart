@@ -45,6 +45,7 @@ class UserProvider with ChangeNotifier {
 
     _user.friends = z['friends'];
     _user.fav_puzzles = z['fav_puzzles'];
+    _user.uid = z['uid'];
     notifyListeners();
 
     // _user.firstName = z['firstname'];

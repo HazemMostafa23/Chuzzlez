@@ -20,11 +20,13 @@ class _HomeState extends State<HomeScreen> {
   int _selectedIndex = 0;
   var currentLevel = 0;
   var role = false;
+  late var url;
   loadData() async {
     try {
       String? uid = FirebaseAuth.instance.currentUser!.uid;
 
       await Provider.of<UserProvider>(context, listen: false).readUser();
+
       Provider.of<UserProvider>(context, listen: false).getUser.avatarUrl =
           await StorageRepo().getUserProfileImage(
               Provider.of<UserProvider>(context, listen: false).getUser.uid);
