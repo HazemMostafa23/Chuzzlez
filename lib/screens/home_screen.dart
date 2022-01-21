@@ -58,13 +58,6 @@ class _HomeState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     print(Provider.of<UserProvider>(context, listen: false).getUser.isAdmin);
-
-    // if (Provider.of<UserProvider>(context, listen: false).getUser.isAdmin ==
-    //     false) {
-    //   print("lol");
-    // } else {
-    //   print("not lol");
-    // }
     return Scaffold(
       body: Stack(children: [
         if (Provider.of<UserProvider>(context, listen: false).getUser.isAdmin ==
@@ -74,7 +67,8 @@ class _HomeState extends State<HomeScreen> {
               alignment: Alignment.centerRight,
               child: IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/profile');
+                  Navigator.pushNamed(context, '/profile',
+                      arguments: {'choice': 'my'});
                 },
                 icon: Icon(Icons.person),
                 color: Colors.black,
@@ -176,6 +170,24 @@ class _HomeState extends State<HomeScreen> {
                     side: BorderSide(color: Colors.black),
                   ),
                 ),
+
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/openingsform');
+                  },
+                  child: Column(children: [
+                    Text('Add Openings',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                  ]),
+                  style: OutlinedButton.styleFrom(
+                    shape: StadiumBorder(),
+                    side: BorderSide(color: Colors.black),
+                  ),
+                )
               ])
         ] else ...[
           Text('Chuzzlez',
@@ -380,7 +392,7 @@ class _HomeState extends State<HomeScreen> {
                         shape: StadiumBorder(),
                         side: BorderSide(color: Colors.black),
                       ),
-                    ),
+                    )
                   ],
                 ),
             ],
