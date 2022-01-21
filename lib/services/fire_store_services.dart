@@ -11,8 +11,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FireStoreServices {
-  CollectionReference levelsCollection =
-      FirebaseFirestore.instance.collection('Levels');
+  Query levelsCollection =
+      FirebaseFirestore.instance.collection('Levels').orderBy('levelNumber');
+
   CollectionReference usersCollection =
       FirebaseFirestore.instance.collection('users');
   CollectionReference openingsCollection =
