@@ -25,6 +25,7 @@ class _BoardState extends State<PuzzleBoardScreen> {
   late double score = 0;
   late double factor = 1;
   late int total_score = 0;
+
   void alertWin() {
     AlertDialog alert = AlertDialog(
         content: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -78,8 +79,6 @@ class _BoardState extends State<PuzzleBoardScreen> {
       print(e);
     }
   }
-
-  void loadOpening() {}
 
   @override
   void initState() {
@@ -266,20 +265,27 @@ class _BoardState extends State<PuzzleBoardScreen> {
             ],
             OutlinedButton(
               onPressed: () {
+                // var count = Provider.of<PuzzlesProvider>(context, listen: false)
+                //     .getPuzzles
+                //     .length;
+
+                // if (levelNumber != count - 1) {
+                //   Provider.of<UserProvider>(context, listen: false)
+                //       .getUser
+                //       .currentLevel += 1;
+                //   setState(() {
+                //     won = false;
+                //     score = 0;
+                //     total_score = 0;
+                //   });
+                //   loadPuzzle();
+                // }
                 var count = Provider.of<PuzzlesProvider>(context, listen: false)
                     .getPuzzles
                     .length;
-
-                if (levelNumber != count - 1) {
-                  Provider.of<UserProvider>(context, listen: false)
-                      .getUser
-                      .currentLevel += 1;
-                  setState(() {
-                    won = false;
-                    score = 0;
-                    total_score = 0;
-                  });
-                  loadPuzzle();
+                if (levelNumber <= count - 1) {
+                  Provider.of<UserProvider>(context, listen: false).nextLevel();
+                  Navigator.pushReplacementNamed(context, '/puzzle');
                 }
               },
               child: Text('Next',

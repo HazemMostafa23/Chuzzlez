@@ -198,7 +198,8 @@ class _HomeState extends State<HomeScreen> {
                 alignment: Alignment.centerRight,
                 child: IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/profile');
+                    Navigator.pushNamed(context, '/profile',
+                        arguments: {'choice': 'my'});
                   },
                   icon: Icon(Icons.person),
                   color: Colors.black,

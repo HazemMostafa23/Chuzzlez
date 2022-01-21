@@ -46,6 +46,11 @@ class FireStoreServices {
     return documentSnapshot;
   }
 
+  Future<DocumentSnapshot> readAllUsers() async {
+    DocumentSnapshot documentSnapshot = await usersCollection.doc().get();
+    return documentSnapshot;
+  }
+
   Future<List> getOpenings() async {
     QuerySnapshot querySnapshot = await openingsCollection.get();
 

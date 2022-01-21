@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
           '/board': (context) => BoardScreen(),
           '/puzzlecreator': (context) => PuzzleCreator(),
           '/settings': (context) => SettingsScreen(),
-          '/profile': (context) => Profile(),
+          '/profile': (context) => ProfileScreen(),
           '/learning': (context) => LearningScreen(),
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),

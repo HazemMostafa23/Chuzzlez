@@ -2,10 +2,10 @@ import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/models/puzzles.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/providers/puzzles_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:chuzzlez/services/fire_store_services.dart';
 
@@ -17,6 +17,7 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendState extends State<FriendsScreen> {
+  late FireStoreServices instance = FireStoreServices();
   final _auth = FirebaseAuth.instance;
   late Map query =
       ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
@@ -27,6 +28,7 @@ class _FriendState extends State<FriendsScreen> {
   }
 
   Widget viewFriends() {
+    var _user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Scaffold(
         body: Column(children: [
       SizedBox(
@@ -51,8 +53,7 @@ class _FriendState extends State<FriendsScreen> {
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: OutlinedButton(
                 onPressed: () {
-                  // Navigator.pop(context);
-                  print(query);
+                  Navigator.pop(context);
                 },
                 child: Icon(
                   Icons.arrow_back,
@@ -86,7 +87,7 @@ class _FriendState extends State<FriendsScreen> {
       Flexible(
           child: GridView.count(
         crossAxisCount: 1,
-        childAspectRatio: 10 / 4,
+        childAspectRatio: 10 / 2,
         crossAxisSpacing: 0,
         mainAxisSpacing: 1.0,
         children: [
@@ -103,7 +104,9 @@ class _FriendState extends State<FriendsScreen> {
                         icon: Icon(Icons.more_vert),
                         itemBuilder: (context) => [
                               PopupMenuItem(
-                                onTap: () => addFriend(query[i]),
+                                onTap: () => setState(() {
+                                  deleteFriend(query['friends'][i]);
+                                }),
                                 child: Row(
                                   children: [
                                     Icon(
@@ -129,25 +132,40 @@ class _FriendState extends State<FriendsScreen> {
   }
 
   Widget addFriends() {
-    Widget customSearchBar = const Text('Add Friends');
-    Icon customIcon = Icon(Icons.search);
+    bool searching = false;
+    final searchController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
-          leading: Icon(
-            Icons.search,
-            color: Colors.white,
-            size: 28,
+          trailing: IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              searchFriends(searchController.text);
+            },
+          ),
+          leading: OutlinedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            style: OutlinedButton.styleFrom(
+              shape: StadiumBorder(),
+              side: BorderSide(color: Colors.black),
+            ),
           ),
           title: TextField(
+              controller: searchController,
               decoration: InputDecoration(
-            hintText: 'Search for friends...',
-            hintStyle: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontStyle: FontStyle.italic,
-            ),
-          )),
+                hintText: 'Search for friends...',
+                hintStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontStyle: FontStyle.italic,
+                ),
+              )),
         ),
         automaticallyImplyLeading: false,
         actions: [],
@@ -155,19 +173,49 @@ class _FriendState extends State<FriendsScreen> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [],
+        children: [
+          Flexible(
+              child: GridView.count(
+            crossAxisCount: 1,
+            childAspectRatio: 10 / 2,
+            crossAxisSpacing: 0,
+            mainAxisSpacing: 1.0,
+            children: [],
+          ))
+        ],
       ),
     );
   }
 
   Future<void> deleteFriend(String email) async {
     var _user = Provider.of<UserProvider>(context, listen: false).getUser;
-    Map<String, dynamic> map = new Map<String, dynamic>();
-    map['email'] = email;
+    var arr = [];
+    arr.add(email);
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-    // await firebaseFirestore.collection("users").doc(_user.uid).delete(map['email']);
+    await firebaseFirestore
+        .collection("users")
+        .doc(_user.uid)
+        .update({'friends': FieldValue.arrayRemove(arr)});
+  }
+
+  Future<void> searchFriends(String email) async {
+    print(email);
+    bool found = false;
+    var map = await instance.getUsers();
+    for (int i = 0; i < map.length; i++) {
+      print(map[i]['email']);
+      if (email == map[i]['email']) {
+        // print(map[i]);
+        Navigator.pushNamed(context, '/profile',
+            arguments: {'choice': 'other', 'email': email, 'map': map[i]});
+        found = true;
+      }
+    }
+    if (!found) {
+      Fluttertoast.showToast(msg: 'User does not exist.');
+    }
   }
 
   Future<void> addFriend(String email) async {
@@ -177,17 +225,24 @@ class _FriendState extends State<FriendsScreen> {
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-    await firebaseFirestore.collection("users").doc(_user.uid).set(map);
+    await firebaseFirestore.collection("users").doc(_user.uid).update({
+      'friends': FieldValue.arrayUnion([email])
+    });
+    print(_user.uid);
   }
 
   @override
   Widget build(BuildContext context) {
     Widget view = viewFriends();
     Widget add = addFriends();
+    var _user = Provider.of<UserProvider>(context, listen: false).getUser;
     if (query['choice'] == "viewFriends") {
       return view;
     } else if (query['choice'] == "addFriends") {
       return add;
+    } else if (query['choice'] == "add") {
+      addFriend(query['email']);
+      return view;
     }
     throw '';
   }
