@@ -1,9 +1,41 @@
+import 'dart:io';
+
+import 'package:chuzzlez/services/storage_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
+import 'package:image_picker/image_picker.dart';
 import '../models/user.dart';
 import 'package:provider/provider.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  File? imageFile;
+  Future pickImage() async {
+    final picker = ImagePicker();
+    // ignore: deprecated_member_use
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      try {
+        imageFile = File(pickedFile!.path);
+        print("Image uploaded");
+      } catch (e) {
+        print(e);
+      }
+    });
+  }
+
+  getUrl() async {
+    String file = await StorageRepo().getUserProfileImage(
+        Provider.of<UserProvider>(context, listen: false).getUser.uid);
+    return file;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,11 +83,23 @@ class Profile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          "https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg",
+                      GestureDetector(
+                        onTap: () async {
+                          try {
+                            await pickImage();
+                            await StorageRepo().uploadFile(imageFile!);
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            Provider.of<UserProvider>(context, listen: false)
+                                .getUser
+                                .avatarUrl,
+                          ),
+                          radius: MediaQuery.of(context).size.height / 10,
                         ),
-                        radius: MediaQuery.of(context).size.height / 10,
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 50,
@@ -196,7 +240,6 @@ class Profile extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-
           OutlinedButton(
             onPressed: () {
               Navigator.pushNamed(context, '/friends', arguments: {
@@ -219,7 +262,6 @@ class Profile extends StatelessWidget {
               side: BorderSide(color: Colors.black),
             ),
           ),
-
           RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/settings');
