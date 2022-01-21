@@ -18,15 +18,15 @@ class PuzzleManagementScreen extends StatefulWidget {
 class _PManageState extends State<PuzzleManagementScreen> {
   late FireStoreServices instance = FireStoreServices();
   Widget build(BuildContext context) {
-    var length =
-        Provider.of<PuzzlesProvider>(context, listen: false).getPuzzles.length;
+    // var length =
+    //     Provider.of<PuzzlesProvider>(context, listen: false).getPuzzles.length;
 
-    instance.addPuzzle(length + 1, "hahgahaha", "lolxD");
-    Provider.of<PuzzlesProvider>(context, listen: false)
-        .puzzles
-        .puzzlesList
-        .add(Puzzles(
-            levelNumber: length + 1, pgn: "hahahaha", solution: "hlolxD"));
+    // instance.addPuzzle(length + 1, "hahgahaha", "lolxD");
+    // Provider.of<PuzzlesProvider>(context, listen: false)
+    //     .puzzles
+    //     .puzzlesList
+    //     .add(Puzzles(
+    //         levelNumber: length + 1, pgn: "hahahaha", solution: "hlolxD"));
     return new Scaffold(
       appBar: new AppBar(),
       body: Container(
