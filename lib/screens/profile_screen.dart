@@ -11,7 +11,7 @@ class Profile extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(
-            height: 30,
+            height: MediaQuery.of(context).size.height / 25,
           ),
           Row(children: [
             Align(
@@ -33,6 +33,7 @@ class Profile extends StatelessWidget {
                   )),
             )
           ]),
+          SizedBox(
             height: MediaQuery.of(context).size.height / 25,
           ),
           Container(
@@ -187,24 +188,6 @@ class Profile extends StatelessWidget {
           ),
           SizedBox(
             height: 20.0,
-          ),
-          OutlinedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/friends',
-                  arguments: {'friends': _user.friends});
-            },
-            child: Column(children: [
-              Text('My Friends',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )),
-            ]),
-            style: OutlinedButton.styleFrom(
-              shape: StadiumBorder(),
-              side: BorderSide(color: Colors.black),
-            ),
           ),
           // ignore: deprecated_member_use
           RaisedButton(
