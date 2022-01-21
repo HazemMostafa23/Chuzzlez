@@ -205,6 +205,65 @@ class _BoardState extends State<PuzzleBoardScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 )),
+            if (Provider.of<UserProvider>(context, listen: false)
+                .getUser
+                .fav_puzzles
+                .contains(levelNumber + 1)) ...[
+              IconButton(
+                icon: Icon(Icons.star),
+                iconSize: 24.0,
+                color: Colors.yellowAccent,
+                onPressed: () {
+                  setState(() {
+                    Provider.of<UserProvider>(context, listen: false)
+                        .getUser
+                        .fav_puzzles
+                        .remove(levelNumber + 1);
+                  });
+                  // print(Provider.of<UserProvider>(context, listen: false)
+                  //     .getUser
+                  //     .fav_puzzles);
+                  try {
+                    instance.updatefavouriteLevels(
+                        Provider.of<UserProvider>(context, listen: false)
+                            .getUser
+                            .fav_puzzles);
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+              )
+            ] else ...[
+              IconButton(
+                icon: Icon(Icons.star),
+                iconSize: 24.0,
+                color: Colors.white,
+                onPressed: () {
+                  setState(() {
+                    if (!Provider.of<UserProvider>(context, listen: false)
+                        .getUser
+                        .fav_puzzles
+                        .contains(levelNumber + 1)) {
+                      Provider.of<UserProvider>(context, listen: false)
+                          .getUser
+                          .fav_puzzles
+                          .add(levelNumber + 1);
+                    }
+                    print(Provider.of<UserProvider>(context, listen: false)
+                        .getUser
+                        .fav_puzzles);
+                    try {
+                      instance.updatefavouriteLevels(
+                          Provider.of<UserProvider>(context, listen: false)
+                              .getUser
+                              .fav_puzzles);
+                    } catch (e) {
+                      print(e);
+                    }
+                  });
+                },
+              )
+            ],
             OutlinedButton(
               onPressed: () {
                 var count = Provider.of<PuzzlesProvider>(context, listen: false)
@@ -233,7 +292,7 @@ class _BoardState extends State<PuzzleBoardScreen> {
                 shape: StadiumBorder(),
                 side: BorderSide(color: Colors.black),
               ),
-            )
+            ),
           ],
         ),
         ChessBoard(

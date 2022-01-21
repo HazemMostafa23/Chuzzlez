@@ -4,6 +4,7 @@ class Users {
   late String? email;
   late String uid;
   List<dynamic> friends = [];
+  List<dynamic> fav_puzzles = [];
   late String firstName;
   late String lastName;
   int total_score = 0;
@@ -30,6 +31,7 @@ class Users {
     data['isAdmin'] = user.isAdmin;
 
     data['friends'] = [];
+    data['fav_puzzles'] = [];
 
     return data;
   }

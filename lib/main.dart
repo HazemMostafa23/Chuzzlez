@@ -1,5 +1,6 @@
 import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:chuzzlez/screens/delete_screen.dart';
+import 'package:chuzzlez/screens/favourite_screen.dart';
 import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
@@ -48,8 +49,8 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (context) => OpeningProvider()),
         ChangeNotifierProvider(create: (context) => LeaderboardProvider()),
-        Provider<AuthenticationService>(
-            create: (_) => AuthenticationService(FirebaseAuth.instance)),
+        // Provider<AuthenticationService>(
+        //     create: (_) => AuthenticationService(FirebaseAuth.instance)),
 
         // StreamProvider(
         //   create: (context) =>
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
         // )
       ],
       child: MaterialApp(
-        initialRoute: '/login',
+        initialRoute: '/home',
         routes: {
           '/home': (context) => HomeScreen(),
           '/puzzle': (context) => PuzzleBoardScreen(),
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
           '/delete': (context) => DeleteScreen(),
           '/manage': (context) => PuzzleManagementScreen(),
           '/friends': (context) => FriendsScreen(),
+          '/favourite': (context) => FavouritePuzzleScreen(),
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),

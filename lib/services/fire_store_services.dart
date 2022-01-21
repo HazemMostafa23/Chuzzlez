@@ -51,6 +51,7 @@ class FireStoreServices {
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+
     return allData;
   }
 
@@ -72,6 +73,12 @@ class FireStoreServices {
         .update({'completedLevels': levels});
   }
 
+  updatefavouriteLevels(List levels) {
+    usersCollection
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({'fav_puzzles': levels});
+  }
+
   getScores() async {
     QuerySnapshot querySnapshot = await scoreReference.get();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
@@ -81,6 +88,7 @@ class FireStoreServices {
   Future getPosts() async {
     var collection = FirebaseFirestore.instance.collection('users');
     var querySnapshots = await collection.get();
+
     return querySnapshots.docs.toList();
   }
 
