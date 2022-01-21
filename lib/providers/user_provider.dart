@@ -42,7 +42,7 @@ class UserProvider with ChangeNotifier {
     _user.total_score = z['total_score'];
 
     _user.isAdmin = z['isAdmin'];
-
+    _user.uid = z['uid'];
 
     _user.friends = z['friends'];
 
