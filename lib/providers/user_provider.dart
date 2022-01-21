@@ -39,6 +39,8 @@ class UserProvider with ChangeNotifier {
     _user.completedLevels = z['completedLevels'];
     _user.total_score = z['total_score'];
     _user.friends = z['friends'];
+    print('unique');
+    print(z['friends']);
     notifyListeners();
 
     // _user.firstName = z['firstname'];

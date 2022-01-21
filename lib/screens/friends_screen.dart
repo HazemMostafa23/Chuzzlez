@@ -51,7 +51,8 @@ class _FriendState extends State<FriendsScreen> {
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: OutlinedButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
+                  print(query);
                 },
                 child: Icon(
                   Icons.arrow_back,
@@ -140,7 +141,7 @@ class _FriendState extends State<FriendsScreen> {
           ),
           title: TextField(
               decoration: InputDecoration(
-            hintText: 'Search for friends....',
+            hintText: 'Search for friends...',
             hintStyle: TextStyle(
               color: Colors.white,
               fontSize: 18,
