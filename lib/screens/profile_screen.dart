@@ -238,17 +238,20 @@ class _ProfileState extends State<ProfileScreen> {
             if (!_user.friends.contains(query['map']['email'])) ...[
               OutlinedButton(
                 onPressed: () {
-                  // Navigator.pushNamed(context, '/friends', arguments: {
-                  //   'friends': Provider.of<UserProvider>(context, listen: false)
-                  //       .getUser
-                  //       .friends,
-                  //   'choice': 'add',
-                  //   'email': query['map']['email']
-                  // });
-                  print(_user.friends);
-                  print(_user.friends.contains(query['map']['email']));
-                  print('hahaha');
-                  print(query['map']['email']);
+                  setState(() {
+                    Provider.of<UserProvider>(context, listen: false)
+                        .getUser
+                        .friends
+                        .add(query['map']['email']);
+                    Navigator.pushNamed(context, '/friends', arguments: {
+                      'friends':
+                          Provider.of<UserProvider>(context, listen: false)
+                              .getUser
+                              .friends,
+                      'choice': 'add',
+                      'email': query['map']['email']
+                    });
+                  });
                 },
                 child: Column(children: [
                   Text('Add Friend',

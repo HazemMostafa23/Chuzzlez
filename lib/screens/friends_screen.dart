@@ -248,7 +248,9 @@ class _FriendState extends State<FriendsScreen> {
     await firebaseFirestore.collection("users").doc(_user.uid).update({
       'friends': FieldValue.arrayUnion([email])
     });
-    print(_user.uid);
+    print(_user);
+    print(email);
+    print(_user);
   }
 
   Future<void> goToProfile(String email) async {

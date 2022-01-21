@@ -1,3 +1,4 @@
+import 'package:chuzzlez/providers/leaderboard_provider.dart';
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chuzzlez/models/puzzles.dart';
@@ -137,7 +138,15 @@ class _BoardState extends State<PuzzleBoardScreen> {
                       .getUser
                       .total_score +
                   score.ceil();
-              print(total_score);
+              Provider.of<UserProvider>(context, listen: false)
+                  .getUser
+                  .total_score = total_score;
+
+              print('total score = ' +
+                  Provider.of<UserProvider>(context, listen: false)
+                      .getUser
+                      .total_score
+                      .toString());
 
               try {
                 instance.updateCompletedLevels(

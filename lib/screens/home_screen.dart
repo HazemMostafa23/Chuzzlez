@@ -49,6 +49,10 @@ class _HomeState extends State<HomeScreen> {
         await Provider.of<OpeningProvider>(context, listen: false).readMap();
       }
       Provider.of<LeaderboardProvider>(context, listen: false).readScoreBoard();
+      print(Provider.of<LeaderboardProvider>(context, listen: false)
+          .leadInstance
+          .scoreboard
+          .toString());
     }
   }
 
@@ -135,28 +139,6 @@ class _HomeState extends State<HomeScreen> {
                     backgroundColor: Colors.teal.shade600),
               )
             ],
-            // OutlinedButton(
-            //   onPressed: () {
-            //     Provider.of<UserProvider>(context, listen: false)
-            //         .setOpened();
-            //     Navigator.pushNamed(
-            //       context,
-            //       '/delete',
-            //     );
-            //   },
-            //   child: Column(children: [
-            //     Text('Delete Users',
-            //         style: TextStyle(
-            //           fontSize: 30,
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.black,
-            //         )),
-            //   ]),
-            //   style: OutlinedButton.styleFrom(
-            //     shape: StadiumBorder(),
-            //     side: BorderSide(color: Colors.black),
-            //   ),
-            // ),
             SizedBox(height: MediaQuery.of(context).size.height / 10),
             if (_selectedIndex == 1) ...[
               SizedBox(width: MediaQuery.of(context).size.width / 1),
@@ -243,6 +225,9 @@ class _HomeState extends State<HomeScreen> {
                                     listen: false)
                                 .getUser
                                 .currentLevel;
+                            Provider.of<LeaderboardProvider>(context,
+                                    listen: false)
+                                .readScoreBoard();
                           });
                         });
                       },
@@ -275,6 +260,9 @@ class _HomeState extends State<HomeScreen> {
                                     listen: false)
                                 .getUser
                                 .currentLevel;
+                            Provider.of<LeaderboardProvider>(context,
+                                    listen: false)
+                                .readScoreBoard();
                           });
                         });
                       },
