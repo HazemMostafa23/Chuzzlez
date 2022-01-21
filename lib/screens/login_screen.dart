@@ -128,7 +128,7 @@ class _LoginState extends State<LoginScreen> {
                         GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(context, '/register',
-                                  arguments: {'role': true});
+                                  arguments: {'role': false});
                             },
                             child: Text(
                               "Sign up",
