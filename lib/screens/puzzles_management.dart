@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
 import 'package:provider/provider.dart';
 import 'package:chuzzlez/models/puzzles.dart';
+import 'package:chuzzlez/providers/puzzles_provider.dart';
 
 class PuzzleManagementScreen extends StatefulWidget {
   PuzzleManagementScreen({Key? key}) : super(key: key);
@@ -18,17 +19,25 @@ class PuzzleManagementScreen extends StatefulWidget {
 class _PManageState extends State<PuzzleManagementScreen> {
   late FireStoreServices instance = FireStoreServices();
   Widget build(BuildContext context) {
-    // var length =
-    //     Provider.of<PuzzlesProvider>(context, listen: false).getPuzzles.length;
-
-    // instance.addPuzzle(length + 1, "hahgahaha", "lolxD");
-    // Provider.of<PuzzlesProvider>(context, listen: false)
-    //     .puzzles
-    //     .puzzlesList
-    //     .add(Puzzles(
-    //         levelNumber: length + 1, pgn: "hahahaha", solution: "hlolxD"));
     return new Scaffold(
-      appBar: new AppBar(),
+      appBar: new AppBar(
+        backgroundColor: Colors.transparent,
+        actions: [
+          OutlinedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/addpuzzle');
+            },
+            child: Icon(
+              Icons.add,
+              color: Colors.black,
+            ),
+            style: OutlinedButton.styleFrom(
+              shape: StadiumBorder(),
+              side: BorderSide(color: Colors.black),
+            ),
+          )
+        ],
+      ),
       body: Container(
         child: FutureBuilder(
           future: instance.getLevels(),
@@ -40,10 +49,18 @@ class _PManageState extends State<PuzzleManagementScreen> {
               return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Column(
+                  return Row(
                     children: [
-                      ListTile(
-                        title: Text("Level " + (index + 1).toString()),
+                      GestureDetector(
+                        child: Column(children: [
+                          SizedBox(height: 50),
+                          Text(
+                            "Level " + (index + 1).toString(),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 50),
+                        ]),
                         // onLongPress: () {
                         //   // _deleteUser(index);
 
@@ -60,12 +77,17 @@ class _PManageState extends State<PuzzleManagementScreen> {
                               .loadPuzzle(index);
                         },
                       ),
+                      SizedBox(width: 220),
                       IconButton(
                         icon: Icon(Icons.delete),
-                        iconSize: 24.0,
+                        iconSize: 30.0,
                         color: Colors.red,
                         onPressed: () {
                           setState(() {
+                            Provider.of<PuzzlesProvider>(context, listen: false)
+                                .puzzles
+                                .puzzlesList
+                                .removeAt(index);
                             instance.deletePuzzle(
                                 snapshot.data[index]['levelNumber'].toString());
                           });

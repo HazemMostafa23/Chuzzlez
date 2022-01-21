@@ -5,7 +5,8 @@ import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
 import 'package:chuzzlez/screens/friends_screen.dart';
-import 'package:chuzzlez/screens/register_screen.dart';
+import 'package:chuzzlez/screens/add_puzzle.dart';
+import 'package:chuzzlez/screens/openings_form.dart';
 import 'package:chuzzlez/screens/settings_screen.dart';
 import 'package:chuzzlez/screens/puzzles_management.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:chuzzlez/screens/profile_screen.dart';
-import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'services/authentication_services.dart';
+import 'screens/openings_form.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,6 +77,8 @@ class MyApp extends StatelessWidget {
           '/manage': (context) => PuzzleManagementScreen(),
           '/friends': (context) => FriendsScreen(),
           '/favourite': (context) => FavouritePuzzleScreen(),
+          '/openingsform': (context) => OpeningsForm(),
+          '/addpuzzle': (context) => AddPuzzle()
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),

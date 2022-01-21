@@ -39,7 +39,7 @@ class _ProfileState extends State<ProfileScreen> {
   }
 
   late Map query =
-      ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
+      ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>;
 
   Widget otherProfile() {
     var _user = Provider.of<UserProvider>(context, listen: false).getUser;
