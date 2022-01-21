@@ -12,6 +12,7 @@ class PuzzlesProvider with ChangeNotifier {
     puzzles.length = puzzlesMaps.length;
     for (var i = 0; i < puzzles.length; i++) {
       var puzzlesMap = puzzlesMaps[i];
+
       // if (_puzzlesList.length < length) {
       puzzles.puzzlesList.add(Puzzles(
           levelNumber: puzzlesMap['levelNumber'],

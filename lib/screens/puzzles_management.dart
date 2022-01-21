@@ -40,24 +40,38 @@ class _PManageState extends State<PuzzleManagementScreen> {
               return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text("Level " +
-                        snapshot.data[index]['levelNumber'].toString()),
-                    onLongPress: () {
-                      // _deleteUser(index);
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text("Level " + (index + 1).toString()),
+                        // onLongPress: () {
+                        //   // _deleteUser(index);
 
-                      setState(() {
-                        instance.deletePuzzle(
-                            snapshot.data[index]['levelNumber'].toString());
-                      });
-                    },
-                    onTap: () {
-                      Navigator.pushNamed(context, '/puzzle').then((value) {
-                        setState(() {});
-                      });
-                      Provider.of<UserProvider>(context, listen: false)
-                          .loadPuzzle(index);
-                    },
+                        //   setState(() {
+                        //     instance.deletePuzzle(
+                        //         snapshot.data[index]['levelNumber'].toString());
+                        //   });
+                        // },
+                        onTap: () {
+                          Navigator.pushNamed(context, '/puzzle').then((value) {
+                            setState(() {});
+                          });
+                          Provider.of<UserProvider>(context, listen: false)
+                              .loadPuzzle(index);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        iconSize: 24.0,
+                        color: Colors.red,
+                        onPressed: () {
+                          setState(() {
+                            instance.deletePuzzle(
+                                snapshot.data[index]['levelNumber'].toString());
+                          });
+                        },
+                      )
+                    ],
                   );
                 },
               );

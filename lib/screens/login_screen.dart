@@ -2,6 +2,7 @@
 
 import 'package:chuzzlez/providers/user_provider.dart';
 import 'package:chuzzlez/screens/home_screen.dart';
+import 'package:chuzzlez/services/storage_services.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -160,6 +161,9 @@ class _LoginState extends State<LoginScreen> {
                       MaterialPageRoute(builder: (context) => HomeScreen())),
                 });
         await Provider.of<UserProvider>(context, listen: false).readUser();
+        Provider.of<UserProvider>(context, listen: false).getUser.avatarUrl =
+            await StorageRepo().getUserProfileImage(
+                Provider.of<UserProvider>(context, listen: false).getUser.uid);
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":
