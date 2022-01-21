@@ -88,6 +88,16 @@ class _ProfileState extends State<Profile> {
                           try {
                             await pickImage();
                             await StorageRepo().uploadFile(imageFile!);
+                            var url = await StorageRepo().getUserProfileImage(
+                                Provider.of<UserProvider>(context,
+                                        listen: false)
+                                    .getUser
+                                    .uid);
+                            setState(() {
+                              Provider.of<UserProvider>(context, listen: false)
+                                  .getUser
+                                  .avatarUrl = url;
+                            });
                           } catch (e) {
                             print(e);
                           }
