@@ -284,6 +284,29 @@ class _HomeState extends State<HomeScreen> {
                         side: BorderSide(color: Colors.black),
                       ),
                     ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/favourite')
+                            .then((value) {
+                          setState(() {
+                            currentLevel = Provider.of<UserProvider>(context,
+                                    listen: false)
+                                .getUser
+                                .currentLevel;
+                          });
+                        });
+                      },
+                      child: Text('Favourite Puzzles',
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width / 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          )),
+                      style: OutlinedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        side: BorderSide(color: Colors.black),
+                      ),
+                    ),
                   ],
                 ),
               if (_selectedIndex == 1)
