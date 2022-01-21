@@ -196,8 +196,10 @@ class Profile extends StatelessWidget {
           ),
           OutlinedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/friends',
-                  arguments: {'friends': _user.friends});
+              Navigator.pushNamed(context, '/friends', arguments: {
+                'friends': _user.friends,
+                'choice': 'viewFriends'
+              });
             },
             child: Column(children: [
               Text('My Friends',
