@@ -1,4 +1,5 @@
 import 'package:chuzzlez/providers/opening_provider.dart';
+import 'package:chuzzlez/screens/add_puzzle.dart';
 import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
@@ -70,7 +71,8 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
           '/leaderboard': (context) => LeaderboardScreen(),
-          '/openingsform': (context) => OpeningsForm()
+          '/openingsform': (context) => OpeningsForm(),
+          '/addpuzzle': (context) => AddPuzzle()
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),
