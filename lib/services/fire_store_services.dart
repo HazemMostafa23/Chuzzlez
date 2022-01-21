@@ -59,7 +59,7 @@ class FireStoreServices {
         .update({'currentLevel': level});
   }
 
-  updateuScore(double score) {
+  updateuScore(int score) {
     usersCollection
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .update({'total_score': score});

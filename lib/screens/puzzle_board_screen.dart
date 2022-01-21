@@ -24,7 +24,7 @@ class _BoardState extends State<PuzzleBoardScreen> {
   late FireStoreServices instance = FireStoreServices();
   late double score = 0;
   late double factor = 1;
-  late double total_score = 0;
+  late int total_score = 0;
   void alertWin() {
     AlertDialog alert = AlertDialog(
         content: Column(mainAxisSize: MainAxisSize.min, children: [

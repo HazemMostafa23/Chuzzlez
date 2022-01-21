@@ -6,7 +6,7 @@ class Users {
   List<dynamic> friends = [];
   late String firstName;
   late String lastName;
-  double total_score = 0;
+  int total_score = 0;
   late bool isAdmin;
 
   Users(
