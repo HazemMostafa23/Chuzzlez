@@ -46,6 +46,11 @@ class FireStoreServices {
     return documentSnapshot;
   }
 
+  Future<DocumentSnapshot> readAllUsers() async {
+    DocumentSnapshot documentSnapshot = await usersCollection.doc().get();
+    return documentSnapshot;
+  }
+
   Future<List> getOpenings() async {
     QuerySnapshot querySnapshot = await openingsCollection.get();
 
@@ -54,16 +59,6 @@ class FireStoreServices {
 
     return allData;
   }
-
-//   getDocID() async {
-//    db.collection("cities").add({
-//     name: "Tokyo",
-//     country: "Japan"
-// })
-// .then(function(docRef) {
-//     console.log("Document written with ID: ", docRef.id);
-// })
-//   }
 
   updateClevel(int level) {
     usersCollection

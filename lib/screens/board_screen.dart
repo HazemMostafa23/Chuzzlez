@@ -1,6 +1,7 @@
 import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 
 class BoardScreen extends StatefulWidget {
@@ -22,7 +23,8 @@ class _BoardState extends State<BoardScreen> {
   late String sol;
   bool chosenColor = false;
   late PlayerColor color = PlayerColor.white;
-
+  bool next = false;
+  FlutterTts flutterTts = FlutterTts();
   void undoMove() {
     if (!controller.getSan().isEmpty) {
       controller.game.undo_move();
@@ -115,17 +117,17 @@ class _BoardState extends State<BoardScreen> {
     );
   }
 
+  Future speak(String text) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setVolume(1);
+    await flutterTts.setPitch(1);
+    await flutterTts.speak(text);
+  }
+
   Widget openings() {
     return Scaffold(
       body: ListView(children: [
-        SizedBox(height: MediaQuery.of(context).size.height / 22),
-        Center(
-            child: Text(query['name'],
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width / 10,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ))),
+        // SizedBox(height: MediaQuery.of(context).size.height / 50),
         ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -142,6 +144,13 @@ class _BoardState extends State<BoardScreen> {
                 side: BorderSide(color: Colors.black),
               ),
             ),
+            Center(
+                child: Text(query['name'],
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width / 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    )))
           ],
         ),
         ChessBoard(
@@ -150,38 +159,66 @@ class _BoardState extends State<BoardScreen> {
           boardOrientation: color,
           enableUserMoves: false,
         ),
-        ButtonBar(
-          alignment: MainAxisAlignment.spaceBetween,
-          children: [
-            OutlinedButton(
-              onPressed: () {
-                undoMove();
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
-              ),
+        Column(children: [
+          Padding(
+            padding: EdgeInsets.all(5),
+            child: Text(
+              query['description'],
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
-            OutlinedButton(
-              onPressed: () {
-                openingMove();
-                print(moveCount);
-              },
-              child: Icon(
-                Icons.arrow_forward,
-                color: Colors.black,
+          ),
+          ButtonBar(
+            alignment: MainAxisAlignment.spaceBetween,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  undoMove();
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(color: Colors.black),
+                ),
               ),
-              style: OutlinedButton.styleFrom(
-                shape: StadiumBorder(),
-                side: BorderSide(color: Colors.black),
+              OutlinedButton(
+                onPressed: () {
+                  speak(query['description']);
+                },
+                child: Column(children: [
+                  Text(
+                    "Text-To-Speech",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Icon(
+                    Icons.volume_up,
+                    color: Colors.black,
+                  )
+                ]),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(color: Colors.black),
+                ),
               ),
-            ),
-          ],
-        ),
+              OutlinedButton(
+                onPressed: () {
+                  openingMove();
+                  print(moveCount);
+                },
+                child: Icon(
+                  Icons.arrow_forward,
+                  color: Colors.black,
+                ),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(color: Colors.black),
+                ),
+              ),
+            ],
+          )
+        ]),
       ]),
     );
   }
@@ -239,9 +276,6 @@ class _BoardState extends State<BoardScreen> {
   @override
   void initState() {
     super.initState();
-    // if (query[query] == 'overtheboard') {
-    //   WidgetsBinding.instance!.addPostFrameCallback((_) => chooseColor());
-    // }
   }
 
   @override

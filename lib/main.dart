@@ -5,7 +5,8 @@ import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'package:chuzzlez/screens/learning_screen.dart';
 import 'package:chuzzlez/screens/login_screen.dart';
 import 'package:chuzzlez/screens/friends_screen.dart';
-import 'package:chuzzlez/screens/register_screen.dart';
+import 'package:chuzzlez/screens/add_puzzle.dart';
+import 'package:chuzzlez/screens/openings_form.dart';
 import 'package:chuzzlez/screens/settings_screen.dart';
 import 'package:chuzzlez/screens/puzzles_management.dart';
 import 'package:chuzzlez/services/local_notification_service.dart';
@@ -25,8 +26,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:chuzzlez/screens/profile_screen.dart';
-import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'services/authentication_services.dart';
+import 'screens/openings_form.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.data.toString());
@@ -39,9 +40,6 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   await Firebase.initializeApp();
   runApp(MyApp());
-
-  // CollectionReference _collectionRef =
-  //     FirebaseFirestore.instance.collection('Levels');
 }
 
 class MyApp extends StatelessWidget {
@@ -58,14 +56,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (context) => OpeningProvider()),
         ChangeNotifierProvider(create: (context) => LeaderboardProvider()),
-        // Provider<AuthenticationService>(
-        //     create: (_) => AuthenticationService(FirebaseAuth.instance)),
-
-        // StreamProvider(
-        //   create: (context) =>
-        //       context.read<AuthenticationService>().authStateChanges,
-        //   initialData: null,
-        // )
       ],
       child: MaterialApp(
         initialRoute: '/home',
@@ -76,7 +66,7 @@ class MyApp extends StatelessWidget {
           '/board': (context) => BoardScreen(),
           '/puzzlecreator': (context) => PuzzleCreator(),
           '/settings': (context) => SettingsScreen(),
-          '/profile': (context) => Profile(),
+          '/profile': (context) => ProfileScreen(),
           '/learning': (context) => LearningScreen(),
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
@@ -85,6 +75,8 @@ class MyApp extends StatelessWidget {
           '/manage': (context) => PuzzleManagementScreen(),
           '/friends': (context) => FriendsScreen(),
           '/favourite': (context) => FavouritePuzzleScreen(),
+          '/openingsform': (context) => OpeningsForm(),
+          '/addpuzzle': (context) => AddPuzzle()
         },
         title: 'Chuzzlez',
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF3dc2bf)),

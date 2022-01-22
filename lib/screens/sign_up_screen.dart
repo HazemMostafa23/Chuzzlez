@@ -37,7 +37,6 @@ class _RegisterationState extends State<RegisterScreen> {
       autofocus: false,
       controller: firstNameEditingController,
       keyboardType: TextInputType.name,
-      // ignore: missing_return
       validator: (value) {
         RegExp regExp = RegExp(r'^.{3,}$');
         if (value!.isEmpty) {
@@ -121,7 +120,6 @@ class _RegisterationState extends State<RegisterScreen> {
       autofocus: false,
       controller: passwordEditingController,
       obscureText: true,
-      // ignore: missing_return
       validator: (value) {
         RegExp regExp = RegExp(r'^.{6,}$');
         if (value!.isEmpty) {
@@ -149,7 +147,6 @@ class _RegisterationState extends State<RegisterScreen> {
       autofocus: false,
       controller: confirmPasswordEditingController,
       obscureText: true,
-      // ignore: missing_return
       validator: (value) {
         if (confirmPasswordEditingController.text !=
             passwordEditingController.text) {
@@ -297,16 +294,11 @@ class _RegisterationState extends State<RegisterScreen> {
   }
 
   postDetailsToFirestore() async {
-    // calling our firestore
-    // calling our user model
-    // sedning these values
-
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 
     Users userModel = Users();
 
-    // writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;

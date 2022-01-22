@@ -44,10 +44,7 @@ dependencies:
   firebase_storage: ^10.2.5
   firebase_messaging: ^11.2.5
   flutter_local_notifications: ^9.2.0
-  
-  
-
-
+  flutter_tts: ^3.3.3
 
 
 dev_dependencies:
@@ -71,7 +68,7 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
-
+  
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
