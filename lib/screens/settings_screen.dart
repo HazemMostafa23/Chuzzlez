@@ -12,7 +12,6 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final _auth = FirebaseAuth.instance;
     var outputButton;
     if (FirebaseAuth.instance.currentUser != null) {
       outputButton = OutlinedButton(
@@ -122,10 +121,6 @@ class SettingsScreen extends StatelessWidget {
           child: const DecoratedBox(
               decoration: BoxDecoration(color: Colors.yellow)),
         )
-        // Text('Default',
-        //     style: TextStyle(
-        //       fontSize: 24,
-        //     )),
       ]),
       SizedBox(height: MediaQuery.of(context).size.height / 10),
       Row(mainAxisAlignment: MainAxisAlignment.start, children: [

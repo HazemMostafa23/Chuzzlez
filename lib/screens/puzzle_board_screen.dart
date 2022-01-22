@@ -166,8 +166,6 @@ class _BoardState extends State<PuzzleBoardScreen> {
         factor += 0.1;
         print(factor);
       }
-    } else {
-      // print('else');
     }
   }
 
@@ -221,9 +219,7 @@ class _BoardState extends State<PuzzleBoardScreen> {
                         .fav_puzzles
                         .remove(levelNumber + 1);
                   });
-                  // print(Provider.of<UserProvider>(context, listen: false)
-                  //     .getUser
-                  //     .fav_puzzles);
+
                   try {
                     instance.updatefavouriteLevels(
                         Provider.of<UserProvider>(context, listen: false)
@@ -267,21 +263,6 @@ class _BoardState extends State<PuzzleBoardScreen> {
             ],
             OutlinedButton(
               onPressed: () {
-                // var count = Provider.of<PuzzlesProvider>(context, listen: false)
-                //     .getPuzzles
-                //     .length;
-
-                // if (levelNumber != count - 1) {
-                //   Provider.of<UserProvider>(context, listen: false)
-                //       .getUser
-                //       .currentLevel += 1;
-                //   setState(() {
-                //     won = false;
-                //     score = 0;
-                //     total_score = 0;
-                //   });
-                //   loadPuzzle();
-                // }
                 var count = Provider.of<PuzzlesProvider>(context, listen: false)
                     .getPuzzles
                     .length;
