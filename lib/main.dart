@@ -8,6 +8,8 @@ import 'package:chuzzlez/screens/friends_screen.dart';
 import 'package:chuzzlez/screens/register_screen.dart';
 import 'package:chuzzlez/screens/settings_screen.dart';
 import 'package:chuzzlez/screens/puzzles_management.dart';
+import 'package:chuzzlez/services/local_notification_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
@@ -26,8 +28,15 @@ import 'package:chuzzlez/screens/profile_screen.dart';
 import 'package:chuzzlez/screens/leaderboard_screen.dart';
 import 'services/authentication_services.dart';
 
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification!.title);
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocalNotificationService.initialize;
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   await Firebase.initializeApp();
   runApp(MyApp());
 
