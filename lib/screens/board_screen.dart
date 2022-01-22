@@ -1,6 +1,7 @@
 import 'package:chuzzlez/providers/opening_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chess_board/flutter_chess_board.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 
 class BoardScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _BoardState extends State<BoardScreen> {
   bool chosenColor = false;
   late PlayerColor color = PlayerColor.white;
   bool next = false;
-
+  FlutterTts flutterTts = FlutterTts();
   void undoMove() {
     if (!controller.getSan().isEmpty) {
       controller.game.undo_move();
@@ -116,6 +117,13 @@ class _BoardState extends State<BoardScreen> {
     );
   }
 
+  Future speak(String text) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setVolume(1);
+    await flutterTts.setPitch(1);
+    await flutterTts.speak(text);
+  }
+
   Widget openings() {
     return Scaffold(
       body: ListView(children: [
@@ -170,6 +178,25 @@ class _BoardState extends State<BoardScreen> {
                   Icons.arrow_back,
                   color: Colors.black,
                 ),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(color: Colors.black),
+                ),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  speak(query['description']);
+                },
+                child: Column(children: [
+                  Text(
+                    "Text-To-Speech",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Icon(
+                    Icons.volume_up,
+                    color: Colors.black,
+                  )
+                ]),
                 style: OutlinedButton.styleFrom(
                   shape: StadiumBorder(),
                   side: BorderSide(color: Colors.black),
