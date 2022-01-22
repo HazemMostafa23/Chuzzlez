@@ -71,13 +71,14 @@ class _LearningState extends State<LearningScreen> {
         crossAxisCount: 2,
         childAspectRatio: 10 / 4,
         crossAxisSpacing: 0,
-        mainAxisSpacing: 1.0,
+        mainAxisSpacing: 0,
         children: [
           for (int i = 0; i < number; i++)
             ListView(
               children: <Widget>[
                 Container(
                     child: ListTile(
+                  horizontalTitleGap: 1,
                   title: Text(list[i].openingName),
                   dense: true,
                   leading: Image(
@@ -86,11 +87,12 @@ class _LearningState extends State<LearningScreen> {
                     height: MediaQuery.of(context).size.height / 5,
                   ),
                   tileColor: Colors.blueGrey,
-                  onTap: () => Navigator.pushNamed(context, '/board',
-                      arguments: {
-                        'query': 'opening',
-                        'name': list[i].openingName
-                      }),
+                  onTap: () =>
+                      Navigator.pushNamed(context, '/board', arguments: {
+                    'query': 'opening',
+                    'name': list[i].openingName,
+                    'description': list[i].description
+                  }),
                 )),
               ],
             )

@@ -27,6 +27,5 @@ class StorageRepo {
 
   Future<void> uploadProfilePicture(File image) async {
     var user = await UserProvider().getUser;
-    // user.avatarUrl = await uploadFile(image);
   }
 }

@@ -31,9 +31,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
-
-  // CollectionReference _collectionRef =
-  //     FirebaseFirestore.instance.collection('Levels');
 }
 
 class MyApp extends StatelessWidget {
@@ -50,14 +47,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (context) => OpeningProvider()),
         ChangeNotifierProvider(create: (context) => LeaderboardProvider()),
-        // Provider<AuthenticationService>(
-        //     create: (_) => AuthenticationService(FirebaseAuth.instance)),
-
-        // StreamProvider(
-        //   create: (context) =>
-        //       context.read<AuthenticationService>().authStateChanges,
-        //   initialData: null,
-        // )
       ],
       child: MaterialApp(
         initialRoute: '/home',

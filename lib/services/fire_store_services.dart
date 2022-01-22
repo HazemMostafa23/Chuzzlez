@@ -60,16 +60,6 @@ class FireStoreServices {
     return allData;
   }
 
-//   getDocID() async {
-//    db.collection("cities").add({
-//     name: "Tokyo",
-//     country: "Japan"
-// })
-// .then(function(docRef) {
-//     console.log("Document written with ID: ", docRef.id);
-// })
-//   }
-
   updateClevel(int level) {
     usersCollection
         .doc(FirebaseAuth.instance.currentUser?.uid)

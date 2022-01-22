@@ -287,8 +287,6 @@ class _ProfileState extends State<ProfileScreen> {
                   child: OutlinedButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      // Navigator.pushNamed(context, '/friends',
-                      //     arguments: {'choice': 'viewFriends'});
                     },
                     child: Icon(
                       Icons.arrow_back,
@@ -507,36 +505,45 @@ class _ProfileState extends State<ProfileScreen> {
               side: BorderSide(color: Colors.black),
             ),
           ),
-          RaisedButton(
+          if (FirebaseAuth.instance.currentUser != null)
+            OutlinedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/settings');
+                FirebaseAuth.instance.signOut().then((value) {
+                  print("Signed out");
+                  Provider.of<UserProvider>(context, listen: false).logOut();
+                  Navigator.pushNamed(context, '/home', arguments: "logout");
+                  print(FirebaseAuth.instance.currentUser.toString());
+                }, onError: (e) {
+                  print("signed out error" + e);
+                });
               },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0)),
-              elevation: 0.0,
-              padding: EdgeInsets.all(0.0),
-              child: Ink(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.centerRight,
-                      end: Alignment.centerLeft,
-                      colors: [Colors.teal.shade400, Colors.teal.shade600]),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                child: Container(
-                  constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width,
-                      minHeight: MediaQuery.of(context).size.height / 10),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Settings",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: MediaQuery.of(context).size.height / 20,
-                        fontWeight: FontWeight.w300),
-                  ),
-                ),
-              ))
+              child: Text('Log Out',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height / 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )),
+              style: OutlinedButton.styleFrom(
+                shape: StadiumBorder(),
+                side: BorderSide(color: Colors.black),
+              ),
+            )
+          else
+            OutlinedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              },
+              child: Text('Log In',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height / 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )),
+              style: OutlinedButton.styleFrom(
+                shape: StadiumBorder(),
+                side: BorderSide(color: Colors.black),
+              ),
+            )
         ],
       ),
     );

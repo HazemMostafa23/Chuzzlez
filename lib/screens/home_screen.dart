@@ -412,10 +412,6 @@ class _HomeState extends State<HomeScreen> {
               label: 'Learning',
             )
           ]
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.people),
-          //   label: 'Friends',
-          // ),
         ],
       ),
     );
